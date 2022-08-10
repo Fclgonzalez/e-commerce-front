@@ -1,0 +1,90 @@
+mat-card {
+    width: 350px;
+    text-align: center;
+    margin: auto;
+}
+
+.preco {
+    font-size: medium;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.vendedor {
+    margin: 50px 30px 50px 30px;
+    text-align: left;
+}
+
+.contato{
+    font-size: small;
+    margin: 0;
+}
+
+#nomeVendedor {
+    font-size: medium;
+}
+
+mat-icon {
+    font-size: medium;
+    height: min-content;
+}
+
+#btnAgendar{
+    background-color:#0CA789;
+    color: white;
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+::ng-deep .mat-calendar-body-selected {
+    background-color:#0CA789;
+}
+
+::ng-deep .mat-step-icon.mat-step-icon-state-number.mat-step-icon-selected {
+    background-color:#0CA789;
+}
+
+::ng-deep .mat-step-icon.mat-step-icon-state-edit {
+    background-color:#0CA789;
+}
+
+::ng-deep .ngb-tp-chevron {
+    color: #0CA789
+}
+
+::ng-deep .ngb-tp {
+    justify-content: center;
+}
+
+.btnSelecionar{
+    border: 1px solid #0CA789;
+    margin-left: 20px;
+    padding: 0, 10px;
+}
+
+.btnVoltar {
+    border: 1px solid #605e5e;
+    padding: 0px;
+}
+
+.confirmCard {
+    font-size: medium;
+    border: 1px solid #0CA789;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    width: 190px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.confirmacao {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
