@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren:()=>import('./principal/principal.module').then((m)=>m.PrincipalModule)
   },
   {
+    path:'imobil',
+    loadChildren:()=>import('./imoveis/imoveis.module').then((m)=>m.ImoveisModule)
+  },
+  {
     path:'',
     pathMatch:'full',
     redirectTo:'pagina-inicial'
