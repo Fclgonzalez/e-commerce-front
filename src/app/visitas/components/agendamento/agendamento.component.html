@@ -1,0 +1,59 @@
+<mat-card *ngIf="card">
+    <mat-card-content>
+        <p class="preco" *ngIf="true"> <!-- se aluguel existir -->
+            <span>Aluguel </span>
+            <span> R$2000,00</span>
+        </p>
+        <p class="preco" *ngIf="true"> <!-- se venda existir -->
+            <span>Venda </span>
+            <span> R$200.000,00</span>
+        </p>
+        <mat-divider></mat-divider>
+        <div class="vendedor">
+            <p id="nomeVendedor">Nome do Vendedor</p>
+            <p class="contato">
+                <mat-icon>phone</mat-icon> (XX)XXXXX-XXXX
+            </p>
+            <p class="contato">
+                <mat-icon>mail</mat-icon> nome@email.com
+            </p>
+        </div>
+        <button id="btnAgendar" mat-raised-button (click)="card = false; agenda = true">Agendar Visita</button>
+    </mat-card-content>
+</mat-card>
+
+<mat-card  *ngIf="agenda">
+    <mat-vertical-stepper [linear]="false" #stepper animationDuration="1000">
+        <mat-step>
+                <ng-template matStepLabel>Selecione uma data</ng-template>
+                <mat-calendar class="calendario" [(selected)]="selected"></mat-calendar>
+                <div>
+                    <button class="btnVoltar btns" mat-button (click)="card = true; agenda = false">Voltar</button>
+                    <button class="btnSelecionar btns" mat-button matStepperNext>Próximo</button>
+                </div>
+        </mat-step>
+        <mat-step>
+                <ng-template matStepLabel>Selecione um horário</ng-template>
+                <ngb-timepicker [(ngModel)]="time" [seconds]="false" [hourStep]="hourStep" [minuteStep]="minuteStep">
+            </ngb-timepicker>
+                <div>
+                    <button class="btnVoltar btns" mat-button matStepperPrevious>Voltar</button>
+                    <button class="btnSelecionar btns" mat-button matStepperNext>Próximo</button>
+                </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Confirmar</ng-template>
+            <div class="confirmCard">
+                <p class="confirmacao">
+                    <span></span>
+                    <span>Dia: {{selected | date: "dd/MM/yyyy"}}</span>
+                    <span>Horário: {{time.hour}}:{{time.minute | number: "2.0-0"}}</span>
+                </p>
+            </div>
+            <div>
+                <button class="btnVoltar btns" mat-button matStepperPrevious>Voltar</button>
+                <button class="btnSelecionar btns" mat-button >Confirmar</button>
+            </div>
+        </mat-step>
+    </mat-vertical-stepper>
+</mat-card>
