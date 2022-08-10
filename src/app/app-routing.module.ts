@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path:'pagina-inicial',
+    path:'principal',
     loadChildren:()=>import('./principal/principal.module').then((m)=>m.PrincipalModule)
   },
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path:'',
     pathMatch:'full',
-    redirectTo:'pagina-inicial'
+    redirectTo:'principal/pagina-inicial'
   }
 ];
 
