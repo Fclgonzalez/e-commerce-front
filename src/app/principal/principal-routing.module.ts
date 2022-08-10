@@ -1,7 +1,10 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PaginaInicialComponent } from './pages/pagina-inicial/pagina-inicial.component';
+import { PerguntasFrequentesComponent } from './pages/perguntas-frequentes/perguntas-frequentes.component';
 import { PrincipalComponent } from './pages/principal/principal.component';
+import { SaibaMaisComponent } from './pages/saiba-mais/saiba-mais.component';
+import { TermosDeUsoComponent } from './pages/termos-de-uso/termos-de-uso.component';
 
 const routes: Routes = [
   {
@@ -11,7 +14,20 @@ const routes: Routes = [
     {
       path:'pagina-inicial',
       component: PaginaInicialComponent
+    },
+    {
+      path:'perguntas-frequentes',
+      component:PerguntasFrequentesComponent
+    },
+    {
+      path:'saiba-mais',
+      component:SaibaMaisComponent
+    },
+    {
+      path:'termos-de-uso',
+      component:TermosDeUsoComponent
     }
+
   ]
   },
   {

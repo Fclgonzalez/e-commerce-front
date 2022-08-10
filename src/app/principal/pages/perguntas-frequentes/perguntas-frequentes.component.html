@@ -1,0 +1,14 @@
+<main class="main">
+  <div class="header">
+    <h1>FAQ</h1>
+  </div>
+  <section class="section">
+    <ul
+      type="none"
+      class="conteudo"
+      *ngFor="let pergunta of perguntas; let i = index">
+      <li class="pergunta">P - {{ pergunta.pergunta }}</li>
+      <li class="resposta">R - {{ pergunta.resposta }}</li>
+    </ul>
+  </section>
+</main>

@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path:'',
     pathMatch:'full',
-    redirectTo:'pagina-inicial'
+    redirectTo:'principal/pagina-inicial'
   }
 ];
 

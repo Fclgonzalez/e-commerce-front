@@ -5,16 +5,19 @@ import { PrincipalRoutingModule } from './principal-routing.module';
 import { ComponentesCompartilhadosModule } from '../componentes-compartilhados/componentes-compartilhados.module';
 import { PaginaInicialComponent } from './pages/pagina-inicial/pagina-inicial.component';
 import { PrincipalComponent } from './pages/principal/principal.component';
-import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
   declarations: [
     PaginaInicialComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    PerguntasFrequentesComponent,
+    SaibaMaisComponent,
+    TermosDeUsoComponent
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     PrincipalRoutingModule,
     ComponentesCompartilhadosModule,
     MaterialModule
