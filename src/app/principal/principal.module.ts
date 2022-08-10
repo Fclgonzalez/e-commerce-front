@@ -5,15 +5,23 @@ import { PrincipalRoutingModule } from './principal-routing.module';
 import { ComponentesCompartilhadosModule } from '../componentes-compartilhados/componentes-compartilhados.module';
 import { PaginaInicialComponent } from './pages/pagina-inicial/pagina-inicial.component';
 import { PrincipalComponent } from './pages/principal/principal.component';
+import { PerguntasFrequentesComponent } from './pages/perguntas-frequentes/perguntas-frequentes.component';
+import { SaibaMaisComponent } from './pages/saiba-mais/saiba-mais.component';
+import { TermosDeUsoComponent } from './pages/termos-de-uso/termos-de-uso.component';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
   declarations: [
     PaginaInicialComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    PerguntasFrequentesComponent,
+    SaibaMaisComponent,
+    TermosDeUsoComponent
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     PrincipalRoutingModule,
     ComponentesCompartilhadosModule
   ]
