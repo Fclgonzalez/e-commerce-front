@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CadastroComponent } from './auth/pages/cadastro/cadastro.component';
+import { LoginComponent } from './auth/pages/login/login.component';
 
 const routes: Routes = [
   {
@@ -11,10 +13,21 @@ const routes: Routes = [
     loadChildren:()=>import('./imoveis/imoveis.module').then((m)=>m.ImoveisModule)
   },
   {
+    path: 'auth',
+    loadChildren:() => import('./auth/auth.module').then((m) => m.AuthModule)
+  },
+  {
+    path: 'cadastro',
+    component: CadastroComponent
+  },
+
+
+  {
     path:'',
     pathMatch:'full',
     redirectTo:'principal/pagina-inicial'
-  }
+  },
+  
 ];
 
 @NgModule({
