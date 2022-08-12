@@ -1,6 +1,6 @@
 .fundo{
     padding-top: 100px;
-    padding-bottom: 50px;   
+    padding-bottom: 50px;
     background-image: url("http://www.daniellenoce.com.br/wp-content/uploads/2017/07/9-vistas-incriveis-no-rio-de-janeiro-danielle-noce-9.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -9,21 +9,22 @@
 .container{
     padding: 0px;
     display: flex;
-    justify-content: space-between;    
+    justify-content: space-between;
 }
 
 .botaoLogin{
     background-color: #0CA789;
+    color: white;
 }
 
 .botaoProcurar{
     background-color: #0CA789;
-    margin-top: 10px;
-    margin-left: 37%;
+    color: white;
+    margin-top: 15px;
 }
 
 .box{
-    margin-left: 20%;    
+    margin-left: 20%;
     margin-bottom: 15px;
     width: 600px;
     height: 530px;
@@ -35,15 +36,14 @@
 .titulo{
     line-height: 40px;
     font-size: 30px;
-    font-weight: bold;    
+    font-weight: bold;
 }
 
-.search{
-    padding-top: 5px;
-    margin-left: 15px;
+.campoPesquisa{
+
 }
 
-.semBorda{    
+.semBorda{
     border: none;
 }
 .semBorda2{
@@ -53,6 +53,7 @@
 
 .cidade{
     margin-left: 15px;
+    outline: none;
     border: none;
 }
 .bordaCidade{
@@ -76,7 +77,7 @@
 .bordaPreco{
     margin-top: 10px;
     border: 1px solid black;
-    width: 250px;    
+    width: 250px;
 }
 
 .tipo{
@@ -84,13 +85,8 @@
     height: 25px;
 }
 
-.preco{
-    margin-top: 10px;
-}
-
-
 .content{
-    
+
      width: 30%;
    margin: auto;
    margin-bottom: 20px;
@@ -102,7 +98,7 @@
     margin-bottom: 30px;
     margin-left: 10%;
     font-size: 20px;
-    color: grey;    
+    color: grey;
 }
 
 .conjunto{
@@ -111,4 +107,4 @@
      margin-left: 5%;
     margin-right: 5%;
 
-} 
+}
