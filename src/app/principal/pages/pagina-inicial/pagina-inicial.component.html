@@ -4,15 +4,17 @@
     <p class="titulo">Busque aqui o imóvel do jeitinho que você queria</p>
 
     <form class="row g-3">
-      <div class="col-auto p-3">
-        <input type="checkbox" class="botaoLogin btn-check" id="btn-check-2-outlined" checked autocomplete="on">
-        <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Aluguel</label><br>
+      <div>
+        <div class="form-check form-check-inline">
+          <input class="checkboxAluguelVenda form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+          <label class="alinhamento form-check-label" for="inlineCheckbox1">Aluguel</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="checkboxAluguelVenda form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+          <label class="alinhamento form-check-label" for="inlineCheckbox2">Venda</label>
+        </div>
       </div>
 
-      <div class="col-auto p-3">
-        <input type="checkbox" class="botaoLogin btn-check" id="btn-check-2" checked autocomplete="off">
-        <label class="btn btn-primary" for="btn-check-2">Venda</label>
-      </div>
 
     <div class="container">
       <div class="campoPesquisa input-group mb-3">
@@ -52,7 +54,7 @@
     </div>
     <div class="bordaCidade">
       <label for="formFile" class="library"
-        ><mat-icon> local_library</mat-icon>Cidade</label
+        ><mat-icon class="alinhamentoIcones">local_library</mat-icon>Cidade</label
       >
       <div>
         <input
@@ -65,12 +67,9 @@
       </div>
     </div>
     <div class="bordaCidade">
-      <label for="formFile" class="bairro"
-        ><mat-icon
-          aria-hidden="false"
-          aria-label="Example home icon"
-          fontIcon="home"
-        ></mat-icon
+      <label for="formFile" class="library"
+        ><mat-icon class="alinhamentoIcones"
+        >home</mat-icon
         >Bairro</label
       >
       <div>
@@ -84,29 +83,32 @@
       </div>
     </div>
 
-    <div class="container">
+
       <div class="bordaPreco">
-          <label for="formFile" class="cidade"
-            ><mat-icon> attach_money</mat-icon>Valor até</label
+          <label for="formFile" class="library"
+            ><mat-icon class="alinhamentoIcones"
+            >monetization_on</mat-icon
+            >Valor até</label
           >
 
           <div>
+            <label class="valor2">R$</label>
             <input
               type="number"
-              class="cidade"
-              placeholder="R$__________________________"
+              class="valor quarto"
+              placeholder="0,00"
               aria-label="number"
               aria-describedby="basic-addon1"
             />
           </div>
       </div>
-      <div class="bordaPreco">
-          <div>
-            <mat-icon class="cidade">local_hotel</mat-icon>
-            <label for="formFile" class="cidade">Quartos</label>
-          </div>
-
-          <select id="inputState" class="cidade">
+      <div class="espacamento bordaPreco">
+            <label for="formFile" class="library"
+            ><mat-icon class="alinhamentoIcones"
+            >local_hotel</mat-icon>
+            Quartos</label>
+        <div>
+          <select id="inputState" class="cidade quarto">
             <option selected>Nº de quartos</option>
             <option>1</option>
             <option>2</option>
@@ -119,8 +121,9 @@
             <option>9</option>
             <option>10</option>
           </select>
+        </div>
       </div>
-    </div>
+
       <button type="submit" class="botaoProcurar btn p-2">
         Procurar Imóveis
       </button>
