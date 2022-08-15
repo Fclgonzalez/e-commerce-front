@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CadastroComponent } from './auth/pages/cadastro/cadastro.component';
+import { EmailComponent } from './auth/pages/email/email.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
     pathMatch:'full',
     redirectTo:'principal/pagina-inicial'
   },
+  
   
 ];
 

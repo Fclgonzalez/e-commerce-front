@@ -40,7 +40,7 @@ export class CadastroComponent implements OnInit {
           this.snackbar.open('Cadastrado com sucesso.', 'Ok', {
             duration: 3000       
         })
-        /* this.router.navigateByUrl('/auth/confirmar-email') */
+         this.router.navigateByUrl('/auth/email') 
   })
   }
 
