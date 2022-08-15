@@ -1,36 +1,38 @@
-<div>
-    <h2>Cadastre seu Endereço</h2>
-    <mat-spinner color="accent" mode="indeterminate" diameter="20" *ngIf="salvandoEndereco"></mat-spinner>
-    <button type="button" mat-icon-button> <!-- dentro do button (click)="sair()"-->
-      <mat-icon>arrow_forward</mat-icon>
-    </button>
-  </div>
-  <section mat-dialog-content>
-    <form action="" [formGroup]="formEndereco" (ngSubmit)="salvar()">
+<section mat-dialog-content>
+  <mat-card-header>
+    <div class="title">Cadastre o seu Endereço</div>
+  </mat-card-header>
+
+    <form action="" [formGroup]="formEndereco" >
         <mat-form-field appearance="fill">
-            <mat-label>Logradouro</mat-label>
-            <input type="text" placeholder="Ex: rua, avenida" matInput formControlName="logradouro">
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Número</mat-label>
-            <input type="text" placeholder="Ex: 76" matInput formControlName="numero">
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Complemento</mat-label>
-            <input type="text" placeholder="Ex:Bloco, Apartamento" matInput formControlName="complemento">
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Bairro</mat-label>
-            <input type="text" placeholder="Ex: Lagoa Redonda" matInput formControlName="bairro">
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Cidade</mat-label>
-            <input type="text" placeholder="Ex: Fortaleza" matInput formControlName="cidade">
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>UF</mat-label>
-            <input type="text" placeholder="Ex: CE" matInput formControlName="uf">
-          </mat-form-field>
-        
-          <button type="submit" mat-raised-button [disabled]="formEndereco.invalid"  id="salvar"
-            matTooltip="Salvar Endereco">Salvar</button>
+          <mat-label>Logradouro</mat-label>
+          <input type="text" placeholder="Ex: rua, avenida" matInput formControlName="logradouro">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Número</mat-label>
+          <input type="text" placeholder="Ex: 76" matInput formControlName="numero">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Complemento</mat-label>
+          <input type="text" placeholder="Ex:Bloco, Apartamento" matInput formControlName="complemento">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Bairro</mat-label>
+          <input type="text" placeholder="Ex: Lagoa Redonda" matInput formControlName="bairro">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Cidade</mat-label>
+          <input type="text" placeholder="Ex: Fortaleza" matInput formControlName="cidade">
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>UF</mat-label>
+          <input type="text" placeholder="Ex: CE" matInput formControlName="uf">
+        </mat-form-field>
+      
+        <button type="submit" mat-raised-button [disabled]="formEndereco.invalid"  id="salvar"
+          matTooltip="Salvar Endereco">Salvar</button>
+     
+
+  </form>
+</section>
