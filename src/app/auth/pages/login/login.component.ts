@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { User } from 'src/app/user/models/user';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -11,44 +13,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
- /*  protected aFormGroup!: FormGroupDirective
 
   loginForm: FormGroup= this.fb.group({
-    login: ['', [Validators.required]],
+    username: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
    
   })
- */
- 
 
   constructor(
-    /* private fb: FormBuilder,
+    private fb: FormBuilder,
     private authService: AuthService,
     private snackbar: MatSnackBar,
     private router: Router,
-    private title: Title */
+    private title: Title
   ) { }
 
   ngOnInit(): void {
-   /*  this.title.setTitle('Login') */
+    this.title.setTitle('Login')
   }
 
-/*   login(): void {
-    const credenciais = {
-      login: this.loginForm.value.login,
-      password: this.loginForm.value.password
-    }
-
-    this.authService.signIn(credenciais)
+  login(): void {   
+    const credenciais: User = this.loginForm.value
+    this.authService.login(credenciais)
       .subscribe(
         () => {
-          this.snackbar.open('Logado com sucesso', 'Ok', {
-            duration: 3000
-          })
-
-          this.router.navigateByUrl('/)
-        }
-      )
-  } */
+          this.snackbar.open('Logado com sucesso.', 'Ok', {
+            duration: 3000       
+        })
+        /* this.router.navigateByUrl('/user/meu-perfil') */
+  })
+  }
 
 }
