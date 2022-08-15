@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CadastroComponent } from './auth/pages/cadastro/cadastro.component';
-import { LoginComponent } from './auth/pages/login/login.component';
 
 const routes: Routes = [
   {
@@ -16,12 +15,6 @@ const routes: Routes = [
     path: 'auth',
     loadChildren:() => import('./auth/auth.module').then((m) => m.AuthModule)
   },
-  {
-    path: 'cadastro',
-    component: CadastroComponent
-  },
-
-
   {
     path:'',
     pathMatch:'full',

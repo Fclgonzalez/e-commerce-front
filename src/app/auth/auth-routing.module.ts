@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
@@ -8,10 +9,10 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'auth/login'
+    path: 'cadastro',
+    component: CadastroComponent
   },
+  
 ];
 
 @NgModule({
