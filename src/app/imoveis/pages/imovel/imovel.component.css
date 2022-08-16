@@ -17,13 +17,14 @@ img{
   margin-top: 15px;
   margin-bottom: 25px;
   position: relative;
-  right: 250px;
+  left: 10px;
 }
 
 
 .dadosImovel{
-  max-width: 860px;
-  margin-left: 320px;
+  position: relative;
+  max-width: 770px;
+  left: 300px;
 }
 
 .titulo{
