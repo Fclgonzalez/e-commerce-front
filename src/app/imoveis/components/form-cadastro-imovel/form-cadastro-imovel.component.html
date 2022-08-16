@@ -1,0 +1,318 @@
+<div class="container">
+  <div class="box">
+    <form
+      [formGroup]="cadastroImovel"
+      (ngSubmit)="cadastrarImovel(); cadastrarEndereco()"
+    >
+      <mat-stepper orientation="vertical" linear animationDuration="800">
+        <mat-step [stepControl]="cadastroImovel">
+          <div class="title">Cadastre seu Imovel</div>
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>Titulo</mat-label>
+            <input
+              type="text"
+              placeholder="Ex: Tipo do Imovel, valor, localização"
+              matInput
+              formControlName="titulo"
+            />
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+          <div class="input-box underline">
+            <mat-checkbox #checkAlugar formControlName="alugar" value="alugar"
+              >Alugar</mat-checkbox
+            >
+            <ng-container *ngIf="checkAlugar.checked">
+              <mat-form-field
+                appearance="legacy"
+                floatLabel="always"
+                class="valor"
+              >
+                <mat-label>Valor aluguel</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  formControlName="valorAluguel"
+                  class="example-right-align"
+                  placeholder="0"
+                />
+                <span class="rs" matPrefix>R$&nbsp;</span>
+                <span matSuffix>.00</span>
+              </mat-form-field>
+            </ng-container>
+          </div>
+          <div class="input-box underline">
+            <mat-checkbox #checkVender formControlName="vender" value="vender"
+              >Vender</mat-checkbox
+            >
+            <ng-container *ngIf="checkVender.checked">
+              <mat-form-field
+                appearance="legacy"
+                floatLabel="always"
+                class="valor"
+              >
+                <mat-label>Valor Venda</mat-label>
+                <input
+                  matInput
+                  formControlName="valorVenda"
+                  type="number"
+                  class="example-right-align"
+                  placeholder="0"
+                />
+                <span class="rs" matPrefix>R$&nbsp;</span>
+                <span matSuffix>.00</span>
+              </mat-form-field>
+            </ng-container>
+          </div>
+
+          <mat-form-field appearance="legacy" class="input-box underline">
+            <mat-label>Tipo do Imóvel</mat-label>
+            <mat-select formControlName="tipoImovel" name="tipoImovel">
+              <mat-option
+                *ngFor="let tipoI of tipoImovelEnum; let i = index"
+                [value]="tipoI"
+              >
+                {{ tipoI }}
+              </mat-option>
+            </mat-select>
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="legacy" class="input-box underline">
+            <mat-label>Finalidade do Imóvel</mat-label>
+            <mat-select
+              formControlName="finalidadeImovel"
+              name="finalidadeImovel"
+            >
+              <mat-option
+                *ngFor="let finalidadeI of finalidadeImovelEnum; let i = index"
+                [value]="finalidadeI"
+              >
+                {{ finalidadeI }}
+              </mat-option>
+            </mat-select>
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="legacy" class="input-box underline">
+            <mat-label>Quartos</mat-label>
+            <input
+              type="number"
+              placeholder="0"
+              matInput
+              formControlName="quarto"
+            />
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>Suítes</mat-label>
+            <input
+              type="number"
+              placeholder="0"
+              matInput
+              formControlName="suite"
+            />
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>Vagas</mat-label>
+            <input
+              type="number"
+              placeholder="0"
+              matInput
+              formControlName="vaga"
+            />
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>Área (&#13217;)</mat-label>
+            <input
+              type="number"
+              class="example-right-align"
+              placeholder="0"
+              matInput
+              formControlName="area"
+            />
+
+            <span matSuffix>.00</span>
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>Caracteristicas</mat-label>
+            <mat-select multiple formControlName="caracteristicas">
+              <mat-option
+                *ngFor="let caracteristicas of caracteristicasLista"
+                [value]="caracteristicas"
+                >{{ caracteristicas }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="input-box" appearance="legacy">
+            <mat-label>Descrição</mat-label>
+            <textarea
+              matInput
+              formControlName="descricao"
+              name="descricao"
+            ></textarea>
+          </mat-form-field>
+
+          <button
+            matStepperNext
+            type="button"
+            class="input-box btnStep"
+            mat-stroked-button
+          >
+            Avançar
+          </button>
+        </mat-step>
+
+        <mat-step [stepControl]="cadastroEndereco">
+          <form
+            [formGroup]="cadastroEndereco"
+            (ngSubmit)="cadastrarImovel(); cadastrarEndereco()"
+          >
+          <div class="title">Cadastre o Endereço do Imóvel</div>
+
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>CEP</mat-label>
+            <input
+              type="text"
+              placeholder="Ex: 11222333"
+              matInput
+              formControlName="cep"
+              maxlength="8"
+              oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+              id="cep"
+              #cep
+            />
+
+            <span matSuffix>
+              <button
+                mat-icon-button
+                type="button"
+                (click)="consultaCep(this.cep.value, cadastroEndereco)"
+              >
+                <mat-icon>search</mat-icon>
+              </button>
+            </span>
+            <!-- estudar o regex -->
+            <mat-error>
+              <span *ngIf="cadastroEndereco.get('cep')?.getError('required')">
+                Campo Obrigatório
+              </span>
+              <span
+                *ngIf="cadastroEndereco.get('cep')?.getError('minlength')"
+              >
+                Este campo deve ter 8 caracteres
+              </span>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>Logradouro</mat-label>
+            <input
+              type="text"
+              placeholder="Ex: Avenida São Francisco"
+              matInput
+              formControlName="logradouro"
+            />
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>Número</mat-label>
+            <input
+              type="number"
+              placeholder="Ex: 0"
+              matInput
+              formControlName="numero"
+            />
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>Complemento</mat-label>
+            <input
+              type="text"
+              placeholder="Ex: Ao lado da praça"
+              matInput
+              formControlName="complemento"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>Bairro</mat-label>
+            <input
+              type="text"
+              placeholder="Ex: Rio Verde"
+              matInput
+              formControlName="bairro"
+            />
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>Cidade</mat-label>
+            <input
+              type="text"
+              placeholder="Ex: Belo Horizonte"
+              matInput
+              formControlName="cidade"
+            />
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>UF</mat-label>
+            <input
+              type="text"
+              placeholder="Ex: MG"
+              matInput
+              formControlName="uf"
+              id="uppercase"
+              maxlength="2"
+            />
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+
+            <div>
+              <button
+                matStepperPrevious
+                type="button"
+                class="input-box btnStep"
+                mat-stroked-button
+              >
+                Voltar
+              </button>
+
+              <button
+                type="submit"
+                class="input-box"
+                mat-stroked-button
+                [disabled]="cadastroEndereco.invalid"
+              >
+                Cadastrar
+              </button>
+            </div>
+
+            <div class="input-box"></div>
+
+            <div class="text sign-up-text">
+              Já possui uma conta?
+              <label for="flip"
+                ><a routerLink="/auth/login">Entre aqui</a></label
+              >
+            </div>
+
+            <p class="text">
+              Ao continuar, você esta de Acordo com os Termos de Uso e Ciente da
+              Política de Privacidade.
+            </p>
+          </form>
+        </mat-step>
+      </mat-stepper>
+    </form>
+  </div>
+</div>
