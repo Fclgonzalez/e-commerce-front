@@ -23,6 +23,8 @@
     "@ng-bootstrap/ng-bootstrap": "^13.0.0",
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.2.0",
+    "chart.js": "^3.9.1",
+    "ng2-charts": "^4.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
