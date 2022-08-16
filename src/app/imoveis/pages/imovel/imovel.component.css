@@ -1,12 +1,37 @@
 .content{
-  width: 25%;
+  width: 100%;
   margin: auto;
   margin-bottom: 20px;
 }
 
+img{
+  height: 500px;
+}
+
+.botaoCarousel{
+  margin-top: 75px;
+  height: 500px;
+}
 
 .visita{
-  margin-top: 5px;
+  margin-top: 15px;
+  margin-bottom: 25px;
   position: relative;
-  left: 20%;
+  right: 250px;
+}
+
+
+.dadosImovel{
+  max-width: 860px;
+  margin-left: 320px;
+}
+
+.titulo{
+  margin-top: 17px;
+  font-size: 30px;
+}
+
+.imovel{
+  display: flex;
+  flex-direction: row;
 }
