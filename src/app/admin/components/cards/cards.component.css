@@ -1,0 +1,12 @@
+.uppercards{
+  display: flex;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 1%;
+  justify-content: center;
+  justify-content: space-between;
+}
+.card{
+  background-color: #ff4081;
+  color: white;
+}
