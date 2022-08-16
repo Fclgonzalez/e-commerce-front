@@ -7,20 +7,34 @@ import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmailComponent } from './pages/email/email.component';
+import { CadastroVendedorComponent } from './pages/cadastro-vendedor/cadastro-vendedor.component';
+import { FormCadastroVendedorComponent } from './components/form-cadastro-vendedor/form-cadastro-vendedor.component';
+import { FormCadastroImovelComponent } from '../imoveis/components/form-cadastro-imovel/form-cadastro-imovel.component';
+import { ImoveisModule } from '../imoveis/imoveis.module';
+import { ComponentesCompartilhadosModule } from '../componentes-compartilhados/componentes-compartilhados.module';
+
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     CadastroComponent,
-    EmailComponent
+    EmailComponent,
+    CadastroVendedorComponent,
+    FormCadastroVendedorComponent,
+  
+
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
+    ComponentesCompartilhadosModule
+    
+   
   
-  ]
+  ],
+  
 })
 export class AuthModule { }
