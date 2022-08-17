@@ -3,6 +3,7 @@ import { User } from "src/app/user/models/user"
 
 export interface Imovel {
   idImovel?: number
+  titulo: string
   dataCriacao: Date
   contratoAluguel: boolean
   contratoVenda: boolean
