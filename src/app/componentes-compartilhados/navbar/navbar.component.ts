@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { fromEvent, Subscription } from 'rxjs';
 import { ConfirmarLogoutComponent } from 'src/app/auth/components/confirmar-logout/confirmar-logout.component';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { UserService } from 'src/app/user/services/user.service';
@@ -9,10 +10,11 @@ import { UserService } from 'src/app/user/services/user.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
   nomeUser?: string
   userLogado: boolean = false
+  sub?: Subscription
 
   constructor(
     private auth: AuthService,
@@ -25,12 +27,18 @@ export class NavbarComponent implements OnInit {
     this.reload()    
   }
 
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe()
+  }
+
   reload() {
-    window.addEventListener('storage', () => {
-      if (this.auth.logado()) {
-        location.reload()
+    this.sub = fromEvent(window,'storage').subscribe(
+      () => {
+        if (this.auth.logado()) {
+          location.reload()
+        }
       }
-    }) 
+    )
   }
 
   logado() {
