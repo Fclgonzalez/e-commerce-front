@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, tap } from 'rxjs';
 import { User } from 'src/app/user/models/user';
 
@@ -10,6 +11,7 @@ import { User } from 'src/app/user/models/user';
 export class AuthService {
 
   private readonly baseUrl: string = 'http://localhost:8080'
+  private helper = new JwtHelperService()
 
   constructor(
     private http: HttpClient,
@@ -20,7 +22,7 @@ export class AuthService {
       return this.http.post<{accessToken: string}>(`${this.baseUrl}/login`, user)
       .pipe(
         tap((response) => {
-          this.armazenarToken(response.accessToken)         
+          this.armazenarToken(response.accessToken)       
         })
       )
     }
@@ -48,6 +50,20 @@ export class AuthService {
 
     recuperarToken(): string | null {
       return localStorage.getItem('accessToken')
+    }
+
+    logado(): boolean {
+      const token = this.recuperarToken()
+      if (token == null) {
+        return false
+      }
+      return !this.helper.isTokenExpired(token)
+    }
+  
+    decodeToken() {
+      const token = this.recuperarToken()
+      const decode = this.helper.decodeToken(token!)
+      return decode
     }
 
 }
