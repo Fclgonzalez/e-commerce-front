@@ -12,6 +12,7 @@ import { FormCadastroVendedorComponent } from './components/form-cadastro-vended
 import { FormCadastroImovelComponent } from '../imoveis/components/form-cadastro-imovel/form-cadastro-imovel.component';
 import { ImoveisModule } from '../imoveis/imoveis.module';
 import { ComponentesCompartilhadosModule } from '../componentes-compartilhados/componentes-compartilhados.module';
+import { ConfirmarLogoutComponent } from './components/confirmar-logout/confirmar-logout.component';
 
 
 
@@ -22,6 +23,7 @@ import { ComponentesCompartilhadosModule } from '../componentes-compartilhados/c
     EmailComponent,
     CadastroVendedorComponent,
     FormCadastroVendedorComponent,
+    ConfirmarLogoutComponent,
   
 
   ],

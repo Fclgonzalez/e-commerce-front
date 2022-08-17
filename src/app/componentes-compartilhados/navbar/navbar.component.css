@@ -5,3 +5,26 @@
 .fundoNavbar{
     background-color: #282727;
 }
+
+.btns{
+    display: flex;
+    flex-direction: row;
+}
+
+.botaoLogado{
+    color: #99d5c8;
+    border: .5px solid #99d5c8;
+    display: flex;
+    align-items: center;
+}
+
+.botaoLogado:hover {
+    background-color: #0CA789;
+    color: white;
+}
+
+mat-icon {
+    margin: 0 0 0 10px;
+    padding: 0;
+}
+

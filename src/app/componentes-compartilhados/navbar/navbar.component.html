@@ -23,18 +23,29 @@
           </li>        
         </ul>
         
-        <div class="nav-item me-4">
-          <a routerLink="/auth/cadastro-vendedor" target="_blank">
-            <button type="button" class="botaoLogin btn p-2">Anuncie</button>
+        <div class="btns" *ngIf="!userLogado else btnLogado">
+          <div class="nav-item me-4">
+            <a routerLink="/auth/cadastro-vendedor" target="_blank">
+              <button type="button" class="botaoLogin btn p-2">Anuncie</button>
+            </a>
+          </div>
+          <div class="nav-item me-4">
+            <a routerLink="/auth/login" target="_blank">
+              <button type="button" class="botaoLogin btn px-3 py-2">Login</button>
           </a>
+          </div>
         </div>
-        <div class="nav-item me-4">
-          <a routerLink="/auth/login" target="_blank">
-            <button type="button" class="botaoLogin btn px-3 py-2">Login</button>
-        </a>
-        </div>
-      
+
+        <ng-template #btnLogado>
+            <button type="button" class="botaoLogado btn"> {{nomeUser}} 
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <button type="button" class="botaoLogado btn" (click)="sair()">
+              <mat-icon>logout</mat-icon>
+            </button>
+        </ng-template>
+
       </div>
     </div>
   </nav>
- 
+
