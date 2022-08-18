@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
           this.snackbar.open('Logado com sucesso.', 'Ok', {
             duration: 3000       
         })
-        /* this.router.navigateByUrl('/user/meu-perfil') */
+        this.router.navigateByUrl('/user/perfil-usuario') 
   })
   }
 
