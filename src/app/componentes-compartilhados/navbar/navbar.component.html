@@ -1,51 +1,76 @@
 <nav class="fundoNavbar navbar navbar-expand-lg p-3">
-    <div class="container-fluid">
-      <a class="navbar-brand text-light" href="#">Imobiliaria Nosso Lar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active text-light me-4 " aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item me-4">
-            <a class="nav-link text-light" href="#">Alugar</a>
-          </li>
-          <li class="nav-item me-4">
-            <a class="nav-link text-light" href="#">Comprar</a>
-          </li>
-          <li class="nav-item me-4">
-            <a class="nav-link text-light" href="#">Sobre</a>
-          </li>
-          <li class="nav-item me-4">
-            <a class="nav-link text-light" href="#">Ajuda</a>
-          </li>        
-        </ul>
-        
-        <div class="btns" *ngIf="!userLogado else btnLogado">
-          <div class="nav-item me-4">
-            <a routerLink="/auth/cadastro-vendedor" target="_blank">
-              <button type="button" class="botaoLogin btn p-2">Anuncie</button>
-            </a>
-          </div>
-          <div class="nav-item me-4">
-            <a routerLink="/auth/login" target="_blank">
-              <button type="button" class="botaoLogin btn px-3 py-2">Login</button>
+  <div class="container-fluid">
+    <a class="navbar-brand text-light mx-5" href="#">Imobiliaria Nosso Lar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-5">
+        <li class="nav-item">
+          <a class="nav-link active text-light me-4 " aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item me-4">
+          <a class="nav-link text-light" href="#">Alugar</a>
+        </li>
+        <li class="nav-item me-4">
+          <a class="nav-link text-light" href="#">Comprar</a>
+        </li>
+        <li class="nav-item me-4">
+          <a class="nav-link text-light" href="#">Sobre</a>
+        </li>
+        <li class="nav-item me-4">
+          <a class="nav-link text-light" href="#">Ajuda</a>
+        </li>        
+      </ul>
+      
+      <div class="btns" *ngIf="!userLogado else btnLogado">
+        <div class="nav-item me-4">
+          <a routerLink="/auth/cadastro-vendedor" target="_blank">
+            <button type="button" class="botaoLogin btn p-2">Anuncie</button>
           </a>
-          </div>
         </div>
-
-        <ng-template #btnLogado>
-            <button type="button" class="botaoLogado btn"> {{nomeUser}} 
-              <mat-icon>account_circle</mat-icon>
-            </button>
-            <button type="button" class="botaoLogado btn" (click)="sair()">
-              <mat-icon>logout</mat-icon>
-            </button>
-        </ng-template>
-
+        <div class="nav-item me-4">
+          <a routerLink="/auth/login" target="_blank">
+            <button type="button" class="botaoLogin btn px-3 py-2">Login</button>
+        </a>
+        </div>
       </div>
-    </div>
-  </nav>
 
+      <ng-template #btnLogado>
+          <button type="button" class="botaoLogado btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"> {{nomeUser}} 
+            <mat-icon>account_circle</mat-icon>
+          </button>
+         
+      </ng-template>
+
+    </div>
+  </div>
+</nav>
+
+<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel" style="width: 310px;">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title display-5 mt-4" id="offcanvasDarkNavbarLabel">Imobiliária Nosso Lar</h2>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <hr class="bd-links-span-all mt-1 mb-5 mx-3 my-5 border-top text-white">
+
+  <div class="offcanvas-body">
+    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+      <li class="nav-item">
+        <a class="nav-link active fs-5" aria-current="page" routerLink="/user/perfil-usuario"><mat-icon class="mx-3">person</mat-icon>Meu Perfil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active fs-5 mt-4" routerLink=""><mat-icon class="mx-3">home</mat-icon>Imóveis Cadastrados</a>
+      </li>
+    </ul> 
+  </div>
+
+  <hr class="bd-links-span-all mt-1 mb-5 mx-3 my-5 border-top text-white">
+
+  <div class="mb-3 mx-4 mb-5">
+    <button type="button" class="botaoLogado btn" (click)="sair()">
+      <mat-icon>logout</mat-icon> <span class="mx-2">Sair</span>
+    </button>
+  </div>
+</div>
