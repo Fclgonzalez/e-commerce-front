@@ -1,0 +1,103 @@
+<app-navbar></app-navbar>
+<div class="title1">Meu Perfil</div>
+
+<mat-card class="dados" *ngIf="dados">
+  
+  <div class="container">
+    <div>
+      <button type="button" class="btn" id="btnAgendar" mat-raised-button (click)="dados = true; endereco = false">Dados Pessoais</button>
+      <button type="button" class="btn" id="btn" mat-raised-button (click)="dados = false; endereco = true">Endereço </button>
+   
+   </div> 
+  
+    <div class="box">
+    
+      <form>
+        <div class="title">Dados Pessoais</div>
+        <div class="input-box underline">
+          <input type="text" placeholder="Nome" formControlName="username">
+          <div class="underline"></div>
+        </div>
+       
+        <div class="input-box underline">
+          <input type="email" placeholder="Email" formControlName="email">
+          <div class="underline"></div>
+        </div>
+
+        <div class="input-box underline">
+          <input type="tel" placeholder="Celular" formControlName="celular">
+          <div class="underline"></div>
+        </div>
+       
+        <div class="input-box underline">
+          <input type="tel" placeholder="Telefone" formControlName="telefone">
+          <div class="underline"></div>
+        </div>
+ 
+        <div class="input-box button">
+          <button type="submit" >Editar</button>
+        </div>
+    
+      </form>
+    </div>
+ </div>
+</mat-card>
+
+<mat-card class="endereco" *ngIf="endereco">
+
+  <div class="container">
+    <div>
+      <button type="button" class="btn" id="btnAgendar" mat-raised-button (click)="dados = true; endereco = false">Dados Pessoais</button>
+      <button type="button" class="btn" id="btn" mat-raised-button (click)="dados = false; endereco = true">Endereço </button>
+   </div> 
+  
+    <div class="box">
+      <form action="" [formGroup]="formEndereco">
+        <div class="title">Endereço</div>
+
+        <div class="input-box underline">
+          <input type="text" placeholder="Logradouro" formControlName="logradouro">
+          <div class="underline"></div>
+        </div>
+       
+        <div class="input-box underline">
+          <input type="text" placeholder="Número" formControlName="numero">
+          <div class="underline"></div>
+        </div>
+
+        <div class="input-box underline">
+          <input type="text" placeholder="Complemento" formControlName="complemento">
+          <div class="underline"></div>
+        </div>
+       
+        <div class="input-box underline">
+          <input type="text" placeholder="CEP" formControlName="cep">
+          <div class="underline"></div>
+        </div>
+        
+        <div class="input-box underline">
+          <input type="text" placeholder="Bairro" formControlName="bairro">
+          <div class="underline"></div>
+        </div>
+
+        <div class="input-box underline">
+          <input type="text" placeholder="Cidade" formControlName="cidade">
+          <div class="underline"></div>
+        </div>
+
+        <div class="input-box underline">
+          <input type="tel" placeholder="UF" formControlName="uf"  matInput formControlName="uf">
+          <div class="underline"></div>
+        </div>
+ 
+        <div class="input-box button">
+          <button type="submit" [disabled]="formEndereco.invalid" >Editar</button>
+        </div>
+
+      </form>
+    </div>
+ </div>
+</mat-card>
+
+
+
