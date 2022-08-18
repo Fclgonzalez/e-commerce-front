@@ -84,39 +84,39 @@
 
 <div class="imovel">
   <div class="dadosImovel col-lg-6">
-    <h1 class="titulo"><b>Apartamento para alugar com 1 quarto, 24m²</b></h1>
-    <p>Rua dos Estudantes, Liberdade, São Paulo</p>
+    <h1 class="titulo"><b>{{ imovel?.titulo }}</b></h1>
+    <p>{{ imovel?.endereco?.logradouro }}, {{ imovel?.endereco?.bairro }}, {{ imovel?.endereco?.cidade }}</p>
     <mat-divider></mat-divider>
     <br />
     <mat-grid-list cols="5" rowHeight="5:2">
       <mat-grid-tile>
         <p class="dadosImovel2">
           <mat-icon>straighten</mat-icon>
-          <br />24m²
+          <br />{{ imovel?.area }}m²
         </p>
       </mat-grid-tile>
       <mat-grid-tile>
         <p class="dadosImovel2">
           <mat-icon>local_hotel</mat-icon>
-          <br />2 quartos
+          <br />{{ imovel?.quartos }} quarto
         </p>
       </mat-grid-tile>
       <mat-grid-tile>
         <p class="dadosImovel2">
           <mat-icon>bathtub</mat-icon>
-          <br />1 suíte
+          <br />{{ imovel?.suite }} suíte
         </p>
       </mat-grid-tile>
       <mat-grid-tile>
         <p class="dadosImovel2">
           <span class="material-icons">shower</span>
-          <br />1 banheiro
+          <br />{{ imovel?.banheiros }} banheiro
         </p>
       </mat-grid-tile>
       <mat-grid-tile>
         <p class="dadosImovel2">
           <mat-icon>directions_car</mat-icon>
-          <br />2 vagas
+          <br />{{ imovel?.vagas }} vaga
         </p>
       </mat-grid-tile>
     </mat-grid-list>
@@ -137,17 +137,7 @@
     </div>
     <br />
     <p class="textoDescricao">
-      Lorem ipsum dolor sit amet. Sed internos eveniet ut velit dolorum est
-      deserunt consequatur et voluptatibus nihil et vero repellat et quas animi.
-      Ut dignissimos maiores est rerum assumenda At voluptatem voluptas quo
-      nihil consequatur. Aut sunt quibusdam ea fugiat modi est deserunt ratione
-      ut dolor molestias. Et Quis nemo est exercitationem exercitationem ab
-      deleniti obcaecati non neque explicabo. Eos quam obcaecati est sunt maxime
-      qui quas officia eum facere Quis ut illum ratione. Ab veniam delectus id
-      aliquid vitae ut dicta consequatur ut repellendus quaerat et molestiae
-      nisi a explicabo galisum At beatae similique. Rem sequi mollitia aut error
-      odit non nihil nesciunt qui omnis quaerat et quibusdam sint aut doloremque
-      similique non quia.
+      {{ imovel?.descricao }}
     </p>
   </div>
 
