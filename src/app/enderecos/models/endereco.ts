@@ -1,4 +1,4 @@
-export interface Enderecos {
+export interface Endereco {
     logradouro: string
     numero: number
     complemento:string

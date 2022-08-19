@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, from, map, mergeMap, Observable, tap } from 'rxjs';
-import { Imovel } from '../models/imovel';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Imovel } from '../models/imovel';
 
 @Injectable({
   providedIn: 'root',
@@ -55,7 +55,7 @@ export class ImoveisService {
     )
   }
 
-  buscar(cep: string) {
+  buscarCep(cep: string) {
     return this.http.get(`${this.urlCep}/${cep}/json`);
   }
 

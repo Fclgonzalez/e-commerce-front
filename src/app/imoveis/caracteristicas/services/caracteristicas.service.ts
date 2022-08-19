@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Caracteristica } from '../models/caracteristica';
 
 @Injectable({
@@ -8,26 +8,31 @@ import { Caracteristica } from '../models/caracteristica';
 })
 export class CaracteristicasService {
 
-  private readonly basUrl: string = 'http://localhost:8080/imobil/caracts'
+  private readonly url: string = 'http://localhost:8080/imobil/caracts'
+  public atualizarCaracteristica$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   constructor(
     private http: HttpClient
   ) { }
 
     getCaracteristicas(): Observable<Caracteristica[]> {
-      return this.http.get<Caracteristica[]>(this.basUrl)
+      return this.http.get<Caracteristica[]>(this.url)
     }
+/* 
+    getCaracteristicaById(id:number):Observable<Caracteristica>{
+      return this.http.get<Caracteristica>(`${this.url}/${id}`)
+    } */
 
     postNovaCaracteristica(caract: Caracteristica): Observable<Caracteristica> {
-      return this.http.post<Caracteristica>(this.basUrl, caract)
+      return this.http.post<Caracteristica>(this.url, caract)
     }
 
     postAddCaracteristicaImovel(idCaract: number, idImovel: number ): Observable<any> {
-      return this.http.post<any>(`${this.basUrl}/${idImovel}/${idCaract}`, '')
+      return this.http.post<any>(`${this.url}/${idImovel}/${idCaract}`, '')
     }
 
     deleteCaracteristica(id: number): Observable<any> {
-      return this.http.delete<any>(`${this.basUrl}/${id}`)
+      return this.http.delete<any>(`${this.url}/${id}`)
     }
 
 

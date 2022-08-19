@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
-import { Enderecos } from 'src/app/enderecos/models/endereco';
+import { Endereco } from 'src/app/enderecos/models/endereco';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -30,8 +30,8 @@ export class PerfilUsuarioComponent implements OnInit {
 
   salvar(): void {
     this.salvandoEndereco = true
-    const f: Enderecos = this.formEndereco.value
-    const endereco: Enderecos = this.formEndereco.value
+    const f: Endereco = this.formEndereco.value
+    const endereco: Endereco = this.formEndereco.value
 
   }
 
