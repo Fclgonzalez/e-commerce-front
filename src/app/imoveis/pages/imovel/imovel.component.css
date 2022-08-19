@@ -1,0 +1,76 @@
+.content{
+  width: 100%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+img{
+  height: 500px;
+}
+
+.botaoCarousel{
+  margin-top: 75px;
+  height: 500px;
+}
+
+.visita{
+  margin-top: 15px;
+  margin-bottom: 25px;
+  margin-left: 30px;
+  position: relative;
+  left: 10px;
+}
+
+.dadosImovel{
+  position: relative;
+  max-width: 750px;
+  left: 280px;
+  margin: 10px;
+}
+
+.titulo{
+  margin-top: 17px;
+  font-size: 30px;
+}
+
+.imovel{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.dadosImovel2{
+  text-align: center;
+  position: relative;
+  right: 35px;
+}
+
+.material-icons {
+  color: #0CA789;
+}
+
+p, h1 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.tituloDadosImovel{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-top: 22px;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.iconeTitulo{
+  position: relative;
+  margin-right: 10px;
+  bottom: 2px;
+}
+
+.textoDescricao{
+  position: relative;
+  bottom: 35px;
+  left: 21px;
+  padding: 13px;
+}

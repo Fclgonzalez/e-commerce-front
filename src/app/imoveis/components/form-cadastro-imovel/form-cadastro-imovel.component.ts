@@ -175,6 +175,7 @@ export class FormCadastroImovelComponent implements OnInit {
     vaga: [0, Validators.required],
     area: [0, Validators.required],
     descricao: [''],
+    foto: ['']
   });
 
   cadastroCaracteristica: FormGroup = this.fb.group({
@@ -203,6 +204,8 @@ export class FormCadastroImovelComponent implements OnInit {
       uf: dados.uf,
     });
   }
+
+
 
   constructor(
     private fb: FormBuilder,
@@ -250,6 +253,24 @@ export class FormCadastroImovelComponent implements OnInit {
       });
   }
 
+  foto!: File
+  fotoPreview: string = '';
+
+  recuperarFoto(event: any): void {
+    this.foto = event.target.files[0];
+    this.carregarPreview();
+  }
+
+  carregarPreview(): void {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(this.foto);
+
+    reader.onload = () => {
+      this.fotoPreview = reader.result as string;
+    };
+  }
+
   salvar() {
     //Regras do formulário
     this.cadastroEnderecoForm.value.uf =
@@ -276,62 +297,68 @@ export class FormCadastroImovelComponent implements OnInit {
 
     //Serviços
     let im: Imovel = this.cadastroImovelForm.value;
-    this.imovelService.cadastrarImovel(im, this.idUser).subscribe(
-      (dadosImovel) => {
-        const carac: Caracteristica = this.cadastroCaracteristica.value;
-        for (let a of this.cadastroCaracteristica.value.caracteristicas) {
-          this.caracteristicaService
-            .postAddCaracteristicaImovel(a.id, dadosImovel.idImovel!)
+
+    if (this.cadastroImovelForm.value.foto.length > 0) {
+      console.log(this.foto)
+      this.imovelService.cadastrarImovel(im, this.idUser!, this.foto).subscribe(
+        (dadosImovel) => {
+          const carac: Caracteristica = this.cadastroCaracteristica.value;
+          for (let a of this.cadastroCaracteristica.value.caracteristicas) {
+            this.caracteristicaService
+              .postAddCaracteristicaImovel(a.id, dadosImovel.idImovel!)
+              .subscribe(
+                (sucess) => {},
+                (errorCarac) => {
+                  this.salvandoInformacoes = false;
+                  this.snackbar.open(
+                    'Não foi possível realizar o cadastro da característica',
+                    'Ok',
+                    {
+                      duration: 3000,
+                    }
+                  );
+                  console.log(errorCarac);
+                }
+              );
+          }
+          const en: Endereco = this.cadastroEnderecoForm.value;
+          this.enderecoService
+            .cadastrarEnderecoImovel(en, dadosImovel.idImovel)
             .subscribe(
-              (sucess) => {},
-              (errorCarac) => {
+              (dadosEndereco) => {
+                this.snackbar.open('Cadastrado com sucesso', 'Ok', {
+                  duration: 3000,
+                });
+                this.router.navigateByUrl('/auth/email');
+              },
+              (errorEnderero) => {
                 this.salvandoInformacoes = false;
                 this.snackbar.open(
-                  'Não foi possível realizar o cadastro da característica',
+                  'Não foi possível realizar o cadastro do endereço',
                   'Ok',
                   {
                     duration: 3000,
                   }
                 );
-                console.log(errorCarac);
+                console.log(errorEnderero);
               }
             );
-        }
-        const en: Endereco = this.cadastroEnderecoForm.value;
-        this.enderecoService
-          .cadastrarEnderecoImovel(en, dadosImovel.idImovel)
-          .subscribe(
-            (dadosEndereco) => {
-              this.snackbar.open('Cadastrado com sucesso', 'Ok', {
-                duration: 3000,
-              });
-              this.router.navigateByUrl('/auth/email');
-            },
-            (errorEnderero) => {
-              this.salvandoInformacoes = false;
-              this.snackbar.open(
-                'Não foi possível realizar o cadastro do endereço',
-                'Ok',
-                {
-                  duration: 3000,
-                }
-              );
-              console.log(errorEnderero);
+        },
+        (errorImovel) => {
+          this.salvandoInformacoes = false;
+          this.snackbar.open(
+            'Não foi possível realizar o cadastro do imóvel',
+            'Ok',
+            {
+              duration: 3000,
             }
-          );
-      },
-      (errorImovel) => {
-        this.salvandoInformacoes = false;
-        this.snackbar.open(
-          'Não foi possível realizar o cadastro do imóvel',
-          'Ok',
-          {
-            duration: 3000,
-          }
-        );
-        console.log(errorImovel);
-      }
-    );
+          )
+          console.log(errorImovel);
+        }
+      )
+    } else {
+      return alert ('Não foi possivel realizar o cadastro pois o campo foto está nulo')
+    }
   }
 
   consultaCep(cep: string, form: any) {
@@ -350,9 +377,9 @@ export class FormCadastroImovelComponent implements OnInit {
     }
   }
 
-  salvarFoto() {
-    // fotoTeste
-  }
+  // salvarFoto() {
+  //   fotoTeste
+  // }
 
   //fotoTeste
   indiceSelecionado = 0;

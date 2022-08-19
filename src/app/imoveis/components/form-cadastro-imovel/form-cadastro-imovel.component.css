@@ -190,7 +190,7 @@ input.example-right-align {
   justify-content: center;
   padding: 0;
   margin-bottom: 1rem;
-  
+
 }
 
 .dot {
@@ -207,6 +207,10 @@ input.example-right-align {
 .ativo,
 .dot:hover {
   opacity: 1;
+}
+
+#file-input {
+  display: none;
 }
 
 

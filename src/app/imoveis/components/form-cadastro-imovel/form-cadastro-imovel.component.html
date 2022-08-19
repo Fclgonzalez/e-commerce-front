@@ -311,20 +311,6 @@
                 Avançar
               </button>
             </div>
-
-            <div class="input-box"></div>
-
-            <div class="text sign-up-text">
-              Já possui uma conta?
-              <label for="flip"
-                ><a routerLink="/auth/login">Entre aqui</a></label
-              >
-            </div>
-
-            <p class="text">
-              Ao continuar, você esta de Acordo com os Termos de Uso e Ciente da
-              Política de Privacidade.
-            </p>
           </form>
         </mat-step>
         <mat-step>
@@ -338,6 +324,23 @@
           </div>
 
           <!--     //fotoTeste -->
+
+        <input
+        type="file"
+        accept="image/*"
+        id="file-input"
+        #fileInput
+        (change)="recuperarFoto($event)"
+        formControlName="foto"
+        multiple
+        >
+      <button   matTooltip="selecione uma imagem"
+      type="button"
+      mat-stroked-button
+      color="primary"
+      (click)="fileInput.click()"
+      >Selecione uma imagem</button>
+
           <button
             type="button"
             *ngIf="indicador"
@@ -351,8 +354,8 @@
             ></span>
           </button>
 
-        
-         
+
+
 
           <button
             matStepperPrevious
@@ -363,7 +366,7 @@
             Voltar
           </button>
 
-         
+
           <mat-spinner
             color="primary"
             diameter="40"
