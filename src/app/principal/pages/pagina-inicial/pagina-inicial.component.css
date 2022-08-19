@@ -138,3 +138,7 @@
   margin-left: 5%;
   margin-right: 5%;
 }
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
