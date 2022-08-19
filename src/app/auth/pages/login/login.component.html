@@ -26,6 +26,12 @@
         <div class="underline"></div>
       </div>
       <div class="text"><a href="#">Esqueci minha senha</a></div>
+      <div class="recaptcha2">
+        <ngx-recaptcha2 #captchaElem
+          [siteKey]="siteKey"
+          formControlName="recaptcha">
+        </ngx-recaptcha2>
+      </div>
 
       <div class="input-box button">
         <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
