@@ -18,5 +18,5 @@ export interface Imovel {
   tipoImovel: string
   caracteristicas: Array<string>
   endereco: Enderecos
-  user: User
+  userVendedor: User
 }

@@ -1,25 +1,31 @@
 
 <mat-card *ngIf="card">
     <mat-card-content>
-        <p class="preco" *ngIf="true"> <!-- se aluguel existir -->
+        <p class="preco" *ngIf="imovel?.contratoAluguel">
             <span>Aluguel </span>
-            <span> R$2000,00</span>
+            <span> R{{imovel?.valorAluguel | currency}}</span>
         </p>
-        <p class="preco" *ngIf="true"> <!-- se venda existir -->
+        <p class="preco" *ngIf="imovel?.contratoVenda">
             <span>Venda </span>
-            <span> R$200.000,00</span>
+            <span> R{{imovel?.valorVenda | currency}}</span>
         </p>
         <mat-divider></mat-divider>
         <div class="vendedor">
-            <p id="nomeVendedor">Nome do Vendedor</p>
-            <p class="contato">
+            <p id="nomeVendedor">{{imovel?.userVendedor?.nome}}</p>
+<!--             <p class="contato">
                 <mat-icon>phone</mat-icon> (XX)XXXXX-XXXX
-            </p>
+            </p> -->
             <p class="contato">
-                <mat-icon>mail</mat-icon> nome@email.com
+                <mat-icon>mail</mat-icon> {{imovel?.userVendedor?.username}}
             </p>
         </div>
-        <button id="btnAgendar" mat-raised-button (click)="card = false; agenda = true">Agendar Visita</button>
+        <button *ngIf="!enviado else done" id="btnAgendar" mat-raised-button (click)="agendarVisita()">Agendar Visita</button>
+        <ng-template #done>
+            <div class="solEnviada">
+                <p> Solicitação Enviada</p>
+                <mat-icon>done_outline</mat-icon>
+            </div>
+        </ng-template>
     </mat-card-content>
 </mat-card>
 
@@ -27,7 +33,7 @@
     <mat-vertical-stepper [linear]="false" #stepper animationDuration="1000">
         <mat-step>
                 <ng-template matStepLabel>Selecione uma data</ng-template>
-                <mat-calendar class="calendario" [(selected)]="selected"></mat-calendar>
+                <mat-calendar [minDate]="date" class="calendario" [(selected)]="data"></mat-calendar>
                 <div>
                     <button class="btnVoltar btns" mat-button (click)="card = true; agenda = false">Voltar</button>
                     <button class="btnSelecionar btns" mat-button matStepperNext>Próximo</button>
@@ -47,13 +53,13 @@
             <div class="confirmCard">
                 <p class="confirmacao">
                     <span></span>
-                    <span>Dia: {{selected | date: "dd/MM/yyyy"}}</span>
+                    <span>Dia: {{data | date: "dd/MM/yyyy"}}</span>
                     <span>Horário: {{time.hour}}:{{time.minute | number: "2.0-0"}}</span>
                 </p>
             </div>
             <div>
                 <button class="btnVoltar btns" mat-button matStepperPrevious>Voltar</button>
-                <button class="btnSelecionar btns" mat-button >Confirmar</button>
+                <button class="btnSelecionar btns" mat-button (click)="confirmarVisita()">Confirmar</button>
             </div>
         </mat-step>
     </mat-vertical-stepper>

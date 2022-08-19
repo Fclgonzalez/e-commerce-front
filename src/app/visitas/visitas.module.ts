@@ -6,10 +6,16 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginAgendarVisitaComponent } from './components/login-agendar-visita/login-agendar-visita.component';
+import { HorarioIndisponivelComponent } from './components/horario-indisponivel/horario-indisponivel.component';
+import { SolicitacaoVisitaComponent } from './components/solicitacao-visita/solicitacao-visita.component';
 
 @NgModule({
   declarations: [
-    AgendamentoComponent
+    AgendamentoComponent,
+    LoginAgendarVisitaComponent,
+    HorarioIndisponivelComponent,
+    SolicitacaoVisitaComponent
   ],
   imports: [
     CommonModule,
