@@ -269,7 +269,7 @@ export class FormCadastroVendedorComponent implements OnInit {
       (dadosUser) => {
         let idUser: number = dadosUser;
         let im: Imovel = this.cadastroImovelForm.value;
-
+        let foto: any
         this.imovelService.cadastrarImovel(im, idUser, foto).subscribe(
           (dadosImovel) => {
             const carac: Caracteristica = this.cadastroCaracteristica.value;

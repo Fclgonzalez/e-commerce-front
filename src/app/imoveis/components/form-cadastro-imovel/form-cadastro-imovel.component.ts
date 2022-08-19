@@ -294,9 +294,10 @@ export class FormCadastroImovelComponent implements OnInit {
     }
 
     this.salvandoInformacoes = true;
-
+    let foto: any
     //Serviços
     let im: Imovel = this.cadastroImovelForm.value;
+<<<<<<< HEAD
 
     if (this.cadastroImovelForm.value.foto.length > 0) {
       console.log(this.foto)
@@ -324,6 +325,14 @@ export class FormCadastroImovelComponent implements OnInit {
           const en: Endereco = this.cadastroEnderecoForm.value;
           this.enderecoService
             .cadastrarEnderecoImovel(en, dadosImovel.idImovel)
+=======
+    this.imovelService.cadastrarImovel(im, this.idUser!, foto).subscribe(
+      (dadosImovel) => {
+        const carac: Caracteristica = this.cadastroCaracteristica.value;
+        for (let a of this.cadastroCaracteristica.value.caracteristicas) {
+          this.caracteristicaService
+            .postAddCaracteristicaImovel(a.id, dadosImovel.idImovel!)
+>>>>>>> e059fd9ab75a61e3e30df09ed25b7f2d86fc2078
             .subscribe(
               (dadosEndereco) => {
                 this.snackbar.open('Cadastrado com sucesso', 'Ok', {
