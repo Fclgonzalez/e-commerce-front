@@ -1,0 +1,22 @@
+.botaoLogin{
+    background-color: #0CA789;
+    color: white;
+}
+
+h2 {
+    text-align: center;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    margin: 0 20px;
+    width: 100px;
+}
+
+p {
+    text-align: center;
+}

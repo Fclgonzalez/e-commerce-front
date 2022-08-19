@@ -21,4 +21,5 @@ export interface Imovel {
   endereco: Enderecos
   user: User
   foto?: string
+  userVendedor: User
 }
