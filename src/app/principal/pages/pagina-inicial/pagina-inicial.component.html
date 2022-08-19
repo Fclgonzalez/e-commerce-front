@@ -5,14 +5,10 @@
 
     <form class="row g-3">
       <div>
-        <div class="form-check form-check-inline">
-          <input class="checkboxAluguelVenda form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-          <label class="alinhamento form-check-label" for="inlineCheckbox1">Aluguel</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="checkboxAluguelVenda form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-          <label class="alinhamento form-check-label" for="inlineCheckbox2">Venda</label>
-        </div>
+        <mat-radio-group aria-label="Select an option">
+          <mat-radio-button value="1">Aluguel</mat-radio-button>
+          <mat-radio-button value="2">Venda</mat-radio-button>
+        </mat-radio-group>
       </div>
 
 
@@ -24,7 +20,7 @@
         <input
           type="text"
           class="form-control"
-          placeholder="Digite rua,bairro ou cidade"
+          placeholder="Digite o nome do Imóvel"
           aria-label="Text input with dropdown button"
         />
         <select class="form-select" id="inputGroupSelect01">

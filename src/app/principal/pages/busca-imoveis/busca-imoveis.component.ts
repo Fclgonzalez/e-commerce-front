@@ -27,7 +27,7 @@ interface vaga{
 export class BuscaImoveisComponent implements OnInit {
 
   longText = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam fuga vero saepe? Quaerat impedit, tempore, nihil, reiciendis blanditiis vero natus aperiam laboriosam culpa officia provident. Similique, corrupti. Aliquid, quo odio.`;
-
+  shortText =`Rua dos Alfeneiros, nº4`
 
   quartos: quarto[] = [
     {value: 1, viewValue: 1},

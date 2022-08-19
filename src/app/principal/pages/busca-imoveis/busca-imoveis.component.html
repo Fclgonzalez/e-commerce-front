@@ -35,14 +35,12 @@
   <option>Garagem</option>
 </select>
 
-<div>
-  <div class="form-check form-check-inline">
-    <input class="checkboxAluguelVenda form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-    <label class="alinhamento form-check-label" for="inlineCheckbox1">Aluguel</label>
-  </div>
-  <div class="form-check form-check-inline">
-    <input class="checkboxAluguelVenda form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-    <label class="alinhamento form-check-label" for="inlineCheckbox2">Venda</label>
+<div class="posicaoBotao">
+  <div class="botoesAluguelVenda">
+    <mat-radio-group aria-label="Select an option">
+      <mat-radio-button value="1">Aluguel</mat-radio-button>
+      <mat-radio-button value="2">Venda</mat-radio-button>
+    </mat-radio-group>
   </div>
 </div>
 </div>
@@ -130,93 +128,8 @@
 
 </div>
 
-<!-- Card -->
+<!-- Card de pesquisa -->
 
-<!-- <div class="boxCard">
- <mat-card class="example-card">
-  <div id="PrimeiroCarrosel" class="carousel slide" data-bs-ride="true">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="https://granzottoimoveis.com.br/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-01-at-08.13.17-3-600x600.jpeg" class="d-block w-100" alt="Foto 1">
-      </div>
-      <div class="carousel-item">
-        <img src="https://espacoatualempreendimentos.com.br/imagem/62_9432b1f745aa802670ba08da1959b0ab.jpeg" class="d-block w-100" alt="Foto 2">
-      </div>
-      <div class="carousel-item">
-        <img src="https://cdn.uso.com.br/39792/2021/12/4f659e71414411ceb3089f043b0aa035.jpg" class="d-block w-100" alt="Foto 3">
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-  <mat-card-header>
-    <mat-card-title>Imóvel</mat-card-title>
-    <mat-card-subtitle>Casa</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque similique quisquam deserunt dolorem, tempora nam rerum voluptas eum odio quod dicta perspiciatis soluta! Odit impedit adipisci quibusdam eos, tempora quisquam?
-    </p>
-
-    <P>
-      Aluguel R$1400,00
-    </P>
-    <p class="preco">
-      Total R$1600,00
-    </p>
-  </mat-card-content>
-
-</mat-card>
-
-<mat-card class="example-card">
-  <mat-card-title-group>
-    <div id="PrimeiroCarrosel" class="carousel slide" data-bs-ride="true">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="https://granzottoimoveis.com.br/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-01-at-08.13.17-3-600x600.jpeg" class="d-block w-100" alt="Foto 1">
-        </div>
-        <div class="carousel-item">
-          <img src="https://espacoatualempreendimentos.com.br/imagem/62_9432b1f745aa802670ba08da1959b0ab.jpeg" class="d-block w-100" alt="Foto 2">
-        </div>
-        <div class="carousel-item">
-          <img src="https://cdn.uso.com.br/39792/2021/12/4f659e71414411ceb3089f043b0aa035.jpg" class="d-block w-100" alt="Foto 3">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    <mat-card-title>Shiba Inu</mat-card-title>
-    <mat-card-subtitle>Medium</mat-card-subtitle>
-  </mat-card-title-group>
-  <mat-card-content>
-    {{longText}}
-  </mat-card-content>
-</mat-card>
-
-
-</div> -->
 <div class="boxCard">
   <div id="PrimeiroCarrosel" class="carousel slide" data-bs-ride="true">
     <div class="carousel-indicators">
@@ -250,15 +163,46 @@
 <mat-card class="card">
     <mat-card-title>R$350.000</mat-card-title>
   <mat-card-subtitle>{{longText}}</mat-card-subtitle>
-  <mat-card-actions>
-    <!-- <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button> -->
+  <mat-card-subtitle>{{shortText}}</mat-card-subtitle>
+  <mat-grid-list cols="5" rowHeight="5:2">
+    <mat-grid-tile>
+      <p class="dadosImovel2">
+        <mat-icon>straighten</mat-icon>
+        <br />
+      </p>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <p class="dadosImovel2">
+        <mat-icon>local_hotel</mat-icon>
+        <br />
+      </p>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <p class="dadosImovel2">
+        <mat-icon>bathtub</mat-icon>
+        <br />
+      </p>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <p class="dadosImovel2">
+        <span class="material-icons">shower</span>
+        <br />
+      </p>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <p class="dadosImovel2">
+        <mat-icon>directions_car</mat-icon>
+        <br />
+      </p>
+      </mat-grid-tile>
+    </mat-grid-list>
+  <mat-card-actions class="BotaoAcessar">
+    <button mat-raised-button color="warn">Acessar</button>
   </mat-card-actions>
-
-
-
 </mat-card>
 </div>
+
+
 
 
 

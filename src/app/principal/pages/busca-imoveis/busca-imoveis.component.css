@@ -11,9 +11,22 @@
 
 
 .botaoArea{
+  margin-bottom: 15px;
   border: hidden;
   border-bottom: 1px solid black;
- background-color: 	#E5E4E2;
+ background-color: 	#f1f1f1;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.botoesAluguelVenda{
+  margin-left: 7px;
+}
+.posicaoBotao{
+  display: flex;
+  align-items: center;
 }
 
 .example-card {
@@ -27,24 +40,39 @@
 
 .boxCard{
   display: flex;
-  margin: 10px 520px;
-;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 .mat-card-header{
   margin-top: 2px;
+}
+.card{
+  display: flex;
+  justify-content: center;
+  text-align: justify;
+}
+.mat-card-subtitle{
+  padding-top: 10px;
+}
+.dadosImovel2{
+
+  justify-content: center;
+  text-align: center;
+  /* position: relative; */
+  right: 35px;
+}
+
+.material-icons {
+  color: #0CA789;
 }
 .preco{
   color: green;
 }
 
 .card{
-  width: 1000px;
+  width: 500px;
   height: 300px;
-}
-.carousel{
-  /* margin-left: 50px; */
-  /* width: 180px;
-  height: 230px; */
 }
 .carousel-inner{
   width: 380px;
@@ -55,4 +83,10 @@
   display: flex;
   justify-content: end;
   margin-left: 300px;
+}
+
+.BotaoAcessar{
+  display: flex;
+  justify-content: center;
+
 }
