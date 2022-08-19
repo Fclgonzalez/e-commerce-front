@@ -1,3 +1,4 @@
+import { VendedorService } from './vendedor.service';
 import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataset } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
@@ -16,12 +17,22 @@ export class BarChartVendedorComponent implements OnInit {
   barChartPlugins = [];
 
   public barChartData: ChartDataset[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40, 35, 56, 40, 100, 55], label: 'Vendedores Registrados' },
+    { data: [], label: 'Vendedores Registrados' },
 
   ];
-  constructor() { }
+  constructor(private vendedores: VendedorService) { }
 
   ngOnInit(): void {
+
+    this.vendedores.getVendedoresRegistrados().pipe().subscribe(data => {
+
+      let array = data;
+
+
+      this.barChartData = [
+        { data: array, label: 'Vendedores Registrados' },
+      ]
+    })
   }
 
 }

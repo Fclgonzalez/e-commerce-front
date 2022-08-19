@@ -1,3 +1,4 @@
+import { ConsumidoresServiceService } from './consumidores-service.service';
 import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataset } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
@@ -10,6 +11,10 @@ import { BaseChartDirective } from 'ng2-charts';
 })
 export class BarChartComponent implements OnInit {
 
+
+
+
+
   barChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -19,14 +24,25 @@ export class BarChartComponent implements OnInit {
   barChartPlugins = [];
 
   public barChartData: ChartDataset[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40, 35, 56, 40, 100, 55], label: 'Consumidores Registrados' },
+    { data:[]    , label: 'Consumidores'},
 
   ];
 
 
-  constructor() { }
+  constructor(private consumidores: ConsumidoresServiceService) { }
 
   ngOnInit(): void {
-  }
+    this.consumidores.getConsumidoresRegistrados().pipe().subscribe(data => {
 
+      let array = data;
+
+      this.barChartData = [
+        { data: array, label: 'Consumidores Registrados' },
+      ]
+    })
+
+
+
+
+}
 }
