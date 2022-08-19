@@ -153,4 +153,10 @@
 .text{
   text-align: center;
   margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.recaptcha2 {
+  display: flex;
+  align-self: center;
 }

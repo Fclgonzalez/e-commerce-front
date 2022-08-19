@@ -14,6 +14,7 @@ import { ImoveisModule } from '../imoveis/imoveis.module';
 import { ComponentesCompartilhadosModule } from '../componentes-compartilhados/componentes-compartilhados.module';
 import { ConfirmarLogoutComponent } from './components/confirmar-logout/confirmar-logout.component';
 import { PerfilUsuarioComponent } from '../user/pages/perfil-usuario/perfil-usuario.component';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 
 
@@ -25,7 +26,8 @@ import { PerfilUsuarioComponent } from '../user/pages/perfil-usuario/perfil-usua
     CadastroVendedorComponent,
     FormCadastroVendedorComponent,
     ConfirmarLogoutComponent,
-    PerfilUsuarioComponent
+    PerfilUsuarioComponent,
+  
    
   
 
@@ -36,6 +38,8 @@ import { PerfilUsuarioComponent } from '../user/pages/perfil-usuario/perfil-usua
     MaterialModule,
     ReactiveFormsModule,
     ComponentesCompartilhadosModule,
+    NgxCaptchaModule
+    
    
     
    
