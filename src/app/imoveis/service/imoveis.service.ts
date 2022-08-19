@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, from, map, mergeMap, Observable, tap } from 'rxjs';
 import { Imovel } from '../models/imovel';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
@@ -26,34 +26,46 @@ export class ImoveisService {
     return this.http.get<Imovel>(`${this.url}/${id}`);
   }
 
-  cadastrarImovel(imovel: Imovel, idVendedor?: number): Observable<Imovel> {
-    return this.http.post<Imovel>(`${this.url}/${idVendedor}`, imovel).pipe(
-      tap(() => {
-        this.atualizarImovel$.next(true);
-      })
-    );
+  cadastrarImovel(imovel: Imovel, idVendedor: number, foto: File): Observable<Imovel> {
+
+    return this.uploadImagem(foto).pipe(mergeMap((linkFotoFirebase) => {
+      imovel.foto = linkFotoFirebase
+      return this.http.post<Imovel>(`${this.url}/${idVendedor}`, imovel)
+    }))
   }
 
-  editarImovel(imovel: Imovel): Observable<Imovel> {
-    return this.http.put<Imovel>(`${this.url}/${imovel.idImovel}`, imovel).pipe(
+  editarImovel(imovel: Imovel, foto?: File): Observable<Imovel> {
+
+    if (foto == undefined) {
+      return this.http.put<Imovel>(`${this.url}/${imovel.idImovel}`, imovel)
+      .pipe(
+        tap(() => {
+          this.atualizarImovel$.next(true);
+        })
+      )
+    }
+
+    return this.uploadImagem(foto).pipe(mergeMap((linkFotoFirebase) => {
+        imovel.foto = linkFotoFirebase
+        return this.http.put<Imovel>(`${this.url}/${imovel.idImovel}`, imovel)
+      }),
       tap(() => {
-        this.atualizarImovel$.next(true);
+        this.atualizarImovel$.next(true)
       })
-    );
+    )
   }
 
   buscar(cep: string) {
     return this.http.get(`${this.urlCep}/${cep}/json`);
   }
 
-  private async uploadImagem(foto: File): Promise<string> {
 
-    const nomeDoArquivo = Date.now()
+  private uploadImagem(foto: File): Observable<string> {
 
-    const dados = await this.storage.upload(`${nomeDoArquivo}`, foto)
+  const nomeDoArquivo = Date.now()
+  const dados = from(this.storage.upload(`${nomeDoArquivo}`, foto))
 
-    const downloadURL = await dados.ref.getDownloadURL()
-
-    return downloadURL
- }
+  return dados.pipe(mergeMap(
+    (result) => { return result.ref.getDownloadURL() }))
+  }
 }
