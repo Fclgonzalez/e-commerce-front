@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgChartsModule } from 'ng2-charts';
 import { MaterialModule } from './../material/material.module';
 import { NgModule } from '@angular/core';
@@ -53,6 +54,7 @@ import { ImovelDialogComponent } from './components/imovel-dialog/imovel-dialog.
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    HttpClientModule
   ]
 })
 export class AdminModule { }

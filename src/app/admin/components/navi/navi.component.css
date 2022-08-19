@@ -1,5 +1,6 @@
 .sidenav-container {
   height: 100%;
+  background-color: #f1f1f1;
 }
 
 .sidenav {
@@ -14,4 +15,8 @@
   position: sticky;
   top: 0;
   z-index: 1;
+}
+.color-nav{
+  background-color: #012169;
+  color: white;
 }
