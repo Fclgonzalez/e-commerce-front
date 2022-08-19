@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup= this.fb.group({
     username: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
+    recaptcha: ['', Validators.required]
    
   })
 
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.title.setTitle('Login')
   }
+  siteKey: string = '6LeDVSchAAAAAIns0CIpcMhwsc3AL0Xv8U902IYw'
 
   login(): void {   
     const credenciais: User = this.loginForm.value
@@ -43,5 +45,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/user/perfil-usuario') 
   })
   }
+  
+
 
 }
