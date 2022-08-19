@@ -151,9 +151,9 @@
               <mat-select formControlName="tipoImovel" name="tipoImovel">
                 <mat-option
                   *ngFor="let tipoI of tipoImovelEnum; let i = index"
-                  [value]="tipoI"
+                  [value]="tipoI.tipo"
                 >
-                  {{ tipoI }}
+                  {{ tipoI.nome }}
                 </mat-option>
               </mat-select>
               <mat-error><span>Campo Obrigatório</span></mat-error>
@@ -170,9 +170,9 @@
                     let finalidadeI of finalidadeImovelEnum;
                     let i = index
                   "
-                  [value]="finalidadeI"
+                  [value]="finalidadeI.tipo"
                 >
-                  {{ finalidadeI }}
+                  {{ finalidadeI.nome }}
                 </mat-option>
               </mat-select>
               <mat-error><span>Campo Obrigatório</span></mat-error>
