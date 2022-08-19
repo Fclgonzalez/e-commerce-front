@@ -1,0 +1,58 @@
+.box{
+  margin-left: 25%;
+  width: 1000px;
+  height: 200px;
+  padding: 40px;
+}
+.form-check{
+  margin-left: 7px;
+  margin-top: 7px;
+}
+
+
+.botaoArea{
+  border: hidden;
+  border-bottom: 1px solid black;
+ background-color: 	#E5E4E2;
+}
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.boxCard{
+  display: flex;
+  margin: 10px 520px;
+;
+}
+.mat-card-header{
+  margin-top: 2px;
+}
+.preco{
+  color: green;
+}
+
+.card{
+  width: 1000px;
+  height: 300px;
+}
+.carousel{
+  /* margin-left: 50px; */
+  /* width: 180px;
+  height: 230px; */
+}
+.carousel-inner{
+  width: 380px;
+  height: 300px;
+}
+
+.informacao{
+  display: flex;
+  justify-content: end;
+  margin-left: 300px;
+}

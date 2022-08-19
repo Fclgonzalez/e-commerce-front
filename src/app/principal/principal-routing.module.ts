@@ -1,5 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BuscaImoveisComponent } from './pages/busca-imoveis/busca-imoveis.component';
 import { PaginaInicialComponent } from './pages/pagina-inicial/pagina-inicial.component';
 import { PerguntasFrequentesComponent } from './pages/perguntas-frequentes/perguntas-frequentes.component';
 import { PrincipalComponent } from './pages/principal/principal.component';
@@ -26,7 +27,11 @@ const routes: Routes = [
     {
       path:'termos-de-uso',
       component:TermosDeUsoComponent
-    }
+    },
+    {
+      path:'busca-imoveis',
+      component:BuscaImoveisComponent
+    },
 
   ]
   },
