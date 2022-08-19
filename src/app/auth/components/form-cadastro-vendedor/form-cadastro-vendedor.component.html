@@ -1,11 +1,8 @@
 <div class="container">
   <div class="box">
-    <form
-      [formGroup]="cadastroFormVendedor"
-      (ngSubmit)="cadastrarVendedor(); cadastrarImovel(); cadastrarEndereco()"
-    >
+    <form [formGroup]="cadastroVendedorForm" (ngSubmit)="salvar()">
       <mat-stepper orientation="vertical" linear animationDuration="800">
-        <mat-step [stepControl]="cadastroFormVendedor">
+        <mat-step [stepControl]="cadastroVendedorForm">
           <div class="title">Dados Pessoais</div>
           <mat-form-field class="input-box underline" appearance="legacy">
             <mat-label>Nome / Razão social</mat-label>
@@ -47,10 +44,18 @@
               </button>
             </span>
             <mat-error>
-              <span *ngIf="cadastroFormVendedor.get('password')?.getError('required')">
+              <span
+                *ngIf="
+                  cadastroVendedorForm.get('password')?.getError('required')
+                "
+              >
                 Campo Obrigatório
               </span>
-              <span *ngIf="cadastroFormVendedor.get('password')?.getError('minlength')">
+              <span
+                *ngIf="
+                  cadastroVendedorForm.get('password')?.getError('minlength')
+                "
+              >
                 Este campo deve ter no mínimo 6 caracteres
               </span>
             </mat-error>
@@ -75,13 +80,8 @@
             Avançar
           </button>
         </mat-step>
-        <mat-step [stepControl]="cadastroImovel">
-          <form
-            [formGroup]="cadastroImovel"
-            (ngSubmit)="
-              cadastrarVendedor(); cadastrarImovel(); cadastrarEndereco()
-            "
-          >
+                <mat-step [stepControl]="cadastroImovelForm">
+          <form [formGroup]="cadastroImovelForm" (ngSubmit)="salvar()">
             <div class="title">Cadastre seu Imovel</div>
             <mat-form-field class="input-box underline" appearance="legacy">
               <mat-label>Titulo</mat-label>
@@ -94,7 +94,10 @@
               <mat-error><span>Campo Obrigatório</span></mat-error>
             </mat-form-field>
             <div class="input-box underline">
-              <mat-checkbox #checkAlugar formControlName="alugar" value="alugar"
+              <mat-checkbox
+                #checkAlugar
+                formControlName="contratoAluguel"
+                value="contratoAluguel"
                 >Alugar</mat-checkbox
               >
               <ng-container *ngIf="checkAlugar.checked">
@@ -117,7 +120,10 @@
               </ng-container>
             </div>
             <div class="input-box underline">
-              <mat-checkbox #checkVender formControlName="vender" value="vender"
+              <mat-checkbox
+                #checkVender
+                formControlName="contratoVenda"
+                value="contratoVenda"
                 >Vender</mat-checkbox
               >
               <ng-container *ngIf="checkVender.checked">
@@ -217,13 +223,17 @@
               <mat-error><span>Campo Obrigatório</span></mat-error>
             </mat-form-field>
 
-            <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-form-field
+              class="input-box underline"
+              appearance="legacy"
+              [formGroup]="cadastroCaracteristica"
+            >
               <mat-label>Caracteristicas</mat-label>
               <mat-select multiple formControlName="caracteristicas">
                 <mat-option
-                  *ngFor="let caracteristicas of caracteristicasLista"
+                  *ngFor="let caracteristicas of caracteristica"
                   [value]="caracteristicas"
-                  >{{ caracteristicas }}</mat-option
+                  >{{ caracteristicas.caracteristica }}</mat-option
                 >
               </mat-select>
             </mat-form-field>
@@ -256,13 +266,8 @@
             </button>
           </form>
         </mat-step>
-        <mat-step [stepControl]="cadastroEndereco">
-          <form
-            [formGroup]="cadastroEndereco"
-            (ngSubmit)="
-              cadastrarVendedor(); cadastrarImovel(); cadastrarEndereco()
-            "
-          >
+        <mat-step [stepControl]="cadastroEnderecoForm">
+          <form [formGroup]="cadastroEnderecoForm" (ngSubmit)="salvar()">
             <div class="title">Cadastre o Endereço do Imóvel</div>
 
             <mat-form-field class="input-box underline" appearance="legacy">
@@ -282,18 +287,20 @@
                 <button
                   mat-icon-button
                   type="button"
-                  (click)="consultaCep(this.cep.value, cadastroEndereco)"
+                  (click)="consultaCep(this.cep.value, cadastroEnderecoForm)"
                 >
                   <mat-icon>search</mat-icon>
                 </button>
               </span>
-              <!-- estudar o regex -->
+             
               <mat-error>
-                <span *ngIf="cadastroEndereco.get('cep')?.getError('required')">
+                <span
+                  *ngIf="cadastroEnderecoForm.get('cep')?.getError('required')"
+                >
                   Campo Obrigatório
                 </span>
                 <span
-                  *ngIf="cadastroEndereco.get('cep')?.getError('minlength')"
+                  *ngIf="cadastroEnderecoForm.get('cep')?.getError('minlength')"
                 >
                   Este campo deve ter 8 caracteres
                 </span>
@@ -378,12 +385,12 @@
               </button>
 
               <button
-                type="submit"
-                class="input-box"
+                matStepperNext
+                type="button"
+                class="input-box btnStep"
                 mat-stroked-button
-                [disabled]="cadastroEndereco.invalid"
               >
-                Cadastrar
+                Avançar
               </button>
             </div>
 
@@ -401,6 +408,59 @@
               Política de Privacidade.
             </p>
           </form>
+        </mat-step>
+
+        <mat-step>
+          
+          <!--     //fotoTeste -->
+          <div *ngIf="slide && slide.length > 0" class="carousel-container">
+            <img
+              *ngFor="let imagem of slide; let index = index"
+              [src]="imagem.src"
+              [ngClass]="{ 'imagem-ativa': indiceSelecionado === index }"
+            />
+          </div>
+
+          <!--     //fotoTeste -->
+          <button
+            type="button"
+            *ngIf="indicador"
+            class="carousel-dot"
+          >
+            <span
+              *ngFor="let dot of slide; let index = index"
+              class="dot"
+              [ngClass]="{ ativo: indiceSelecionado === index }"
+              (click)="selecionarImagem(index)"
+            ></span>
+          </button>
+
+          <button
+          matStepperPrevious
+          type="button"
+          class="input-box btnStep"
+          mat-stroked-button
+        >
+          Voltar
+        </button>
+  
+          <mat-spinner
+            color="primary"
+            diameter="40"
+            class="carregarInformacoes input-box"
+            mode="indeterminate"
+            *ngIf="salvandoInformacoes; else carregarInfo"
+          ></mat-spinner>
+          <ng-template #carregarInfo>
+            <button
+              type="submit"
+              class="input-box"
+              mat-stroked-button
+              [disabled]="cadastroEnderecoForm.invalid"
+            >
+              Cadastrar
+            </button>
+          </ng-template>
         </mat-step>
       </mat-stepper>
     </form>
