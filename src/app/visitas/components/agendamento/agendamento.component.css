@@ -27,7 +27,7 @@ mat-card {
     font-size: medium;
 }
 
-mat-icon {
+.contato mat-icon {
     font-size: medium;
     height: min-content;
 }
@@ -87,4 +87,15 @@ mat-icon {
     flex-direction: column;
     padding: 0;
     margin: 0;
+}
+
+.solEnviada {
+    font-size: medium;
+    font-weight: bold;
+    border: 2px solid #0CA789;
+    border-radius: 10px;
+    color: #0CA789;
+    padding: 10px;
+    width: fit-content;
+    margin: auto;
 }
