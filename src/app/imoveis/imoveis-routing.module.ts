@@ -10,7 +10,7 @@ const routes: Routes = [
     component: PrincipalComponent,
     children: [
       {
-        path: 'imovel',
+        path: 'imovel/:idImovel',
         component: ImovelComponent,
       },
       {

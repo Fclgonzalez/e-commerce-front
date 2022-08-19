@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImovelComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+
+  ) { }
 
   ngOnInit(): void {
+
   }
 
 }
