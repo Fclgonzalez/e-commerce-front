@@ -20,5 +20,5 @@ export interface Imovel {
   caracteristicas: Array<string>
   endereco: Enderecos
   user: User
-  foto: string
+  foto?: string
 }
