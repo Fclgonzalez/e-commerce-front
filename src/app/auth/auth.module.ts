@@ -25,12 +25,8 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     EmailComponent,
     CadastroVendedorComponent,
     FormCadastroVendedorComponent,
-    ConfirmarLogoutComponent,
-    PerfilUsuarioComponent,
+    ConfirmarLogoutComponent
   
-   
-  
-
   ],
   imports: [
     CommonModule,
@@ -39,11 +35,6 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     ReactiveFormsModule,
     ComponentesCompartilhadosModule,
     NgxCaptchaModule
-    
-   
-    
-   
-  
   ],
   
 })

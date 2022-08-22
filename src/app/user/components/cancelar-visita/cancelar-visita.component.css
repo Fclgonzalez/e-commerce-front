@@ -1,0 +1,22 @@
+h2 {
+    text-align: center;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    margin: 0 20px;
+    width: 100px;
+}
+
+p {
+    text-align: center;
+    font-size: medium;
+}
+
+span {
+    font-size: smaller;
+}

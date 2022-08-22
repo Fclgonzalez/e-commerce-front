@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Cancelar Visita</h2>
+<div mat-dialog-content>
+    <p>Você deseja cancelar essa visita?<br>
+        <span>(Caso queira agendar outro horário faça uma nova solicitação na página do imóvel.)</span>
+    </p>
+</div>
+
+<div mat-dialog-actions class="btns">
+    <button [mat-dialog-close]="true" mat-raised-button color="warn">Continuar</button>
+    <button [mat-dialog-close]="false" mat-raised-button color="basic">Voltar</button>
+</div>
