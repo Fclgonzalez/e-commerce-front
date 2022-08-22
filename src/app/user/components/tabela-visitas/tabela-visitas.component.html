@@ -1,0 +1,134 @@
+<mat-card>
+    <div class="title">Visitas Agendadas</div>
+
+    <mat-card-content>
+        <mat-button-toggle-group vertical value="consumidor">
+            <mat-button-toggle #consumidor value="consumidor">Minhas solicitações</mat-button-toggle>
+            <mat-button-toggle #recebidas value="vendedor"> 
+              <p>Solicitações recebidas</p> <p class="sub">(Área do Proprietário)</p>  </mat-button-toggle>
+
+        </mat-button-toggle-group>
+    
+        <div class="dados" *ngIf="consumidor.checked">
+            <table mat-table [dataSource]="visitasConsumidor" multiTemplateDataRows class="mat-elevation-z2">
+                <ng-container matColumnDef="data">
+                    <th class="fixa" mat-header-cell *matHeaderCellDef> Data </th>
+                    <td class="fixa" mat-cell *matCellDef="let visita"> {{visita.dataVisita}} </td>
+                </ng-container>
+                <ng-container matColumnDef="horario">
+                    <th class="fixa" mat-header-cell *matHeaderCellDef> Horário </th>
+                    <td class="fixa" mat-cell *matCellDef="let visita"> {{visita.horarioVisita}} </td>
+                </ng-container>
+                <ng-container matColumnDef="imovel">
+                    <th class="fixa" mat-header-cell *matHeaderCellDef> Imóvel </th>
+                    <td class="fixa" mat-cell *matCellDef="let visita"> {{visita.imovel.titulo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <th class="fixa" mat-header-cell *matHeaderCellDef> Status </th>
+                    <td class="fixa" mat-cell *matCellDef="let visita"> {{visita.statusVisita}} 
+                        <button  mat-icon-button color="warn" *ngIf="visita.statusVisita != 'CANCELADO' && visita.statusVisita != 'CONCLUIDO'" (click)="cancelarVisita(visita.idVisita)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="expand">
+                    <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                    <td mat-cell *matCellDef="let visita">
+                      <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === visita ? null : visita); $event.stopPropagation()">
+                        <mat-icon *ngIf="expandedElement !== visita">keyboard_arrow_down</mat-icon>
+                        <mat-icon *ngIf="expandedElement === visita">keyboard_arrow_up</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+    
+                <ng-container matColumnDef="expandedDetail">
+                    <td mat-cell *matCellDef="let visita" [attr.colspan]="colunasExpandidas.length">
+                      <div class="example-element-detail"
+                           [@detailExpand]="visita == expandedElement ? 'expanded' : 'collapsed'">
+                        <div class="info">
+                          <div> Informações adicionais do imóvel: </div>
+                          <div> Endereço: {{visita.imovel.endereco}} </div>
+                          <div> Descrição: {{visita.imovel.descricao}} </div>
+                          <div> Proprietário: {{visita.imovel.userVendedor.nome}} </div>
+                          <a routerLink="/imobil/imovel/{{visita.imovel.idImovel}}" target="_blank"> Página do imóvel </a>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="colunasExpandidas"></tr>
+                <tr mat-row *matRowDef="let visita; columns: colunasExpandidas;" class="example-element-row"
+                    [class.example-expanded-row]="expandedElement === visita"
+                    (click)="expandedElement = expandedElement === visita ? null : visita">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>    
+
+            </table>
+        </div>
+
+        <div class="dados" *ngIf="recebidas.checked">
+          <table mat-table [dataSource]="visitasVendedor" *ngIf="vendedor else aviso"  multiTemplateDataRows class="mat-elevation-z2">
+              <ng-container matColumnDef="data">
+                  <th class="fixa" mat-header-cell *matHeaderCellDef> Data </th>
+                  <td class="fixa" mat-cell *matCellDef="let visita"> {{visita.dataVisita}} </td>
+              </ng-container>
+              <ng-container matColumnDef="horario">
+                  <th class="fixa" mat-header-cell *matHeaderCellDef> Horário </th>
+                  <td class="fixa" mat-cell *matCellDef="let visita"> {{visita.horarioVisita}} </td>
+              </ng-container>
+              <ng-container matColumnDef="imovel">
+                  <th class="fixa" mat-header-cell *matHeaderCellDef> Imóvel </th>
+                  <td class="fixa" mat-cell *matCellDef="let visita"> {{visita.imovel.titulo}} </td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                  <th class="fixa" mat-header-cell *matHeaderCellDef> Status </th>
+                  <td class="fixa" mat-cell *matCellDef="let visita"> {{visita.statusVisita}} 
+                      <button *ngIf="visita.statusVisita != 'CANCELADO' && visita.statusVisita != 'CONCLUIDO'" mat-icon-button (click)="editarVisita(visita.idVisita)">
+                          <mat-icon>edit</mat-icon>
+                      </button>
+                  </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="expand">
+                  <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                  <td mat-cell *matCellDef="let visita">
+                    <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === visita ? null : visita); $event.stopPropagation()">
+                      <mat-icon *ngIf="expandedElement !== visita">keyboard_arrow_down</mat-icon>
+                      <mat-icon *ngIf="expandedElement === visita">keyboard_arrow_up</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+  
+              <ng-container matColumnDef="expandedDetail">
+                  <td mat-cell *matCellDef="let visita" [attr.colspan]="colunasExpandidas.length">
+                    <div class="example-element-detail"
+                         [@detailExpand]="visita == expandedElement ? 'expanded' : 'collapsed'">
+                      <div class="info">
+                        <div> Informações adicionais: </div>
+                        <div> Descrição do imóvel: {{visita.imovel.descricao}} </div>
+                        <div> Endereço do imóvel: {{visita.imovel.endereco}} </div>
+                        <div> Solicitante: {{visita.userConsumidor.nome}} </div>
+                        <a routerLink="/imobil/imovel/{{visita.imovel.idImovel}}" target="_blank"> Página do imóvel </a>
+                      </div>
+                    </div>
+                  </td>
+                </ng-container>
+  
+              <tr mat-header-row *matHeaderRowDef="colunasExpandidas"></tr>
+              <tr mat-row *matRowDef="let visita; columns: colunasExpandidas;" class="example-element-row"
+                  [class.example-expanded-row]="expandedElement === visita"
+                  (click)="expandedElement = expandedElement === visita ? null : visita">
+              </tr>
+              <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>    
+
+          </table> 
+
+          <ng-template #aviso>
+            <p class="aviso">Para ter acesso a essa área anuncie um imóvel.</p>
+          </ng-template>
+
+      </div>
+
+    </mat-card-content>
+</mat-card>

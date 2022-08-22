@@ -1,0 +1,23 @@
+<div class='header'>
+    <h2 mat-dialog-title>Editar Status da Visita</h2>
+    <button mat-dialog-close class="close" mat-icon-button> 
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div mat-dialog-content>
+    <p>Escolha uma das opções abaixo para alterar o status da visita:</p>
+</div>
+
+<div mat-dialog-actions class="btns">
+    <div class="opcao">
+        <button mat-dialog-close="CONFIRMADO" mat-raised-button class="confirm">Confirmar</button>
+        <button mat-dialog-close="CONCLUIDO" mat-raised-button class="concl">Concluir</button>
+        <button mat-dialog-close="CANCELADO" mat-raised-button class="cancel">Cancelar</button>
+    </div>
+    <div class="opcao">
+        <p>Para confimar o horário da visita.</p>    
+        <p>Para marcar a visita como concluída.</p>
+        <p>Para cancelar a visita.</p>    
+    </div>
+
+</div>
