@@ -318,34 +318,13 @@
           <div *ngIf="slide && slide.length > 0" class="carousel-container">
             <img
               *ngFor="let imagem of slide; let index = index"
-              [src]="imagem.src"
+              [src]="fotoPreview"
               [ngClass]="{ 'imagem-ativa': indiceSelecionado === index }"
             />
           </div>
 
           <!--     //fotoTeste -->
-
-        <input
-        type="file"
-        accept="image/*"
-        id="file-input"
-        #fileInput
-        (change)="recuperarFoto($event)"
-        formControlName="foto"
-        multiple
-        >
-      <button   matTooltip="selecione uma imagem"
-      type="button"
-      mat-stroked-button
-      color="primary"
-      (click)="fileInput.click()"
-      >Selecione uma imagem</button>
-
-          <button
-            type="button"
-            *ngIf="indicador"
-            class="carousel-dot"
-          >
+          <button type="button" *ngIf="indicador" class="carousel-dot">
             <span
               *ngFor="let dot of slide; let index = index"
               class="dot"
@@ -354,8 +333,24 @@
             ></span>
           </button>
 
-
-
+          <input
+            type="file"
+            accept="image/*"
+            id="file-input"
+            #fileInput
+            (change)="recuperarFoto($event)"
+            formControlName="foto"
+            multiple
+          />
+          <button
+            matTooltip="selecione uma imagem"
+            type="button"
+            mat-stroked-button
+            color="primary"
+            (click)="fileInput.click()"
+          >
+            Selecione uma imagem
+          </button>
 
           <button
             matStepperPrevious
@@ -365,7 +360,6 @@
           >
             Voltar
           </button>
-
 
           <mat-spinner
             color="primary"

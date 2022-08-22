@@ -205,8 +205,6 @@ export class FormCadastroImovelComponent implements OnInit {
     });
   }
 
-
-
   constructor(
     private fb: FormBuilder,
     private imovelService: ImoveisService,
@@ -253,6 +251,7 @@ export class FormCadastroImovelComponent implements OnInit {
       });
   }
 
+
   foto!: File
   fotoPreview: string = '';
 
@@ -294,13 +293,12 @@ export class FormCadastroImovelComponent implements OnInit {
     }
 
     this.salvandoInformacoes = true;
-    let foto: any
+
     //Serviços
     let im: Imovel = this.cadastroImovelForm.value;
-<<<<<<< HEAD
 
     if (this.cadastroImovelForm.value.foto.length > 0) {
-      console.log(this.foto)
+
       this.imovelService.cadastrarImovel(im, this.idUser!, this.foto).subscribe(
         (dadosImovel) => {
           const carac: Caracteristica = this.cadastroCaracteristica.value;
@@ -325,20 +323,12 @@ export class FormCadastroImovelComponent implements OnInit {
           const en: Endereco = this.cadastroEnderecoForm.value;
           this.enderecoService
             .cadastrarEnderecoImovel(en, dadosImovel.idImovel)
-=======
-    this.imovelService.cadastrarImovel(im, this.idUser!, foto).subscribe(
-      (dadosImovel) => {
-        const carac: Caracteristica = this.cadastroCaracteristica.value;
-        for (let a of this.cadastroCaracteristica.value.caracteristicas) {
-          this.caracteristicaService
-            .postAddCaracteristicaImovel(a.id, dadosImovel.idImovel!)
->>>>>>> e059fd9ab75a61e3e30df09ed25b7f2d86fc2078
             .subscribe(
               (dadosEndereco) => {
                 this.snackbar.open('Cadastrado com sucesso', 'Ok', {
                   duration: 3000,
                 });
-                this.router.navigateByUrl('/auth/email');
+                this.router.navigateByUrl('/principal/pagina-inicial');
               },
               (errorEnderero) => {
                 this.salvandoInformacoes = false;
@@ -361,10 +351,10 @@ export class FormCadastroImovelComponent implements OnInit {
             {
               duration: 3000,
             }
-          )
+          );
           console.log(errorImovel);
         }
-      )
+      );
     } else {
       return alert ('Não foi possivel realizar o cadastro pois o campo foto está nulo')
     }
