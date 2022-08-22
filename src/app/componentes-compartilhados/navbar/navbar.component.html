@@ -63,13 +63,16 @@
       <li class="nav-item">
         <a class="nav-link active fs-5 mt-4" routerLink=""><mat-icon class="mx-3">home</mat-icon>Imóveis Cadastrados</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link active fs-5 mt-4" routerLink="/user/perfil-usuario"><mat-icon class="mx-3">date_range</mat-icon>Visitas Agendadas</a>
+      </li>
     </ul> 
   </div>
 
   <hr class="bd-links-span-all mt-1 mb-5 mx-3 my-5 border-top text-white">
 
   <div class="mb-3 mx-4 mb-5">
-    <button type="button" class="botaoLogado btn" (click)="sair()">
+    <button type="button" class="botaoLogado btn sair" (click)="sair()">
       <mat-icon>logout</mat-icon> <span class="mx-2">Sair</span>
     </button>
   </div>
