@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, from, map, mergeMap, Observable, tap } from 'rxjs';
+import { BehaviorSubject, from, map, merge, mergeMap, Observable, of, tap } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Imovel } from '../models/imovel';
+import { ImovelComponent } from '../pages/imovel/imovel.component';
 
 @Injectable({
   providedIn: 'root',
@@ -26,33 +27,24 @@ export class ImoveisService {
     return this.http.get<Imovel>(`${this.url}/${id}`);
   }
 
-  cadastrarImovel(imovel: Imovel, idVendedor: number, foto: File): Observable<Imovel> {
-
-    return this.uploadImagem(foto).pipe(mergeMap((linkFotoFirebase) => {
-      imovel.foto = linkFotoFirebase
+  cadastrarImovel(imovel: Imovel, idVendedor: number, linkFoto: any): Observable<Imovel> {
+    imovel.foto = linkFoto
       return this.http.post<Imovel>(`${this.url}/${idVendedor}`, imovel)
-    }))
+      .pipe(tap(() => {
+        this.atualizarImovel$.next(true)
+      }))
   }
 
-  editarImovel(imovel: Imovel, foto?: File): Observable<Imovel> {
+  salvarFoto(foto: File): Observable<any> {
+    return this.uploadImagem(foto)
+  }
 
-    if (foto == undefined) {
-      return this.http.put<Imovel>(`${this.url}/${imovel.idImovel}`, imovel)
-      .pipe(
-        tap(() => {
-          this.atualizarImovel$.next(true);
-        })
-      )
-    }
+  editarImovel(imovel: Imovel, id: number): Observable<Imovel> {
 
-    return this.uploadImagem(foto).pipe(mergeMap((linkFotoFirebase) => {
-        imovel.foto = linkFotoFirebase
         return this.http.put<Imovel>(`${this.url}/${imovel.idImovel}`, imovel)
-      }),
-      tap(() => {
+        .pipe(tap(() => {
         this.atualizarImovel$.next(true)
-      })
-    )
+      }))
   }
 
   buscarCep(cep: string) {
@@ -64,6 +56,8 @@ export class ImoveisService {
 
   const nomeDoArquivo = Date.now()
   const dados = from(this.storage.upload(`${nomeDoArquivo}`, foto))
+
+  console.log(foto);
 
   return dados.pipe(mergeMap(
     (result) => { return result.ref.getDownloadURL() }))

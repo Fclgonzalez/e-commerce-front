@@ -176,6 +176,7 @@ export class FormCadastroVendedorComponent implements OnInit {
     vaga: [0, Validators.required],
     area: [0, Validators.required],
     descricao: [''],
+    foto: ['']
   });
 
   cadastroCaracteristica: FormGroup = this.fb.group({
@@ -237,6 +238,9 @@ export class FormCadastroVendedorComponent implements OnInit {
         });
       });
   }
+
+  foto!: File[]
+
   salvar() {
     //Regras do formulário
     this.cadastroEnderecoForm.value.uf =
@@ -261,16 +265,20 @@ export class FormCadastroVendedorComponent implements OnInit {
 
     this.salvandoInformacoes = true;
 
-    let foto: any
+
 
     //Serviços
     const login: User = this.cadastroVendedorForm.value;
+    let linkFoto: any
+    for (let i = 0; i < this.foto.length; i++) {
+      linkFoto = this.imovelService.salvarFoto(this.foto[i])
+    }
+
     this.authService.cadastrarVendedor(login).subscribe(
       (dadosUser) => {
         let idUser: number = dadosUser;
         let im: Imovel = this.cadastroImovelForm.value;
-        let foto: any
-        this.imovelService.cadastrarImovel(im, idUser, foto).subscribe(
+        this.imovelService.cadastrarImovel(im, idUser, linkFoto).subscribe(
           (dadosImovel) => {
             const carac: Caracteristica = this.cadastroCaracteristica.value;
             for (let a of this.cadastroCaracteristica.value.caracteristicas) {

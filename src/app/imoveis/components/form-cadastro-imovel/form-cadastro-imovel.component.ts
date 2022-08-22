@@ -8,7 +8,7 @@ import {
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { merge, Observable, of } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Endereco } from 'src/app/enderecos/models/endereco';
 import { EnderecosService } from 'src/app/enderecos/services/enderecos.service';
@@ -252,18 +252,18 @@ export class FormCadastroImovelComponent implements OnInit {
   }
 
 
-  foto!: File
+  foto!: File[]
   fotoPreview: string = '';
 
   recuperarFoto(event: any): void {
-    this.foto = event.target.files[0];
+    this.foto = event.target.files;
     this.carregarPreview();
   }
 
   carregarPreview(): void {
     const reader = new FileReader();
 
-    reader.readAsDataURL(this.foto);
+    reader.readAsDataURL(this.foto[0]);
 
     reader.onload = () => {
       this.fotoPreview = reader.result as string;
@@ -296,10 +296,23 @@ export class FormCadastroImovelComponent implements OnInit {
 
     //Serviços
     let im: Imovel = this.cadastroImovelForm.value;
+    let linkFoto: any
+    for (let i = 0; i < this.foto.length; i++) {
+      linkFoto = this.imovelService.salvarFoto(this.foto[i])
+    }
+    let links: any[]
 
-    if (this.cadastroImovelForm.value.foto.length > 0) {
+    merge(... Array.isArray(this.foto) ? this.foto.map((num) => of(this.imovelService.salvarFoto(num))) : []).subscribe({
+    next: (imageUrl) => {
+      links.push(imageUrl);
+    },
+    complete: () => {
+      console.log('Upload concluído');
+      console.log(links);
+    },
+    });
 
-      this.imovelService.cadastrarImovel(im, this.idUser!, this.foto).subscribe(
+      this.imovelService.cadastrarImovel(im, this.idUser!, linkFoto).subscribe(
         (dadosImovel) => {
           const carac: Caracteristica = this.cadastroCaracteristica.value;
           for (let a of this.cadastroCaracteristica.value.caracteristicas) {
@@ -355,9 +368,6 @@ export class FormCadastroImovelComponent implements OnInit {
           console.log(errorImovel);
         }
       );
-    } else {
-      return alert ('Não foi possivel realizar o cadastro pois o campo foto está nulo')
-    }
   }
 
   consultaCep(cep: string, form: any) {
