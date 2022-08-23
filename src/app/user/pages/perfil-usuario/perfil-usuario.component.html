@@ -2,103 +2,138 @@
 <div class="title1">Meu Perfil</div>
 
 <mat-card class="dados" *ngIf="dados">
-
+  
   <div class="container">
     <div>
-      <button type="button" class="btn" id="btnAgendar" mat-raised-button (click)="dados = true; endereco = false">Dados Pessoais</button>
-      <button type="button" class="btn" id="btn" mat-raised-button (click)="dados = false; endereco = true">Endereço </button>
-
-    </div>
-
+      <button type="button" class="btn" id="btn" mat-raised-button (click)="dados = true; dadosEndereco = false">Dados Pessoais</button>
+      <button type="button" class="btn" id="btn" mat-raised-button (click)="dados = false; dadosEndereco  = true">Endereço </button>
+   
+   </div> 
+  
     <div class="box">
-
-      <form>
-        <div class="title">Dados Pessoais</div>
-        <div class="input-box underline">
-          <input type="text" placeholder="Nome" formControlName="username">
-          <div class="underline"></div>
-        </div>
-
-        <div class="input-box underline">
-          <input type="email" placeholder="Email" formControlName="email">
-          <div class="underline"></div>
-        </div>
-
-        <div class="input-box underline">
-          <input type="tel" placeholder="Celular" formControlName="celular">
-          <div class="underline"></div>
-        </div>
-
-        <div class="input-box underline">
-          <input type="tel" placeholder="Telefone" formControlName="telefone">
-          <div class="underline"></div>
-        </div>
-
-        <div class="input-box button">
-          <button type="submit" >Editar</button>
-        </div>
     
+    
+      <!-- <mat-card-content>
+        <form action="" [formGroup]="formUser" (ngSubmit)="atualizarUser()">
+  
+            <mat-form-field appearance="legacy" class="input-box underline">
+                <mat-label>Nome</mat-label>
+                <input type="text" matInput placeholder="Nome do cliente" formControlName="nome">
+            </mat-form-field>
+  
+            <mat-form-field appearance="legacy" class="input-box underline">
+                <mat-label>E-mail</mat-label>
+                <input type="username" matInput placeholder="email@email.com" formControlName="username">
+            </mat-form-field>
+  
+            <mat-form-field appearance="legacy" class="input-box underline">
+                <mat-label>Celular</mat-label>
+                <input type="tel" placeholder="Ex: (71) 9 9876-3118" matInput formControlName="celular">
+            </mat-form-field>
+  
+            <mat-form-field appearance="legacy" class="input-box underline">
+                <mat-label>Telefone</mat-label>
+                <input type="tel" placeholder="Ex: (71) 1234-5678" matInput formControlName="telefone">
+            </mat-form-field>
+                      
+          <div class="input-box button"> 
+              <button  type="submit" mat-raised-button id="salvar" [disabled]="desabilitar"  matTooltip="Salvar Atualizações do Cliente" matTooltipPosition="above">
+                Salvar Atualizações
+                </button>
+           </div> 
+            
+        </form>
+    </mat-card-content> -->
+    <mat-card-content>
+      <form action="" [formGroup]="formUser" (ngSubmit)="atualizarUser()">
+
+          <mat-form-field appearance="legacy">
+              <mat-label>Nome</mat-label>
+              <input type="text" matInput placeholder="Nome do cliente" formControlName="nome">
+          </mat-form-field>
+
+          <mat-form-field appearance="legacy">
+              <mat-label>E-mail</mat-label>
+              <input type="username" matInput placeholder="email@email.com" formControlName="username">
+          </mat-form-field>
+
+          <mat-form-field appearance="legacy">
+              <mat-label>Celular</mat-label>
+              <input type="tel" placeholder="Ex: (71) 9 9876-3118" matInput formControlName="celular">
+          </mat-form-field>
+
+          <mat-form-field appearance="legacy">
+              <mat-label>Telefone</mat-label>
+              <input type="tel" placeholder="Ex: (71) 1234-5678" matInput formControlName="telefone">
+          </mat-form-field>
+                    
+          <button class="btnAtualizar" type="submit" mat-raised-button  id="salvar" [disabled]="desabilitar"   matTooltip="Salvar Atualizações do Usuario" matTooltipPosition="above">
+          Salvar Atualizações
+          </button>
+
       </form>
+  </mat-card-content>
     </div>
-  </div>
+ </div>
 </mat-card>
 
-<mat-card class="endereco" *ngIf="endereco">
+
+<mat-card class="endereco" *ngIf="dadosEndereco">
 
   <div class="container">
     <div>
-      <button type="button" class="btn" id="btnAgendar" mat-raised-button (click)="dados = true; endereco = false">Dados Pessoais</button>
-      <button type="button" class="btn" id="btn" mat-raised-button (click)="dados = false; endereco = true">Endereço </button>
-    </div>
+      <button type="button" class="btn" id="btnAgendar" mat-raised-button (click)="dados = true; dadosEndereco  = false">Dados Pessoais</button>
+      <button type="button" class="btn" id="btn" mat-raised-button (click)="dados = false; dadosEndereco  = true">Endereço </button>
+   </div> 
+  
 
     <div class="box">
-      <form action="" [formGroup]="formEndereco">
-        <div class="title">Endereço</div>
+      
+      <mat-card-content>
+        <form action="" [formGroup]="formEndereco" (ngSubmit)="atualizarEndereco()" >
+  
+            <mat-form-field appearance="legacy">
+                <mat-label>Logradouro</mat-label>
+                <input type="text" matInput placeholder="Rua, Avenida" formControlName="logradouro">
+            </mat-form-field>
+  
+            <mat-form-field appearance="legacy">
+                <mat-label>Número</mat-label>
+                <input type="number" matInput placeholder="76" formControlName="numero">
+            </mat-form-field>
+  
+            <mat-form-field appearance="legacy">
+                <mat-label>Complemento</mat-label>
+                <input type="text" placeholder="Bloco, apartamento" matInput formControlName="complemento">
+            </mat-form-field>
+  
+            <mat-form-field  appearance="legacy">
+                <mat-label>Cep</mat-label>
+                <input type="text" placeholder="Ex: 01234-567" matInput formControlName="cep">
+            </mat-form-field>
 
-        <div class="input-box underline">
-          <input type="text" placeholder="Logradouro" formControlName="logradouro">
-          <div class="underline"></div>
-        </div>
+            <mat-form-field  appearance="legacy">
+              <mat-label>Bairro</mat-label>
+              <input type="text" placeholder="Ex: Jardim Europa" matInput formControlName="bairro">
+          </mat-form-field>
 
-        <div class="input-box underline">
-          <input type="text" placeholder="Número" formControlName="numero">
-          <div class="underline"></div>
-        </div>
+          <mat-form-field appearance="legacy">
+            <mat-label>Cidade</mat-label>
+            <input type="text" placeholder="São Paulo" matInput formControlName="cidade">
+        </mat-form-field>
 
-        <div class="input-box underline">
-          <input type="text" placeholder="Complemento" formControlName="complemento">
-          <div class="underline"></div>
-        </div>
-
-        <div class="input-box underline">
-          <input type="text" placeholder="CEP" formControlName="cep">
-          <div class="underline"></div>
-        </div>
-
-        <div class="input-box underline">
-          <input type="text" placeholder="Bairro" formControlName="bairro">
-          <div class="underline"></div>
-        </div>
-
-        <div class="input-box underline">
-          <input type="text" placeholder="Cidade" formControlName="cidade">
-          <div class="underline"></div>
-        </div>
-
-        <div class="input-box underline">
-          <input type="tel" placeholder="UF" formControlName="uf"  matInput formControlName="uf">
-          <div class="underline"></div>
-        </div>
-
-        <div class="input-box button">
-          <button type="submit" [disabled]="formEndereco.invalid" >Editar</button>
-        </div>
-
-      </form>
+        <mat-form-field appearance="legacy">
+          <mat-label>UF</mat-label>
+          <input type="text" placeholder="SP" matInput formControlName="uf">
+      </mat-form-field>
+                      
+            <button class="btnAtualizar" type="submit" mat-raised-button  id="salvar" [disabled]="desabilitar"   matTooltip="Salvar Atualizações do Usuario" matTooltipPosition="above">
+            Salvar Atualizações
+            </button>
+  
+        </form>
+    </mat-card-content>
     </div>
-  </div>
+ </div>
+
 </mat-card>
-
-<app-tabela-visitas></app-tabela-visitas>
-
-<app-footer></app-footer>

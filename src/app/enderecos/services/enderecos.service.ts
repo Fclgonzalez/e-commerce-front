@@ -12,16 +12,20 @@ export class EnderecosService {
     true
   );
 
+
   constructor(private http: HttpClient) {}
   /*   getEnderecos() {
-    return this.http.get<Enderecos[]>(this.baseurl);
-  }
+    return this.http.get<Endereco[]>(this.baseurl);
+  }*/
 
-  getEnderecosID(id: number) {
-    return this.http.get<Enderecos>(`${this.baseurl}/${id}`)
+  getEnderecosById(idEndereco: number) {
+    return this.http.get<Endereco>(`${this.url}/${idEndereco}`)
   } 
-
- */
+ 
+  getEnderecosByUsername(username: string): Observable<Endereco> {
+    return this.http.get<Endereco>(`${this.url}/username/${username}`)
+  }
+  
   cadastrarEnderecoImovel(
     endereco: Endereco,
     idImovel?: number
@@ -44,11 +48,17 @@ export class EnderecosService {
     );
   } */
 
-  /* putCliente(cliente: Clientes, endereco: EnderecoCliente) {
-    return this.http.put<EnderecoCliente>(`${this.baseurl2}/${cliente.idCliente}`, endereco).pipe(mergeMap(
-      (a) => {
-        cliente.enderecoCliente = a
-        return this.http.put<Clientes>(`${this.baseurl}/${cliente.idCliente}`, cliente).pipe(tap(() => this.atualizarClientesSub$.next(true)))
-      }
-    ))}  */
+
+    atualizarEndereco(endereco: Endereco): Observable<Endereco> {
+
+      return this.http.put<Endereco>(`${this.url}/${endereco.idEndereco}`, endereco)
+      .pipe(
+        tap((endereco) => {
+          this.atualizarEndereco$.next(true)
+        })
+      )
+
+    } 
+
+   
 }
