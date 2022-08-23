@@ -16,15 +16,14 @@ import { NaviComponent } from './components/navi/navi.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PendenteComponent } from './pages/pendente/pendente.component';
 import { CardsComponent } from './components/cards/cards.component';
-import { BarChartComponent } from './components/bar-chart/bar-chart.component';
-import { BarChartVendedorComponent } from './components/bar-chart-vendedor/bar-chart-vendedor.component';
-import { BarChartImoveisComponent } from './components/bar-chart-imoveis/bar-chart-imoveis.component';
-import { BarChartVisitasComponent } from './components/bar-chart-visitas/bar-chart-visitas.component';
 import { ImovelTableComponent } from './components/imovel-table/imovel-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ImovelDialogComponent } from './components/imovel-dialog/imovel-dialog.component';
+import { ActuatorComponent } from './pages/actuator/actuator.component';
+import { NgxPaginationModule } from  'ngx-pagination';
+
 
 
 @NgModule({
@@ -33,12 +32,9 @@ import { ImovelDialogComponent } from './components/imovel-dialog/imovel-dialog.
     DashboardComponent,
     PendenteComponent,
     CardsComponent,
-    BarChartComponent,
-    BarChartVendedorComponent,
-    BarChartImoveisComponent,
-    BarChartVisitasComponent,
     ImovelTableComponent,
-    ImovelDialogComponent
+    ImovelDialogComponent,
+    ActuatorComponent,
   ],
   imports: [
     CommonModule,
@@ -54,7 +50,8 @@ import { ImovelDialogComponent } from './components/imovel-dialog/imovel-dialog.
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule,
   ]
 })
 export class AdminModule { }
