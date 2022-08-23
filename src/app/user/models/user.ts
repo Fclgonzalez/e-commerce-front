@@ -1,3 +1,5 @@
+import { Endereco } from "src/app/enderecos/models/endereco"
+
 export interface User {
     idUser?: number
     username: string
@@ -8,5 +10,5 @@ export interface User {
     telefone?: string
     dataCriacao?: Date
     dataAtualizacao?: Date
-    // enderecoUser: Endereco
+    enderecoUser: Endereco
 }
