@@ -1,16 +1,36 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminLogadoGuard } from '../guards/admin-logado.guard';
+import { UserLogadoGuard } from '../guards/user-logado.guard';
+import { ActuatorComponent } from './pages/actuator/actuator.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PendenteComponent } from './pages/pendente/pendente.component';
 
 const routes: Routes = [
   {
     path:'',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [
+      UserLogadoGuard,
+      AdminLogadoGuard
+    ]
   },{
     path:'pendente',
-    component: PendenteComponent
+    component: PendenteComponent,
+    canActivate: [
+      UserLogadoGuard,
+      AdminLogadoGuard
+    ]
+  },
+  {
+    path:'actuator',
+     component: ActuatorComponent,
+     canActivate: [
+      UserLogadoGuard,
+      AdminLogadoGuard
+    ]
   }
+
 ];
 
 @NgModule({
