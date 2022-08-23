@@ -8,7 +8,7 @@ import {
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { forkJoin, merge, Observable, of } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Endereco } from 'src/app/enderecos/models/endereco';
 import { EnderecosService } from 'src/app/enderecos/services/enderecos.service';
@@ -175,6 +175,7 @@ export class FormCadastroImovelComponent implements OnInit {
     vaga: [0, Validators.required],
     area: [0, Validators.required],
     descricao: [''],
+    foto: ['']
   });
 
   cadastroCaracteristica: FormGroup = this.fb.group({
@@ -250,6 +251,25 @@ export class FormCadastroImovelComponent implements OnInit {
       });
   }
 
+
+  foto!: FileList
+  fotoPreview: string = '';
+
+  recuperarFoto(event: any): void {
+    this.foto = event.target.files;
+    this.carregarPreview();
+  }
+
+  carregarPreview(): void {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(this.foto[0]);
+
+    reader.onload = () => {
+      this.fotoPreview = reader.result as string;
+    };
+  }
+
   salvar() {
     //Regras do formulário
     this.cadastroEnderecoForm.value.uf =
@@ -273,65 +293,84 @@ export class FormCadastroImovelComponent implements OnInit {
     }
 
     this.salvandoInformacoes = true;
-    let foto: any
+
     //Serviços
     let im: Imovel = this.cadastroImovelForm.value;
-    this.imovelService.cadastrarImovel(im, this.idUser!, foto).subscribe(
-      (dadosImovel) => {
-        const carac: Caracteristica = this.cadastroCaracteristica.value;
-        for (let a of this.cadastroCaracteristica.value.caracteristicas) {
-          this.caracteristicaService
-            .postAddCaracteristicaImovel(a.id, dadosImovel.idImovel!)
-            .subscribe(
-              (sucess) => {},
-              (errorCarac) => {
-                this.salvandoInformacoes = false;
-                this.snackbar.open(
-                  'Não foi possível realizar o cadastro da característica',
-                  'Ok',
-                  {
-                    duration: 3000,
+
+    forkJoin(Array.from(this.foto).map((app) => (this.imovelService.salvarFoto(app)))).subscribe({
+      next: (links) => {
+        console.log(links);
+
+        this.imovelService.cadastrarImovel(im, this.idUser!, links).subscribe(
+          (dadosImovel) => {
+            const carac: Caracteristica = this.cadastroCaracteristica.value;
+            for (let a of this.cadastroCaracteristica.value.caracteristicas) {
+              this.caracteristicaService
+                .postAddCaracteristicaImovel(a.id, dadosImovel.idImovel!)
+                .subscribe(
+                  (sucess) => {},
+                  (errorCarac) => {
+                    this.salvandoInformacoes = false;
+                    this.snackbar.open(
+                      'Não foi possível realizar o cadastro da característica',
+                      'Ok',
+                      {
+                        duration: 3000,
+                      }
+                    );
+                    console.log(errorCarac);
                   }
                 );
-                console.log(errorCarac);
-              }
-            );
-        }
-        const en: Endereco = this.cadastroEnderecoForm.value;
-        this.enderecoService
-          .cadastrarEnderecoImovel(en, dadosImovel.idImovel)
-          .subscribe(
-            (dadosEndereco) => {
-              this.snackbar.open('Cadastrado com sucesso', 'Ok', {
-                duration: 3000,
-              });
-              this.router.navigateByUrl('/auth/email');
-            },
-            (errorEnderero) => {
-              this.salvandoInformacoes = false;
-              this.snackbar.open(
-                'Não foi possível realizar o cadastro do endereço',
-                'Ok',
-                {
-                  duration: 3000,
+            }
+            const en: Endereco = this.cadastroEnderecoForm.value;
+            this.enderecoService
+              .cadastrarEnderecoImovel(en, dadosImovel.idImovel)
+              .subscribe(
+                (dadosEndereco) => {
+                  this.snackbar.open('Cadastrado com sucesso', 'Ok', {
+                    duration: 3000,
+                  });
+                  this.router.navigateByUrl('/principal/pagina-inicial');
+                },
+                (errorEnderero) => {
+                  this.salvandoInformacoes = false;
+                  this.snackbar.open(
+                    'Não foi possível realizar o cadastro do endereço',
+                    'Ok',
+                    {
+                      duration: 3000,
+                    }
+                  );
+                  console.log(errorEnderero);
                 }
               );
-              console.log(errorEnderero);
-            }
-          );
-      },
-      (errorImovel) => {
-        this.salvandoInformacoes = false;
-        this.snackbar.open(
-          'Não foi possível realizar o cadastro do imóvel',
-          'Ok',
-          {
-            duration: 3000,
+          },
+          (errorImovel) => {
+            this.salvandoInformacoes = false;
+            this.snackbar.open(
+              'Não foi possível realizar o cadastro do imóvel',
+              'Ok',
+              {
+                duration: 3000,
+              }
+            );
+            console.log(errorImovel);
           }
         );
-        console.log(errorImovel);
       }
-    );
+
+    })
+    // merge(...this.foto.map((num) => (this.imovelService.salvarFoto(num)))).subscribe({
+    // next: (imageUrl) => {
+    //   links.push(imageUrl);
+    // },
+    // complete: () => {
+    //   console.log('Upload concluído');
+    //   console.log(links);
+    // },
+    // });
+
+
   }
 
   consultaCep(cep: string, form: any) {
@@ -350,9 +389,9 @@ export class FormCadastroImovelComponent implements OnInit {
     }
   }
 
-  salvarFoto() {
-    // fotoTeste
-  }
+  // salvarFoto() {
+  //   fotoTeste
+  // }
 
   //fotoTeste
   indiceSelecionado = 0;
