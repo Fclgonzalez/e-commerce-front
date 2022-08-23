@@ -8,7 +8,7 @@ import {
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { merge, Observable, of } from 'rxjs';
+import { forkJoin, merge, Observable, of } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Endereco } from 'src/app/enderecos/models/endereco';
 import { EnderecosService } from 'src/app/enderecos/services/enderecos.service';
@@ -252,7 +252,7 @@ export class FormCadastroImovelComponent implements OnInit {
   }
 
 
-  foto!: File[]
+  foto!: FileList
   fotoPreview: string = '';
 
   recuperarFoto(event: any): void {
@@ -296,78 +296,81 @@ export class FormCadastroImovelComponent implements OnInit {
 
     //Serviços
     let im: Imovel = this.cadastroImovelForm.value;
-    let linkFoto: any
-    for (let i = 0; i < this.foto.length; i++) {
-      linkFoto = this.imovelService.salvarFoto(this.foto[i])
-    }
-    let links: any[]
 
-    merge(... Array.isArray(this.foto) ? this.foto.map((num) => of(this.imovelService.salvarFoto(num))) : []).subscribe({
-    next: (imageUrl) => {
-      links.push(imageUrl);
-    },
-    complete: () => {
-      console.log('Upload concluído');
-      console.log(links);
-    },
-    });
+    forkJoin(Array.from(this.foto).map((app) => (this.imovelService.salvarFoto(app)))).subscribe({
+      next: (links) => {
+        console.log(links);
 
-      this.imovelService.cadastrarImovel(im, this.idUser!, linkFoto).subscribe(
-        (dadosImovel) => {
-          const carac: Caracteristica = this.cadastroCaracteristica.value;
-          for (let a of this.cadastroCaracteristica.value.caracteristicas) {
-            this.caracteristicaService
-              .postAddCaracteristicaImovel(a.id, dadosImovel.idImovel!)
+        this.imovelService.cadastrarImovel(im, this.idUser!, links).subscribe(
+          (dadosImovel) => {
+            const carac: Caracteristica = this.cadastroCaracteristica.value;
+            for (let a of this.cadastroCaracteristica.value.caracteristicas) {
+              this.caracteristicaService
+                .postAddCaracteristicaImovel(a.id, dadosImovel.idImovel!)
+                .subscribe(
+                  (sucess) => {},
+                  (errorCarac) => {
+                    this.salvandoInformacoes = false;
+                    this.snackbar.open(
+                      'Não foi possível realizar o cadastro da característica',
+                      'Ok',
+                      {
+                        duration: 3000,
+                      }
+                    );
+                    console.log(errorCarac);
+                  }
+                );
+            }
+            const en: Endereco = this.cadastroEnderecoForm.value;
+            this.enderecoService
+              .cadastrarEnderecoImovel(en, dadosImovel.idImovel)
               .subscribe(
-                (sucess) => {},
-                (errorCarac) => {
+                (dadosEndereco) => {
+                  this.snackbar.open('Cadastrado com sucesso', 'Ok', {
+                    duration: 3000,
+                  });
+                  this.router.navigateByUrl('/principal/pagina-inicial');
+                },
+                (errorEnderero) => {
                   this.salvandoInformacoes = false;
                   this.snackbar.open(
-                    'Não foi possível realizar o cadastro da característica',
+                    'Não foi possível realizar o cadastro do endereço',
                     'Ok',
                     {
                       duration: 3000,
                     }
                   );
-                  console.log(errorCarac);
+                  console.log(errorEnderero);
                 }
               );
-          }
-          const en: Endereco = this.cadastroEnderecoForm.value;
-          this.enderecoService
-            .cadastrarEnderecoImovel(en, dadosImovel.idImovel)
-            .subscribe(
-              (dadosEndereco) => {
-                this.snackbar.open('Cadastrado com sucesso', 'Ok', {
-                  duration: 3000,
-                });
-                this.router.navigateByUrl('/principal/pagina-inicial');
-              },
-              (errorEnderero) => {
-                this.salvandoInformacoes = false;
-                this.snackbar.open(
-                  'Não foi possível realizar o cadastro do endereço',
-                  'Ok',
-                  {
-                    duration: 3000,
-                  }
-                );
-                console.log(errorEnderero);
+          },
+          (errorImovel) => {
+            this.salvandoInformacoes = false;
+            this.snackbar.open(
+              'Não foi possível realizar o cadastro do imóvel',
+              'Ok',
+              {
+                duration: 3000,
               }
             );
-        },
-        (errorImovel) => {
-          this.salvandoInformacoes = false;
-          this.snackbar.open(
-            'Não foi possível realizar o cadastro do imóvel',
-            'Ok',
-            {
-              duration: 3000,
-            }
-          );
-          console.log(errorImovel);
-        }
-      );
+            console.log(errorImovel);
+          }
+        );
+      }
+
+    })
+    // merge(...this.foto.map((num) => (this.imovelService.salvarFoto(num)))).subscribe({
+    // next: (imageUrl) => {
+    //   links.push(imageUrl);
+    // },
+    // complete: () => {
+    //   console.log('Upload concluído');
+    //   console.log(links);
+    // },
+    // });
+
+
   }
 
   consultaCep(cep: string, form: any) {

@@ -54,7 +54,7 @@ export class ImoveisService {
 
   private uploadImagem(foto: File): Observable<string> {
 
-  const nomeDoArquivo = Date.now()
+  const nomeDoArquivo = Date.now() + Math.floor(Math.random()*1000)
   const dados = from(this.storage.upload(`${nomeDoArquivo}`, foto))
 
   console.log(foto);

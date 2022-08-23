@@ -25,20 +25,7 @@ export class ImovelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(
-      (params) => {
-        let id = parseInt(params.get('idImovel') ?? '0')
-        this.buscaImovel(id)
-      }
-    )
+
   }
 
-  buscaImovel(id: number) {
-    this.imovelService.getImoveisById(id).subscribe(async (dadosImovel) => {
-      this.imovel = dadosImovel
-    },
-    (erro: HttpErrorResponse) => {
-      this.naoEncontrado = erro.status == 404
-    })
-  }
 }
