@@ -80,7 +80,7 @@
             Avançar
           </button>
         </mat-step>
-                <mat-step [stepControl]="cadastroImovelForm">
+        <mat-step [stepControl]="cadastroImovelForm">
           <form [formGroup]="cadastroImovelForm" (ngSubmit)="salvar()">
             <div class="title">Cadastre seu Imovel</div>
             <mat-form-field class="input-box underline" appearance="legacy">
@@ -184,7 +184,17 @@
                 type="number"
                 placeholder="0"
                 matInput
-                formControlName="quarto"
+                formControlName="quartos"
+              />
+              <mat-error><span>Campo Obrigatório</span></mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="legacy" class="input-box underline">
+              <mat-label>Banheiros</mat-label>
+              <input
+                type="number"
+                placeholder="0"
+                matInput
+                formControlName="banheiros"
               />
               <mat-error><span>Campo Obrigatório</span></mat-error>
             </mat-form-field>
@@ -204,7 +214,7 @@
                 type="number"
                 placeholder="0"
                 matInput
-                formControlName="vaga"
+                formControlName="vagas"
               />
               <mat-error><span>Campo Obrigatório</span></mat-error>
             </mat-form-field>
@@ -292,7 +302,7 @@
                   <mat-icon>search</mat-icon>
                 </button>
               </span>
-             
+
               <mat-error>
                 <span
                   *ngIf="cadastroEnderecoForm.get('cep')?.getError('required')"
@@ -393,25 +403,10 @@
                 Avançar
               </button>
             </div>
-
-            <div class="input-box"></div>
-
-            <div class="text sign-up-text">
-              Já possui uma conta?
-              <label for="flip"
-                ><a routerLink="/auth/login">Entre aqui</a></label
-              >
-            </div>
-
-            <p class="text">
-              Ao continuar, você esta de Acordo com os Termos de Uso e Ciente da
-              Política de Privacidade.
-            </p>
           </form>
         </mat-step>
 
         <mat-step>
-          
           <!--     //fotoTeste -->
           <div *ngIf="slide && slide.length > 0" class="carousel-container">
             <img
@@ -422,11 +417,7 @@
           </div>
 
           <!--     //fotoTeste -->
-          <button
-            type="button"
-            *ngIf="indicador"
-            class="carousel-dot"
-          >
+          <button type="button" *ngIf="indicador" class="carousel-dot">
             <span
               *ngFor="let dot of slide; let index = index"
               class="dot"
@@ -436,14 +427,14 @@
           </button>
 
           <button
-          matStepperPrevious
-          type="button"
-          class="input-box btnStep"
-          mat-stroked-button
-        >
-          Voltar
-        </button>
-  
+            matStepperPrevious
+            type="button"
+            class="input-box btnStep"
+            mat-stroked-button
+          >
+            Voltar
+          </button>
+
           <mat-spinner
             color="primary"
             diameter="40"
@@ -454,9 +445,9 @@
           <ng-template #carregarInfo>
             <button
               type="submit"
-              class="input-box"
+              class="input-box submit"
               mat-stroked-button
-              [disabled]="cadastroEnderecoForm.invalid"
+              [disabled]="slide.length == 0"
             >
               Cadastrar
             </button>

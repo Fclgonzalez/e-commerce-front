@@ -1,11 +1,11 @@
 export interface Endereco {
-    idEndereco?: number
+    idEndereco?: number   
     logradouro: string
     numero: number
-    complemento:string
+    complemento?:string
     bairro: string
-    cep:string
     cidade: string
-    uf: string
+    uf: string,
+    cep:string
 
 }

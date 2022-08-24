@@ -10,5 +10,6 @@ export interface User {
     telefone?: string
     dataCriacao?: Date
     dataAtualizacao?: Date
-    enderecoUser: Endereco
+    roles?:Array<any>
+    // enderecoUser: Endereco
 }

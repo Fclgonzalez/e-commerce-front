@@ -102,7 +102,17 @@
               type="number"
               placeholder="0"
               matInput
-              formControlName="quarto"
+              formControlName="quartos"
+            />
+            <mat-error><span>Campo Obrigatório</span></mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="legacy" class="input-box underline">
+            <mat-label>Banheiros</mat-label>
+            <input
+              type="number"
+              placeholder="0"
+              matInput
+              formControlName="banheiros"
             />
             <mat-error><span>Campo Obrigatório</span></mat-error>
           </mat-form-field>
@@ -122,7 +132,7 @@
               type="number"
               placeholder="0"
               matInput
-              formControlName="vaga"
+              formControlName="vagas"
             />
             <mat-error><span>Campo Obrigatório</span></mat-error>
           </mat-form-field>
@@ -165,15 +175,7 @@
             ></textarea>
           </mat-form-field>
 
-          <button
-            matStepperPrevious
-            type="button"
-            class="input-box btnStep"
-            mat-stroked-button
-          >
-            Voltar
-          </button>
-
+         
           <button
             matStepperNext
             type="button"
@@ -371,9 +373,9 @@
           <ng-template #carregarInfo>
             <button
               type="submit"
-              class="input-box"
+              class="input-box submit"
               mat-stroked-button
-              [disabled]="cadastroEnderecoForm.invalid"
+              [disabled]="slide.length == 0"
             >
               Cadastrar
             </button>

@@ -10,6 +10,7 @@ import { FormCadastroImovelComponent } from './components/form-cadastro-imovel/f
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentesCompartilhadosModule } from '../componentes-compartilhados/componentes-compartilhados.module';
+import { ImovelVendedorComponent } from './components/imovel-vendedor/imovel-vendedor.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ComponentesCompartilhadosModule } from '../componentes-compartilhados/c
     PrincipalComponent,
     ImovelComponent,
     CadastroImovelComponent,
-    FormCadastroImovelComponent
+    FormCadastroImovelComponent,
+    ImovelVendedorComponent
   ],
   imports: [
     CommonModule,

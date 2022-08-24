@@ -29,7 +29,7 @@ export class FormCadastroVendedorComponent implements OnInit {
     },
     {
       nome: 'Apartamento',
-      variavel: 'APARTAMENTO',
+      tipo: 'APARTAMENTO',
     },
     {
       nome: 'Armazém',
@@ -170,10 +170,10 @@ export class FormCadastroVendedorComponent implements OnInit {
     valorVenda: [0],
     tipoImovel: ['', Validators.required],
     finalidadeImovel: ['', Validators.required],
-    quarto: [0, Validators.required],
-    banheiro: [0, Validators.required],
+    quartos: [0, Validators.required],
+    banheiros: [0, Validators.required],
     suite: [0, Validators.required],
-    vaga: [0, Validators.required],
+    vagas: [0, Validators.required],
     area: [0, Validators.required],
     descricao: [''],
     foto: ['']
@@ -246,22 +246,44 @@ export class FormCadastroVendedorComponent implements OnInit {
     this.cadastroEnderecoForm.value.uf =
       this.cadastroEnderecoForm.value.uf.toUpperCase();
 
-    if (this.cadastroImovelForm.value.contratoAluguel == false) {
-      this.cadastroImovelForm.value.valorAluguel = 0;
-    }
-
-    if (this.cadastroImovelForm.value.contratoVenda == false) {
-      this.cadastroImovelForm.value.valorVenda = 0;
-    }
-
-    if (
-      this.cadastroImovelForm.value.contratoAluguel == false &&
-      this.cadastroImovelForm.value.contratoVenda == false
-    ) {
-      return alert(
-        'O checkbox do aluguel ou da venda do imóvel deve estar ativo'
-      );
-    }
+    
+      if (this.cadastroImovelForm.value.contratoVenda == false) {
+        this.cadastroImovelForm.value.valorVenda = 0;
+      }
+  
+      if (this.cadastroImovelForm.value.contratoAluguel == false) {
+        this.cadastroImovelForm.value.valorAluguel = 0;
+      }
+  
+      if (
+        this.cadastroImovelForm.value.contratoAluguel == true &&
+        (this.cadastroImovelForm.value.valorAluguel == null ||
+          this.cadastroImovelForm.value.valorAluguel == undefined ||
+          this.cadastroImovelForm.value.valorAluguel <= 0)
+      ) {
+        return alert(
+          'O valor não pode ser nulo ou negativo'
+        );
+      }
+      if (
+        this.cadastroImovelForm.value.contratoVenda == true &&
+        (this.cadastroImovelForm.value.valorVenda == null ||
+          this.cadastroImovelForm.value.valorVenda == undefined ||
+          this.cadastroImovelForm.value.valorVenda <= 0)
+      ) {
+        return alert(
+          'O valor não pode ser nulo ou negativo'
+        );
+      }
+  
+      if (
+        this.cadastroImovelForm.value.contratoAluguel == false &&
+        this.cadastroImovelForm.value.contratoVenda == false
+      ) {
+        return alert(
+          'O checkbox do aluguel ou da venda do imóvel deve estar ativo'
+        );
+      }
 
     this.salvandoInformacoes = true;
 
@@ -280,6 +302,7 @@ export class FormCadastroVendedorComponent implements OnInit {
         let im: Imovel = this.cadastroImovelForm.value;
         this.imovelService.cadastrarImovel(im, idUser, linkFoto).subscribe(
           (dadosImovel) => {
+            console.log(dadosImovel);
             const carac: Caracteristica = this.cadastroCaracteristica.value;
             for (let a of this.cadastroCaracteristica.value.caracteristicas) {
               this.caracteristicaService
@@ -295,6 +318,7 @@ export class FormCadastroVendedorComponent implements OnInit {
                         duration: 3000,
                       }
                     );
+
                     console.log(errorCarac);
                   }
                 );
@@ -313,12 +337,13 @@ export class FormCadastroVendedorComponent implements OnInit {
                 (errorEnderero) => {
                   this.salvandoInformacoes = false;
                   this.snackbar.open(
-                    'Não foi possível realizar o cadastro do imóvel',
+                    'Não foi possível realizar o cadastro do endereço',
                     'Ok',
                     {
                       duration: 3000,
                     }
                   );
+
                   console.log(errorEnderero);
                 }
               );
@@ -332,6 +357,7 @@ export class FormCadastroVendedorComponent implements OnInit {
                 duration: 3000,
               }
             );
+
             console.log(errorImovel);
           }
         );
@@ -345,6 +371,7 @@ export class FormCadastroVendedorComponent implements OnInit {
             duration: 3000,
           }
         );
+
         console.log(errorUser);
       }
     );

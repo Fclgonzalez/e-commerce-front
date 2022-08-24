@@ -16,7 +16,6 @@
   flex-direction: row;
   justify-content: center;
   display: flex;
-
   overflow: hidden;
 }
 
@@ -105,16 +104,7 @@
   background: linear-gradient(to left, #41eecb6d 0%, #2e968131 100%);
 }
 
-.container .input-box button[type="submit"] {
-  background: #0ca789;
-  font-size: 17px;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-  height: 35px;
-}
+
 
 .container .option {
   font-size: 14px;
@@ -147,7 +137,7 @@ input.example-right-align {
 }
 
 .valor {
-  width: 200px;
+  width: auto;
   position: absolute;
 }
 
@@ -158,7 +148,6 @@ input.example-right-align {
 .rs {
   margin-left: 60px;
 }
-
 
 .carousel-container {
   position: relative;
@@ -190,7 +179,6 @@ input.example-right-align {
   justify-content: center;
   padding: 0;
   margin-bottom: 1rem;
-  
 }
 
 .dot {
@@ -210,3 +198,13 @@ input.example-right-align {
 }
 
 
+.submit {
+  width: 100%;
+  height: 35px;
+  cursor: pointer;
+  transition: all 0.8s ease;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  background-color: #0ca789;
+  color: white;
+}

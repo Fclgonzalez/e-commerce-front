@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormEnderecoComponent } from './form-endereco/form-endereco.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 
 
@@ -13,6 +13,7 @@ import { MaterialModule } from '../material/material.module';
   imports: [
     CommonModule, 
     ReactiveFormsModule,
+    FormsModule,
     MaterialModule
   ]
 })
