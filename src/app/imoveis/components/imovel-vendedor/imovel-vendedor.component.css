@@ -13,6 +13,11 @@ mat-form-field {
 }
 
 
+.text {
+  text-align: center;
+}
+
+
 .titulo {
   font-size: 24px;
   font-weight: 500;
@@ -22,6 +27,7 @@ mat-form-field {
   color: #0ca789;
   text-align: center;
 }
+
 form {
   display: flex;
   justify-content: center;
@@ -85,9 +91,32 @@ form .input-box input:hover {
 }
 
 
-#uppercase {
-  text-transform: uppercase;
+
+
+
+.example-right-align {
+  text-align: right;
 }
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+.valor {
+  width: auto;
+  position: relative;
+}
+
+.rs {
+  margin-left: 60px;
+}
+
+
 
 
 
@@ -100,9 +129,4 @@ form .input-box input:hover {
   margin-bottom: 15px;
   background-color: #0ca789;
   color: white;
-}
-
-
-#uppercase {
-  text-transform: uppercase;
 }

@@ -9,14 +9,18 @@ import { ComponentesCompartilhadosModule } from '../componentes-compartilhados/c
 import { TabelaVisitasComponent } from './components/tabela-visitas/tabela-visitas.component';
 import { CancelarVisitaComponent } from './components/cancelar-visita/cancelar-visita.component';
 import { EditarVisitaComponent } from './components/editar-visita/editar-visita.component';
-
+import { ListarImoveisVendedorComponent } from './components/listar-imoveis-vendedor/listar-imoveis-vendedor.component';
+import { ImoveisModule } from '../imoveis/imoveis.module';
+import { EnderecosModule } from '../enderecos/enderecos.module';
+import { VisitasModule } from '../visitas/visitas.module';
 
 @NgModule({
   declarations: [
-    PerfilUsuarioComponent,  
+    PerfilUsuarioComponent,
+    ListarImoveisVendedorComponent,
     TabelaVisitasComponent,
     CancelarVisitaComponent,
-    EditarVisitaComponent
+    EditarVisitaComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +29,9 @@ import { EditarVisitaComponent } from './components/editar-visita/editar-visita.
     FormsModule,
     MatFormFieldModule,
     MaterialModule,
-   ComponentesCompartilhadosModule
-  ]
+    ComponentesCompartilhadosModule,
+    EnderecosModule,
+    ImoveisModule,
+  ],
 })
-export class UserModule { }
+export class UserModule {}

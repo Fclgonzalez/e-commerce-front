@@ -5,36 +5,41 @@ import { EmailComponent } from './auth/pages/email/email.component';
 
 const routes: Routes = [
   {
-    path:'principal',
-    loadChildren:()=>import('./principal/principal.module').then((m)=>m.PrincipalModule)
+    path: 'principal',
+    loadChildren: () =>
+      import('./principal/principal.module').then((m) => m.PrincipalModule),
   },
   {
-    path:'imobil',
-    loadChildren:()=>import('./imoveis/imoveis.module').then((m)=>m.ImoveisModule)
+    path: 'imobil',
+    loadChildren: () =>
+      import('./imoveis/imoveis.module').then((m) => m.ImoveisModule),
   },
   {
     path: 'auth',
-    loadChildren:() => import('./auth/auth.module').then((m) => m.AuthModule)
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: 'admin',
-    loadChildren:() => import('./admin/admin.module').then((m) => m.AdminModule)
+    loadChildren: () =>
+      import('./admin/admin.module').then((m) => m.AdminModule),
   },
   {
     path: 'user',
-    loadChildren:() => import('./user/user.module').then((m) => m.UserModule)
+    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },
   {
-    path:'',
-    pathMatch:'full',
-    redirectTo:'principal/pagina-inicial'
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'principal/pagina-inicial',
   },
-
-
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes, {
+      anchorScrolling: 'enabled',
+    }),
+  ],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

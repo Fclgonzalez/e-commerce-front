@@ -16,8 +16,6 @@ import { ConfirmarLogoutComponent } from './components/confirmar-logout/confirma
 import { PerfilUsuarioComponent } from '../user/pages/perfil-usuario/perfil-usuario.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
 
-
-
 @NgModule({
   declarations: [
     LoginComponent,
@@ -36,6 +34,5 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     ComponentesCompartilhadosModule,
     NgxCaptchaModule
   ],
-  
 })
-export class AuthModule { }
+export class AuthModule {}

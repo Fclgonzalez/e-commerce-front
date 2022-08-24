@@ -18,10 +18,10 @@ export class CaracteristicasService {
     getCaracteristicas(): Observable<Caracteristica[]> {
       return this.http.get<Caracteristica[]>(this.url)
     }
-/* 
-    getCaracteristicaById(id:number):Observable<Caracteristica>{
-      return this.http.get<Caracteristica>(`${this.url}/${id}`)
-    } */
+ 
+    getCaracteristicaByIdImovel(idImovel:number):Observable<Caracteristica>{
+      return this.http.get<Caracteristica>(`${this.url}/imovel/${idImovel}`)
+    } 
 
     postNovaCaracteristica(caract: Caracteristica): Observable<Caracteristica> {
       return this.http.post<Caracteristica>(this.url, caract)
@@ -33,6 +33,10 @@ export class CaracteristicasService {
 
     deleteCaracteristica(id: number): Observable<any> {
       return this.http.delete<any>(`${this.url}/${id}`)
+    }
+
+    deleteCaracteristicaImovel(idImovel:number): Observable<any> {
+      return this.http.delete<any>(`${this.url}/imovel/${idImovel}`)
     }
 
 

@@ -1,3 +1,4 @@
+import { DialogRef } from '@angular/cdk/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -5,7 +6,11 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { forkJoin, merge, Observable, of } from 'rxjs';
@@ -35,7 +40,7 @@ export class FormCadastroImovelComponent implements OnInit {
     },
     {
       nome: 'Apartamento',
-      variavel: 'APARTAMENTO',
+      tipo: 'APARTAMENTO',
     },
     {
       nome: 'Armazém',
@@ -169,13 +174,13 @@ export class FormCadastroImovelComponent implements OnInit {
     valorVenda: [0],
     tipoImovel: ['', Validators.required],
     finalidadeImovel: ['', Validators.required],
-    quarto: [0, Validators.required],
-    banheiro: [0, Validators.required],
+    quartos: [0, Validators.required],
+    banheiros: [0, Validators.required],
     suite: [0, Validators.required],
-    vaga: [0, Validators.required],
+    vagas: [0, Validators.required],
     area: [0, Validators.required],
     descricao: [''],
-    foto: ['']
+    foto: [''],
   });
 
   cadastroCaracteristica: FormGroup = this.fb.group({
@@ -184,26 +189,13 @@ export class FormCadastroImovelComponent implements OnInit {
 
   cadastroEnderecoForm: FormGroup = this.fb.group({
     logradouro: ['', Validators.required],
-    numero: [null, Validators.required],
+    numero: [0, Validators.required],
     complemento: [''],
     bairro: ['', Validators.required],
     cidade: ['', Validators.required],
     uf: ['', [Validators.required, Validators.minLength(2)]],
     cep: [null, [Validators.required, Validators.minLength(8)]],
   });
-
-  dadosConsultaEndereco(dados: any, dadosForm: FormGroup) {
-    var cepInput = document.getElementById('cep') as HTMLInputElement;
-    dadosForm.setValue({
-      cep: cepInput.value,
-      logradouro: dados.logradouro,
-      numero: null,
-      complemento: dados.complemento,
-      bairro: dados.bairro,
-      cidade: dados.localidade,
-      uf: dados.uf,
-    });
-  }
 
   constructor(
     private fb: FormBuilder,
@@ -251,36 +243,38 @@ export class FormCadastroImovelComponent implements OnInit {
       });
   }
 
-
-  foto!: FileList
-  fotoPreview: string = '';
-
-  recuperarFoto(event: any): void {
-    this.foto = event.target.files;
-    this.carregarPreview();
-  }
-
-  carregarPreview(): void {
-    const reader = new FileReader();
-
-    reader.readAsDataURL(this.foto[0]);
-
-    reader.onload = () => {
-      this.fotoPreview = reader.result as string;
-    };
-  }
-
   salvar() {
     //Regras do formulário
     this.cadastroEnderecoForm.value.uf =
       this.cadastroEnderecoForm.value.uf.toUpperCase();
 
+    if (this.cadastroImovelForm.value.contratoVenda == false) {
+      this.cadastroImovelForm.value.valorVenda = 0;
+    }
+
     if (this.cadastroImovelForm.value.contratoAluguel == false) {
       this.cadastroImovelForm.value.valorAluguel = 0;
     }
 
-    if (this.cadastroImovelForm.value.contratoVenda == false) {
-      this.cadastroImovelForm.value.valorVenda = 0;
+    if (
+      this.cadastroImovelForm.value.contratoAluguel == true &&
+      (this.cadastroImovelForm.value.valorAluguel == null ||
+        this.cadastroImovelForm.value.valorAluguel == undefined ||
+        this.cadastroImovelForm.value.valorAluguel <= 0)
+    ) {
+      return this.snackbar.open('O valor não pode ser nulo ou negativo', 'Ok', {
+        duration: 3000,
+      });
+    }
+    if (
+      this.cadastroImovelForm.value.contratoVenda == true &&
+      (this.cadastroImovelForm.value.valorVenda == null ||
+        this.cadastroImovelForm.value.valorVenda == undefined ||
+        this.cadastroImovelForm.value.valorVenda <= 0)
+    ) {
+      return this.snackbar.open('O valor não pode ser nulo ou negativo', 'Ok', {
+        duration: 3000,
+      });
     }
 
     if (
@@ -293,11 +287,13 @@ export class FormCadastroImovelComponent implements OnInit {
     }
 
     this.salvandoInformacoes = true;
-
+    let foto: any;
     //Serviços
     let im: Imovel = this.cadastroImovelForm.value;
 
-    forkJoin(Array.from(this.foto).map((app) => (this.imovelService.salvarFoto(app)))).subscribe({
+    forkJoin(
+      Array.from(this.foto).map((app) => this.imovelService.salvarFoto(app))
+    ).subscribe({
       next: (links) => {
         console.log(links);
 
@@ -357,9 +353,8 @@ export class FormCadastroImovelComponent implements OnInit {
             console.log(errorImovel);
           }
         );
-      }
-
-    })
+      },
+    });
     // merge(...this.foto.map((num) => (this.imovelService.salvarFoto(num)))).subscribe({
     // next: (imageUrl) => {
     //   links.push(imageUrl);
@@ -369,8 +364,19 @@ export class FormCadastroImovelComponent implements OnInit {
     //   console.log(links);
     // },
     // });
+  }
 
-
+  dadosConsultaEndereco(dados: any, dadosForm: FormGroup) {
+    var cepInput = document.getElementById('cep') as HTMLInputElement;
+    dadosForm.setValue({
+      cep: cepInput.value,
+      logradouro: dados.logradouro,
+      numero: null,
+      complemento: dados.complemento,
+      bairro: dados.bairro,
+      cidade: dados.localidade,
+      uf: dados.uf,
+    });
   }
 
   consultaCep(cep: string, form: any) {
@@ -387,6 +393,24 @@ export class FormCadastroImovelComponent implements OnInit {
     } else {
       senha.type = 'password';
     }
+  }
+
+  foto!: FileList;
+  fotoPreview: string = '';
+
+  recuperarFoto(event: any): void {
+    this.foto = event.target.files;
+    this.carregarPreview();
+  }
+
+  carregarPreview(): void {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(this.foto[0]);
+
+    reader.onload = () => {
+      this.fotoPreview = reader.result as string;
+    };
   }
 
   // salvarFoto() {

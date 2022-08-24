@@ -3,7 +3,7 @@ import { async } from '@angular/core/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { Endereco } from 'src/app/enderecos/models/endereco';
 import { EnderecosService } from 'src/app/enderecos/services/enderecos.service';
 import { Caracteristica } from 'src/app/imoveis/caracteristicas/models/caracteristica';
@@ -21,6 +21,8 @@ import { AuthService } from '../../services/auth.service';
 export class FormCadastroVendedorComponent implements OnInit {
   salvandoInformacoes: boolean = false;
   caracteristica: Caracteristica[] = [];
+  foto!: FileList
+  fotoPreview: string = '';
 
   tipoImovelEnum: Array<any> = [
     {
@@ -29,7 +31,7 @@ export class FormCadastroVendedorComponent implements OnInit {
     },
     {
       nome: 'Apartamento',
-      variavel: 'APARTAMENTO',
+      tipo: 'APARTAMENTO',
     },
     {
       nome: 'Armazém',
@@ -170,10 +172,10 @@ export class FormCadastroVendedorComponent implements OnInit {
     valorVenda: [0],
     tipoImovel: ['', Validators.required],
     finalidadeImovel: ['', Validators.required],
-    quarto: [0, Validators.required],
-    banheiro: [0, Validators.required],
+    quartos: [0, Validators.required],
+    banheiros: [0, Validators.required],
     suite: [0, Validators.required],
-    vaga: [0, Validators.required],
+    vagas: [0, Validators.required],
     area: [0, Validators.required],
     descricao: [''],
     foto: ['']
@@ -239,46 +241,76 @@ export class FormCadastroVendedorComponent implements OnInit {
       });
   }
 
-  foto!: File[]
 
   salvar() {
     //Regras do formulário
     this.cadastroEnderecoForm.value.uf =
       this.cadastroEnderecoForm.value.uf.toUpperCase();
 
-    if (this.cadastroImovelForm.value.contratoAluguel == false) {
-      this.cadastroImovelForm.value.valorAluguel = 0;
-    }
-
-    if (this.cadastroImovelForm.value.contratoVenda == false) {
-      this.cadastroImovelForm.value.valorVenda = 0;
-    }
-
-    if (
-      this.cadastroImovelForm.value.contratoAluguel == false &&
-      this.cadastroImovelForm.value.contratoVenda == false
-    ) {
-      return alert(
-        'O checkbox do aluguel ou da venda do imóvel deve estar ativo'
-      );
-    }
+    
+      if (this.cadastroImovelForm.value.contratoVenda == false) {
+        this.cadastroImovelForm.value.valorVenda = 0;
+      }
+  
+      if (this.cadastroImovelForm.value.contratoAluguel == false) {
+        this.cadastroImovelForm.value.valorAluguel = 0;
+      }
+  
+      if (
+        this.cadastroImovelForm.value.contratoAluguel == true &&
+        (this.cadastroImovelForm.value.valorAluguel == null ||
+          this.cadastroImovelForm.value.valorAluguel == undefined ||
+          this.cadastroImovelForm.value.valorAluguel <= 0)
+      ) {
+        return this.snackbar.open(
+          'O valor não pode ser nulo ou negativo',
+          'Ok',
+          {
+            duration: 3000,
+          })
+      }
+      if (
+        this.cadastroImovelForm.value.contratoVenda == true &&
+        (this.cadastroImovelForm.value.valorVenda == null ||
+          this.cadastroImovelForm.value.valorVenda == undefined ||
+          this.cadastroImovelForm.value.valorVenda <= 0)
+      ) {
+         return this.snackbar.open(
+          'O valor não pode ser nulo ou negativo',
+          'Ok',
+          {
+            duration: 3000,
+          })
+      }
+  
+      if (
+        this.cadastroImovelForm.value.contratoAluguel == false &&
+        this.cadastroImovelForm.value.contratoVenda == false
+      ) {
+        return alert(
+          'O checkbox do aluguel ou da venda do imóvel deve estar ativo'
+        );
+      }
 
     this.salvandoInformacoes = true;
-
+      
 
 
     //Serviços
     const login: User = this.cadastroVendedorForm.value;
-    let linkFoto: any
-    for (let i = 0; i < this.foto.length; i++) {
-      linkFoto = this.imovelService.salvarFoto(this.foto[i])
-    }
+
+  
 
     this.authService.cadastrarVendedor(login).subscribe(
       (dadosUser) => {
         let idUser: number = dadosUser;
         let im: Imovel = this.cadastroImovelForm.value;
-        this.imovelService.cadastrarImovel(im, idUser, linkFoto).subscribe(
+
+        forkJoin(Array.from(this.foto).map((app) => (this.imovelService.salvarFoto(app)))).subscribe({
+          next: (links) => {
+            console.log(links);
+
+        this.imovelService.cadastrarImovel(im, idUser, links).subscribe(
           (dadosImovel) => {
             const carac: Caracteristica = this.cadastroCaracteristica.value;
             for (let a of this.cadastroCaracteristica.value.caracteristicas) {
@@ -295,6 +327,7 @@ export class FormCadastroVendedorComponent implements OnInit {
                         duration: 3000,
                       }
                     );
+
                     console.log(errorCarac);
                   }
                 );
@@ -313,12 +346,13 @@ export class FormCadastroVendedorComponent implements OnInit {
                 (errorEnderero) => {
                   this.salvandoInformacoes = false;
                   this.snackbar.open(
-                    'Não foi possível realizar o cadastro do imóvel',
+                    'Não foi possível realizar o cadastro do endereço',
                     'Ok',
                     {
                       duration: 3000,
                     }
                   );
+
                   console.log(errorEnderero);
                 }
               );
@@ -332,9 +366,11 @@ export class FormCadastroVendedorComponent implements OnInit {
                 duration: 3000,
               }
             );
+
             console.log(errorImovel);
           }
         );
+          }})
       },
       (errorUser) => {
         this.salvandoInformacoes = false;
@@ -345,6 +381,7 @@ export class FormCadastroVendedorComponent implements OnInit {
             duration: 3000,
           }
         );
+
         console.log(errorUser);
       }
     );
@@ -366,9 +403,27 @@ export class FormCadastroVendedorComponent implements OnInit {
     }
   }
 
-  salvarFoto() {
-    // fotoTeste
+
+  recuperarFoto(event: any): void {
+    this.foto = event.target.files;
+    this.carregarPreview();
   }
+
+  carregarPreview(): void {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(this.foto[0]);
+
+    reader.onload = () => {
+      this.fotoPreview = reader.result as string;
+    };
+  }
+
+  // teste
+
+/*   salvarFoto() {
+    // fotoTeste
+  } */
 
   //fotoTeste
   indiceSelecionado = 0;

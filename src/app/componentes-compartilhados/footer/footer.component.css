@@ -1,5 +1,7 @@
 .footer {
   background-color: #99d5c8;
+  position: relative;
+  margin-top: 50px;
 }
 
 .container {

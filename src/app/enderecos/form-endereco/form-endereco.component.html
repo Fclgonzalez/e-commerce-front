@@ -1,38 +1,123 @@
-<section mat-dialog-content>
-  <mat-card-header>
-    <div class="title">Cadastre o seu Endereço</div>
-  </mat-card-header>
+<form [formGroup]="EnderecoForm" (ngSubmit)="editarEnderecoImovel()">
+  <div class="titulo">Atualizar Dados do Endereço</div>
 
-    <form action="" [formGroup]="formEndereco" >
-        <mat-form-field appearance="fill">
-          <mat-label>Logradouro</mat-label>
-          <input type="text" placeholder="Ex: rua, avenida" matInput formControlName="logradouro">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Número</mat-label>
-          <input type="text" placeholder="Ex: 76" matInput formControlName="numero">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Complemento</mat-label>
-          <input type="text" placeholder="Ex:Bloco, Apartamento" matInput formControlName="complemento">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Bairro</mat-label>
-          <input type="text" placeholder="Ex: Lagoa Redonda" matInput formControlName="bairro">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Cidade</mat-label>
-          <input type="text" placeholder="Ex: Fortaleza" matInput formControlName="cidade">
-        </mat-form-field>
-      
-        <mat-form-field appearance="fill">
-          <mat-label>UF</mat-label>
-          <input type="text" placeholder="Ex: CE" matInput formControlName="uf">
-        </mat-form-field>
-      
-        <button type="submit" mat-raised-button [disabled]="formEndereco.invalid"  id="salvar"
-          matTooltip="Salvar Endereco">Salvar</button>
-     
+  <mat-form-field class="input-box underline" appearance="legacy">
+    <mat-label>CEP</mat-label>
+    <input
+      type="text"
+      placeholder="Ex: 11222333"
+      matInput
+      formControlName="cep"
+      maxlength="8"
+      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+      id="cep"
+      #cep
+    />
 
-  </form>
-</section>
+    <span matSuffix>
+      <button
+        mat-icon-button
+        type="button"
+        (click)="consultaCep(this.cep.value, EnderecoForm)"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </span>
+
+    <mat-error>
+      <span *ngIf="EnderecoForm.get('cep')?.getError('required')">
+        Campo Obrigatório
+      </span>
+      <span *ngIf="EnderecoForm.get('cep')?.getError('minlength')">
+        Este campo deve ter 8 caracteres
+      </span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input-box underline" appearance="legacy">
+    <mat-label>Logradouro</mat-label>
+    <input
+      type="text"
+      placeholder="Ex: Avenida São Francisco"
+      matInput
+      formControlName="logradouro"
+    />
+    <mat-error><span>Campo Obrigatório</span></mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input-box underline" appearance="legacy">
+    <mat-label>Número</mat-label>
+    <input
+      type="number"
+      placeholder="Ex: 0"
+      matInput
+      formControlName="numero"
+    />
+    <mat-error><span>Campo Obrigatório</span></mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input-box underline" appearance="legacy">
+    <mat-label>Complemento</mat-label>
+    <input
+      type="text"
+      placeholder="Ex: Ao lado da praça"
+      matInput
+      formControlName="complemento"
+    />
+  </mat-form-field>
+
+  <mat-form-field class="input-box underline" appearance="legacy">
+    <mat-label>Bairro</mat-label>
+    <input
+      type="text"
+      placeholder="Ex: Rio Verde"
+      matInput
+      formControlName="bairro"
+    />
+    <mat-error><span>Campo Obrigatório</span></mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input-box underline" appearance="legacy">
+    <mat-label>Cidade</mat-label>
+    <input
+      type="text"
+      placeholder="Ex: Belo Horizonte"
+      matInput
+      formControlName="cidade"
+    />
+    <mat-error><span>Campo Obrigatório</span></mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input-box underline" appearance="legacy">
+    <mat-label>UF</mat-label>
+    <input
+      type="text"
+      placeholder="Ex: MG"
+      matInput
+      formControlName="uf"
+      id="uppercase"
+      maxlength="2"
+    />
+    <mat-error><span>Campo Obrigatório</span></mat-error>
+  </mat-form-field>
+
+
+    <mat-spinner
+      color="primary"
+      diameter="40"
+      class="carregarInformacoes input-box"
+      mode="indeterminate"
+      *ngIf="salvandoInformacoes; else carregarInfo"
+    ></mat-spinner>
+    <ng-template #carregarInfo>
+      <button
+        type="submit"
+        class="input-box submit"
+        mat-stroked-button
+        [disabled]="desabilitar"
+      >
+        Cadastrar
+      </button>
+    </ng-template>
+  
+</form>

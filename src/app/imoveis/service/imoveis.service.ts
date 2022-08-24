@@ -9,15 +9,11 @@ import { ImovelComponent } from '../pages/imovel/imovel.component';
   providedIn: 'root',
 })
 export class ImoveisService {
-
   private readonly url: string = 'http://localhost:8080/imobil/imoveis';
   private readonly urlCep: string = 'https://viacep.com.br/ws';
   public atualizarImovel$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
-  constructor(
-    private http: HttpClient,
-    private storage: AngularFireStorage
-    ) {}
+  constructor(private http: HttpClient, private storage: AngularFireStorage) {}
 
   getImoveis(): Observable<Imovel[]> {
     return this.http.get<Imovel[]>(this.url);
@@ -27,6 +23,22 @@ export class ImoveisService {
     return this.http.get<Imovel>(`${this.url}/${id}`);
   }
 
+  getImoveisByIdVendedor(idVendedor: number): Observable<Imovel> {
+    return this.http.get<Imovel>(
+      `${this.url}Vendedor?idVendedor=${idVendedor}`
+    );
+  }
+
+  getImoveisAtivosVendedor(idVendedor:number):Observable<Imovel>{
+    return this.http.get<Imovel>(`${this.url}/ativo/${idVendedor}`)
+  }
+
+  getImoveisInativosVendedor(idVendedor:number):Observable<Imovel>{
+    return this.http.get<Imovel>(`${this.url}/inativo/${idVendedor}`)
+  }
+
+  
+
   cadastrarImovel(imovel: Imovel, idVendedor: number, linkFoto: any): Observable<Imovel> {
     imovel.foto = linkFoto
       return this.http.post<Imovel>(`${this.url}/${idVendedor}`, imovel)
@@ -35,11 +47,9 @@ export class ImoveisService {
       }))
   }
 
-  salvarFoto(foto: File): Observable<any> {
-    return this.uploadImagem(foto)
-  }
+  
 
-  editarImovel(imovel: Imovel, id: number): Observable<Imovel> {
+  editarImovel(imovel: Imovel): Observable<Imovel> {
 
         return this.http.put<Imovel>(`${this.url}/${imovel.idImovel}`, imovel)
         .pipe(tap(() => {
@@ -47,10 +57,28 @@ export class ImoveisService {
       }))
   }
 
+  inativarImovel(imovel: Imovel): Observable<Imovel> {
+    return this.http.put<Imovel>(
+      `${this.url}Inativar/${imovel.idImovel}?inativo=${true}`,
+      imovel
+    );
+  }
+
+  ativarImovel(imovel: Imovel):Observable<Imovel> {
+    return this.http.put<Imovel>(
+      `${this.url}Inativar/${imovel.idImovel}?inativo=${false}`,
+      imovel
+    );
+  }
+
+
+  salvarFoto(foto: File): Observable<any> {
+    return this.uploadImagem(foto)
+  }
+
   buscarCep(cep: string) {
     return this.http.get(`${this.urlCep}/${cep}/json`);
   }
-
 
   private uploadImagem(foto: File): Observable<string> {
 

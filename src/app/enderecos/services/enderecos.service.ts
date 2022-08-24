@@ -14,27 +14,25 @@ export class EnderecosService {
 
 
   constructor(private http: HttpClient) {}
-  /*   getEnderecos() {
-    return this.http.get<Endereco[]>(this.baseurl);
-  }*/
+  getEnderecos() {
+    return this.http.get<Endereco[]>(this.url);
+  }
 
   getEnderecosById(idEndereco: number) {
-    return this.http.get<Endereco>(`${this.url}/${idEndereco}`)
-  } 
- 
-  getEnderecosByUsername(username: string): Observable<Endereco> {
-    return this.http.get<Endereco>(`${this.url}/username/${username}`)
+    return this.http.get<Endereco>(`${this.url}/${idEndereco}`);
   }
-  
+
   cadastrarEnderecoImovel(
     endereco: Endereco,
     idImovel?: number
   ): Observable<Endereco> {
-    return this.http.post<Endereco>(`${this.url}/imovel/${idImovel}`, endereco).pipe(
-      tap(() => {
-        this.atualizarEndereco$.next(true);
-      })
-    );
+    return this.http
+      .post<Endereco>(`${this.url}/imovel/${idImovel}`, endereco)
+      .pipe(
+        tap(() => {
+          this.atualizarEndereco$.next(true);
+        })
+      );
   }
 
   /* postEnderecos(endereco: Enderecos) {
