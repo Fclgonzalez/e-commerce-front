@@ -126,13 +126,16 @@
       <p>
         <b>Caracteristicas</b>
       </p>
-      <table>
-        <tr *ngFor="let caracteristicas of caracteristica">
-            <td>{{ caracteristicas }}</td>
-        </tr>
-    </table>
+      <br>
     </div>
-
+    <div>
+      <table class="caracteristicas">
+        <tr *ngFor="let caracteristicas of caracteristica">
+            <td>{{ caracteristicas.caracteristica }}</td>
+        </tr>
+        <br>
+      </table>
+    </div>
     <mat-divider></mat-divider>
     <div class="tituloDadosImovel">
       <mat-icon class="iconeTitulo">format_align_left</mat-icon>

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Endereco } from 'src/app/enderecos/models/endereco';
 import { Caracteristica } from '../../caracteristicas/models/caracteristica';
+import { CaracteristicasService } from '../../caracteristicas/services/caracteristicas.service';
 import { Imovel } from '../../models/imovel';
 import { ImoveisService } from '../../service/imoveis.service';
 
@@ -15,12 +16,13 @@ export class ImovelComponent implements OnInit {
 
   imovel?: Imovel
   endereco?: Endereco
-  caracteristica?: Caracteristica[]
+  caracteristica?: Array<Caracteristica>
 
   naoEncontrado: boolean = false
 
   constructor(
     private imovelService: ImoveisService,
+    private caracteristicaService: CaracteristicasService,
     private route: ActivatedRoute
   ) { }
 
@@ -29,6 +31,7 @@ export class ImovelComponent implements OnInit {
       (params) => {
         let id = parseInt(params.get('idImovel') ?? '0')
         this.buscaImovel(id)
+        this.recuperarCaracteristicaImovel(id);
       }
     )
   }
@@ -40,5 +43,12 @@ export class ImovelComponent implements OnInit {
     (erro: HttpErrorResponse) => {
       this.naoEncontrado = erro.status == 404
     })
+  }
+
+  recuperarCaracteristicaImovel(idImovel: number) {
+    this.caracteristicaService.getCaracteristicaByIdImovelList(idImovel)
+      .subscribe((caracteristicasLista) => {
+        this.caracteristica = caracteristicasLista
+      })
   }
 }

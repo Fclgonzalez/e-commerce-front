@@ -74,3 +74,12 @@ p, h1 {
   left: 21px;
   padding: 13px;
 }
+
+.caracteristicas{
+  display: flex;
+  height: 150px;
+  position: relative;
+  left: 33px;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
