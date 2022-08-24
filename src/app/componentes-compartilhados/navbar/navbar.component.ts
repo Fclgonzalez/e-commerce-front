@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   userLogado: boolean = false;
   sub?: Subscription;
   anuncie: boolean = true;
+  admin: boolean = false;
   imoveisCadastrados: boolean = false;
 
   constructor(
@@ -37,7 +38,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const role = this.auth.decodeToken().roles;
     if (role.includes('ADMIN') || role.includes('VENDEDOR')) {
       this.imoveisCadastrados = true;
-      this.anuncie = true;
+    }
+
+    if (role.includes('ADMIN')) {
+      this.admin=true;
     }
   }
 
@@ -53,7 +57,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.userLogado = this.auth.logado();
     if (this.userLogado) {
       this.nomeUsuario();
-      this.verificarConsumidorVendedorAdmin()
+      this.verificarConsumidorVendedorAdmin();
     }
   }
 
