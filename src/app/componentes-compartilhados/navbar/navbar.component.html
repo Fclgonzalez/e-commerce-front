@@ -98,7 +98,7 @@
           ><mat-icon class="mx-3">person</mat-icon>Meu Perfil</a
         >
       </li>
-      <ng-container *ngIf="anuncie === true">
+      <ng-container *ngIf="imoveisCadastrados === true">
         <li class="nav-item">
           <a class="nav-link active fs-5 mt-4" href="/user/perfil-usuario/#imoveisCadastrados"
             ><mat-icon class="mx-3">home</mat-icon>Imóveis Cadastrados</a
@@ -108,12 +108,22 @@
       <li class="nav-item">
         <a class="nav-link active fs-5 mt-4" href="/user/perfil-usuario/#visitas"><mat-icon class="mx-3">date_range</mat-icon>Visitas Agendadas</a>
       </li>
-      <ng-container *ngIf="anuncie === true">
+      <ng-container>
         <li class="nav-item">
           <a
             class="nav-link active fs-5 mt-4"
             routerLink="/imobil/cadastro-imovel" target="_blank"
             ><mat-icon class="mx-3">announcement</mat-icon>Anuncie</a
+          >
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="admin === true">
+        <li class="nav-item">
+          <a
+            class="nav-link active fs-5 mt-4"
+            routerLink="/admin" target="_blank"
+            ><mat-icon class="mx-3">admin_panel_settings</mat-icon>Área Admin</a
           >
         </li>
       </ng-container>

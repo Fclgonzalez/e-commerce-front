@@ -14,37 +14,7 @@
     <div class="box">
     
     
-      <!-- <mat-card-content>
-        <form action="" [formGroup]="formUser" (ngSubmit)="atualizarUser()">
-  
-            <mat-form-field appearance="legacy" class="input-box underline">
-                <mat-label>Nome</mat-label>
-                <input type="text" matInput placeholder="Nome do cliente" formControlName="nome">
-            </mat-form-field>
-  
-            <mat-form-field appearance="legacy" class="input-box underline">
-                <mat-label>E-mail</mat-label>
-                <input type="username" matInput placeholder="email@email.com" formControlName="username">
-            </mat-form-field>
-  
-            <mat-form-field appearance="legacy" class="input-box underline">
-                <mat-label>Celular</mat-label>
-                <input type="tel" placeholder="Ex: (71) 9 9876-3118" matInput formControlName="celular">
-            </mat-form-field>
-  
-            <mat-form-field appearance="legacy" class="input-box underline">
-                <mat-label>Telefone</mat-label>
-                <input type="tel" placeholder="Ex: (71) 1234-5678" matInput formControlName="telefone">
-            </mat-form-field>
-                      
-          <div class="input-box button"> 
-              <button  type="submit" mat-raised-button id="salvar" [disabled]="desabilitar"  matTooltip="Salvar Atualizações do Cliente" matTooltipPosition="above">
-                Salvar Atualizações
-                </button>
-           </div> 
-            
-        </form>
-    </mat-card-content> -->
+      
     <mat-card-content>
       <form action="" [formGroup]="formUser" (ngSubmit)="atualizarUser()">
 
@@ -155,8 +125,9 @@
  
 <app-tabela-visitas id="visitas" ></app-tabela-visitas>
 
+<ng-container *ngIf="parteVendedor == true">
 <app-listar-imoveis-vendedor id="imoveisCadastrados" ></app-listar-imoveis-vendedor>
-
+</ng-container>
 
 
 <app-footer></app-footer>
