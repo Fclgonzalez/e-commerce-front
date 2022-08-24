@@ -305,12 +305,14 @@ export class FormCadastroVendedorComponent implements OnInit {
       (dadosUser) => {
         let idUser: number = dadosUser;
         let im: Imovel = this.cadastroImovelForm.value;
+        console.log(dadosUser);
+        
 
         forkJoin(Array.from(this.foto).map((app) => (this.imovelService.salvarFoto(app)))).subscribe({
           next: (links) => {
             console.log(links);
 
-        this.imovelService.cadastrarImovel(im, idUser, links).subscribe(
+        this.imovelService.cadastrarImovelInicial(im, idUser, links).subscribe(
           (dadosImovel) => {
             const carac: Caracteristica = this.cadastroCaracteristica.value;
             for (let a of this.cadastroCaracteristica.value.caracteristicas) {

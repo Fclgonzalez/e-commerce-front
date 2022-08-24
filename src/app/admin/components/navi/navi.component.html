@@ -3,14 +3,17 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar><span class="material-icons">
-      admin_panel_settings
-      </span>
-      </mat-toolbar>
+
+    <mat-toolbar> 
+      <a routerLink="/principal/pagina-inicial"> 
+        <mat-icon class="material-icons"> admin_panel_settings </mat-icon> 
+      </a>
+    </mat-toolbar>
+   
     <mat-nav-list>
       <a mat-list-item routerLink="/admin/"><mat-icon class="material-icons">dashboard</mat-icon></a>
-      <a mat-list-item routerLink="/admin/pendente"><span class="material-icons">pending</span></a>
-      <a mat-list-item routerLink="/admin/actuator"><span class="material-icons">query_stats</span></a>
+      <a mat-list-item routerLink="/admin/pendente"><mat-icon class="material-icons">pending</mat-icon></a>
+      <a mat-list-item routerLink="/admin/actuator"><mat-icon class="material-icons">query_stats</mat-icon></a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

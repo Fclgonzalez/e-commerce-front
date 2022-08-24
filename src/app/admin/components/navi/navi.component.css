@@ -10,6 +10,10 @@
 .sidenav .mat-toolbar {
   background: inherit;
 }
+.sidenav .mat-toolbar:hover{
+  background-color: rgba(128, 128, 128, 0.11);
+
+}
 
 .mat-toolbar.mat-primary {
   position: sticky;
