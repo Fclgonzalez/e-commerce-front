@@ -66,7 +66,6 @@ export class PerfilUsuarioComponent implements OnInit {
       if (atualizar) {
         this.recuperarUsuario();
       }
-      this.verificarConsumidorVendedorAdmin()
     });
 
     this.enderecoService.atualizarEndereco$.subscribe((atualizar) => {
