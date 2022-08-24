@@ -30,7 +30,7 @@ export class PerfilUsuarioComponent implements OnInit {
  formUser: FormGroup = this.fb.group({
     nome: ['', [Validators.required]],
     username: ['', [Validators.required,Validators.email]],
-    telefone: ['', [Validators.required]],
+    telefone: ['',],
     celular: ['', [Validators.required]],
   
   })

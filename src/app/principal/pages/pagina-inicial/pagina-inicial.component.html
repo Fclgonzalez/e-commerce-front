@@ -121,7 +121,7 @@
         </div>
       </div>
 
-      <button type="submit" class="botaoProcurar btn p-2">
+      <button type="button" class="botaoProcurar btn p-2" routerLink="/principal/busca-imoveis" [queryParams]="{ buscar: 'todos'}">
         Procurar Imóveis
       </button>
     </form>
