@@ -297,6 +297,10 @@ export class FormCadastroImovelComponent implements OnInit {
       next: (links) => {
         console.log(links);
 
+        // for (let i = 0; i < array.length; i++) {
+        //   await salvarFotoBack(links[i])
+
+        // }
         this.imovelService.cadastrarImovel(im, this.idUser!, links).subscribe(
           (dadosImovel) => {
             const carac: Caracteristica = this.cadastroCaracteristica.value;

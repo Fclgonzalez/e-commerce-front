@@ -18,10 +18,14 @@ export class CaracteristicasService {
     getCaracteristicas(): Observable<Caracteristica[]> {
       return this.http.get<Caracteristica[]>(this.url)
     }
- 
+
     getCaracteristicaByIdImovel(idImovel:number):Observable<Caracteristica>{
       return this.http.get<Caracteristica>(`${this.url}/imovel/${idImovel}`)
-    } 
+    }
+
+    getCaracteristicaByIdImovelList(idImovel:number):Observable<Caracteristica[]>{
+      return this.http.get<Caracteristica[]>(`${this.url}/imovel/${idImovel}`)
+    }
 
     postNovaCaracteristica(caract: Caracteristica): Observable<Caracteristica> {
       return this.http.post<Caracteristica>(this.url, caract)
@@ -41,7 +45,7 @@ export class CaracteristicasService {
 
 
 
-    
+
 
 
 

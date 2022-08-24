@@ -247,15 +247,15 @@ export class FormCadastroVendedorComponent implements OnInit {
     this.cadastroEnderecoForm.value.uf =
       this.cadastroEnderecoForm.value.uf.toUpperCase();
 
-    
+
       if (this.cadastroImovelForm.value.contratoVenda == false) {
         this.cadastroImovelForm.value.valorVenda = 0;
       }
-  
+
       if (this.cadastroImovelForm.value.contratoAluguel == false) {
         this.cadastroImovelForm.value.valorAluguel = 0;
       }
-  
+
       if (
         this.cadastroImovelForm.value.contratoAluguel == true &&
         (this.cadastroImovelForm.value.valorAluguel == null ||
@@ -282,7 +282,7 @@ export class FormCadastroVendedorComponent implements OnInit {
             duration: 3000,
           })
       }
-  
+
       if (
         this.cadastroImovelForm.value.contratoAluguel == false &&
         this.cadastroImovelForm.value.contratoVenda == false
@@ -293,13 +293,13 @@ export class FormCadastroVendedorComponent implements OnInit {
       }
 
     this.salvandoInformacoes = true;
-      
+
 
 
     //Serviços
     const login: User = this.cadastroVendedorForm.value;
 
-  
+
 
     this.authService.cadastrarVendedor(login).subscribe(
       (dadosUser) => {
