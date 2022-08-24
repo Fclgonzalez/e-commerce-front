@@ -112,7 +112,7 @@ export class FormEnderecoComponent implements OnInit {
     enderecoImovel.uf = this.EnderecoForm.value.uf.toUpperCase();
     enderecoImovel.idEndereco = this.idEnderecoImovel;
 
-    this.enderecoService.putEndereco(enderecoImovel).subscribe(
+    this.enderecoService.atualizarEndereco(enderecoImovel).subscribe(
       (dadosEndereco) => {
         this.snackbar.open('Cliente atualizado com sucesso', 'Ok', {
           duration: 3000,
@@ -124,6 +124,6 @@ export class FormEnderecoComponent implements OnInit {
         this.salvandoInformacoes = false;
       }
     );
-    // dentro do subscribe,  this.dialogRef.close()
+
   }
 }

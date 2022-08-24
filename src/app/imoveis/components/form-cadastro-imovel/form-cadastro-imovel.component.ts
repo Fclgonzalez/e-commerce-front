@@ -180,7 +180,7 @@ export class FormCadastroImovelComponent implements OnInit {
     vagas: [0, Validators.required],
     area: [0, Validators.required],
     descricao: [''],
-    foto: ['']
+    foto: [''],
   });
 
   cadastroCaracteristica: FormGroup = this.fb.group({
@@ -243,76 +243,57 @@ export class FormCadastroImovelComponent implements OnInit {
       });
   }
 
-
-  foto!: FileList
-  fotoPreview: string = '';
-
-  recuperarFoto(event: any): void {
-    this.foto = event.target.files;
-    this.carregarPreview();
-  }
-
-  carregarPreview(): void {
-    const reader = new FileReader();
-
-    reader.readAsDataURL(this.foto[0]);
-
-    reader.onload = () => {
-      this.fotoPreview = reader.result as string;
-    };
-  }
-
   salvar() {
     //Regras do formulário
     this.cadastroEnderecoForm.value.uf =
       this.cadastroEnderecoForm.value.uf.toUpperCase();
 
-    
-      if (this.cadastroImovelForm.value.contratoVenda == false) {
-        this.cadastroImovelForm.value.valorVenda = 0;
-      }
-  
-      if (this.cadastroImovelForm.value.contratoAluguel == false) {
-        this.cadastroImovelForm.value.valorAluguel = 0;
-      }
-  
-      if (
-        this.cadastroImovelForm.value.contratoAluguel == true &&
-        (this.cadastroImovelForm.value.valorAluguel == null ||
-          this.cadastroImovelForm.value.valorAluguel == undefined ||
-          this.cadastroImovelForm.value.valorAluguel <= 0)
-      ) {
-        return alert(
-          'O valor não pode ser nulo ou negativo'
-        );
-      }
-      if (
-        this.cadastroImovelForm.value.contratoVenda == true &&
-        (this.cadastroImovelForm.value.valorVenda == null ||
-          this.cadastroImovelForm.value.valorVenda == undefined ||
-          this.cadastroImovelForm.value.valorVenda <= 0)
-      ) {
-        return alert(
-          'O valor não pode ser nulo ou negativo'
-        );
-      }
-  
-      if (
-        this.cadastroImovelForm.value.contratoAluguel == false &&
-        this.cadastroImovelForm.value.contratoVenda == false
-      ) {
-        return alert(
-          'O checkbox do aluguel ou da venda do imóvel deve estar ativo'
-        );
-      }
+    if (this.cadastroImovelForm.value.contratoVenda == false) {
+      this.cadastroImovelForm.value.valorVenda = 0;
+    }
 
+    if (this.cadastroImovelForm.value.contratoAluguel == false) {
+      this.cadastroImovelForm.value.valorAluguel = 0;
+    }
+
+    if (
+      this.cadastroImovelForm.value.contratoAluguel == true &&
+      (this.cadastroImovelForm.value.valorAluguel == null ||
+        this.cadastroImovelForm.value.valorAluguel == undefined ||
+        this.cadastroImovelForm.value.valorAluguel <= 0)
+    ) {
+      return this.snackbar.open('O valor não pode ser nulo ou negativo', 'Ok', {
+        duration: 3000,
+      });
+    }
+    if (
+      this.cadastroImovelForm.value.contratoVenda == true &&
+      (this.cadastroImovelForm.value.valorVenda == null ||
+        this.cadastroImovelForm.value.valorVenda == undefined ||
+        this.cadastroImovelForm.value.valorVenda <= 0)
+    ) {
+      return this.snackbar.open('O valor não pode ser nulo ou negativo', 'Ok', {
+        duration: 3000,
+      });
+    }
+
+    if (
+      this.cadastroImovelForm.value.contratoAluguel == false &&
+      this.cadastroImovelForm.value.contratoVenda == false
+    ) {
+      return alert(
+        'O checkbox do aluguel ou da venda do imóvel deve estar ativo'
+      );
+    }
 
     this.salvandoInformacoes = true;
-    let foto: any
+    let foto: any;
     //Serviços
     let im: Imovel = this.cadastroImovelForm.value;
 
-    forkJoin(Array.from(this.foto).map((app) => (this.imovelService.salvarFoto(app)))).subscribe({
+    forkJoin(
+      Array.from(this.foto).map((app) => this.imovelService.salvarFoto(app))
+    ).subscribe({
       next: (links) => {
         console.log(links);
 
@@ -372,9 +353,8 @@ export class FormCadastroImovelComponent implements OnInit {
             console.log(errorImovel);
           }
         );
-      }
-
-    })
+      },
+    });
     // merge(...this.foto.map((num) => (this.imovelService.salvarFoto(num)))).subscribe({
     // next: (imageUrl) => {
     //   links.push(imageUrl);
@@ -384,8 +364,6 @@ export class FormCadastroImovelComponent implements OnInit {
     //   console.log(links);
     // },
     // });
-
-
   }
 
   dadosConsultaEndereco(dados: any, dadosForm: FormGroup) {
@@ -415,6 +393,24 @@ export class FormCadastroImovelComponent implements OnInit {
     } else {
       senha.type = 'password';
     }
+  }
+
+  foto!: FileList;
+  fotoPreview: string = '';
+
+  recuperarFoto(event: any): void {
+    this.foto = event.target.files;
+    this.carregarPreview();
+  }
+
+  carregarPreview(): void {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(this.foto[0]);
+
+    reader.onload = () => {
+      this.fotoPreview = reader.result as string;
+    };
   }
 
   // salvarFoto() {

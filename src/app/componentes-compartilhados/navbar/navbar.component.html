@@ -100,7 +100,7 @@
       </li>
       <ng-container *ngIf="anuncie === true">
         <li class="nav-item">
-          <a class="nav-link active fs-5 mt-4" routerLink="/user/perfil-usuario"target="_blank"
+          <a class="nav-link active fs-5 mt-4" routerLink="/user/perfil-usuario/" fragment="imoveisCadastrados" target="_blank" 
             ><mat-icon class="mx-3">home</mat-icon>Imóveis Cadastrados</a
           >
         </li>
@@ -115,7 +115,7 @@
         </li>
       </ng-container>
       <li class="nav-item">
-        <a class="nav-link active fs-5 mt-4" routerLink="/user/perfil-usuario"   target="_blank"><mat-icon class="mx-3">date_range</mat-icon>Visitas Agendadas</a>
+        <a class="nav-link active fs-5 mt-4" routerLink="/user/perfil-usuario/" fragment="visitas"  target="_blank"><mat-icon class="mx-3">date_range</mat-icon>Visitas Agendadas</a>
       </li>
     </ul>
   </div>

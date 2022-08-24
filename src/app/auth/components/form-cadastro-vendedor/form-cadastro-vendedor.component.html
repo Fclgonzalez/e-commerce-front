@@ -426,6 +426,30 @@
             ></span>
           </button>
 
+          <div  [formGroup]="cadastroImovelForm">
+            <input
+            type="file"
+            accept="image/*"
+            id="file-input"
+            #fileInput
+            (change)="recuperarFoto($event)"
+            formControlName="foto"
+            multiple
+          />
+          </div>
+         
+
+          <button
+          matTooltip="selecione uma imagem"
+          type="button"
+          mat-stroked-button
+          color="primary"
+          (click)="fileInput.click()"
+        >
+          Selecione uma imagem
+        </button>
+
+
           <button
             matStepperPrevious
             type="button"

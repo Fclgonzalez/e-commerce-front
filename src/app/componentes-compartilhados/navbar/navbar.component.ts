@@ -35,26 +35,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   verificarConsumidorVendedorAdmin() {
-    const email = this.auth.decodeToken().sub;
-
-    return this.userService
-      .getUsuarioByUsername(email)
-      .subscribe((response) => {
-        let role = response.roles;
-
-        for (let r of role!) {
-          if (r.name == 'VENDEDOR' || r.name == 'ADMIN') {
-            this.imoveisCadastrados = true;
-          }
-          if (
-            r.name == 'CONSUMIDOR' ||
-            r.name == 'VENDEDOR' ||
-            r.name == 'ADMIN'
-          ) {
-            this.anuncie = true;
-          }
-        }
-      });
+    const role = this.auth.decodeToken().roles;
+    if (role.includes('ADMIN') || role.includes('VENDEDOR')) {
+      this.imoveisCadastrados = true;
+      this.anuncie = true;
+    }
   }
 
   reload() {

@@ -1,0 +1,132 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap");
+
+* {
+  margin: auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+mat-form-field {
+  width: 400px;
+
+}
+
+
+.text {
+  text-align: center;
+}
+
+
+.titulo {
+  font-size: 24px;
+  font-weight: 500;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  position: relative;
+  color: #0ca789;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 400px;
+  
+}
+
+form .input-box {
+  width: 100%;
+  height: 40px;
+  margin-top: 20px;
+  position: relative;
+}
+
+form .input-box input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-size: 14px;
+  border: none;
+}
+
+form .underline::before {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: #0ca789;
+  left: 0;
+  bottom: 0;
+}
+
+form .underline::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: #0ca789;
+  left: 0;
+  bottom: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: all 0.3s ease;
+}
+
+form .input-box input:focus ~ .underline::after,
+ form .input-box input:valid ~ .underline::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+form .button {
+  margin: 20px 0 10px 0;
+}
+
+form .input-box input:hover {
+  background: linear-gradient(to left, #41eecb6d 0%, #2e968131 100%);
+}
+
+
+
+
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+.valor {
+  width: auto;
+  position: relative;
+}
+
+.rs {
+  margin-left: 60px;
+}
+
+
+
+
+
+.submit {
+  width: 100%;
+  height: 35px;
+  cursor: pointer;
+  transition: all 0.8s ease;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  background-color: #0ca789;
+  color: white;
+}

@@ -11,5 +11,5 @@ export interface User {
     dataCriacao?: Date
     dataAtualizacao?: Date
     roles?:Array<any>
-    // enderecoUser: Endereco
+     enderecoUser: Endereco
 }

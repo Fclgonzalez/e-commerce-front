@@ -2,13 +2,13 @@
 
 mat-card {
     width: 60vw;
-/*     max-height: 600px; */
+    max-height: 600px;
     margin-bottom: 200px;
     margin-left: auto;
     margin-right: auto;
     padding: 0;
     border-radius: 5px;
-/*     overflow: auto; */
+    overflow: auto;
 }
 
 mat-card-content {

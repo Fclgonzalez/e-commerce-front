@@ -85,7 +85,7 @@
         class="btn"
         id="btnAgendar"
         mat-raised-button
-        (click)="dados = true; endereco = false"
+        (click)="dados = true; dadosEndereco = false"
       >
         Dados Pessoais
       </button>
@@ -94,7 +94,7 @@
         class="btn"
         id="btn"
         mat-raised-button
-        (click)="dados = false; endereco = true"
+        (click)="dados = false; dadosEndereco = true"
       >
         Endereço
       </button>
@@ -150,10 +150,10 @@
  </div>
 
 </mat-card>
- -->
-<app-tabela-visitas ></app-tabela-visitas>
+ 
+<app-tabela-visitas id="visitas" ></app-tabela-visitas>
 
-<app-listar-imoveis-vendedor ></app-listar-imoveis-vendedor>
+<app-listar-imoveis-vendedor id="imoveisCadastrados" ></app-listar-imoveis-vendedor>
 
 
 

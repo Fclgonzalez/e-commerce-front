@@ -1,6 +1,6 @@
 export interface Caracteristica {
 
-    idCaracteristica?: number
+    id?: number
     caracteristica: string
     
 }

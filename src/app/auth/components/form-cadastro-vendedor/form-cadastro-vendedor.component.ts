@@ -3,7 +3,7 @@ import { async } from '@angular/core/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { Endereco } from 'src/app/enderecos/models/endereco';
 import { EnderecosService } from 'src/app/enderecos/services/enderecos.service';
 import { Caracteristica } from 'src/app/imoveis/caracteristicas/models/caracteristica';
@@ -21,6 +21,8 @@ import { AuthService } from '../../services/auth.service';
 export class FormCadastroVendedorComponent implements OnInit {
   salvandoInformacoes: boolean = false;
   caracteristica: Caracteristica[] = [];
+  foto!: FileList
+  fotoPreview: string = '';
 
   tipoImovelEnum: Array<any> = [
     {
@@ -239,7 +241,6 @@ export class FormCadastroVendedorComponent implements OnInit {
       });
   }
 
-  foto!: File[]
 
   salvar() {
     //Regras do formulário
@@ -261,9 +262,12 @@ export class FormCadastroVendedorComponent implements OnInit {
           this.cadastroImovelForm.value.valorAluguel == undefined ||
           this.cadastroImovelForm.value.valorAluguel <= 0)
       ) {
-        return alert(
-          'O valor não pode ser nulo ou negativo'
-        );
+        return this.snackbar.open(
+          'O valor não pode ser nulo ou negativo',
+          'Ok',
+          {
+            duration: 3000,
+          })
       }
       if (
         this.cadastroImovelForm.value.contratoVenda == true &&
@@ -271,9 +275,12 @@ export class FormCadastroVendedorComponent implements OnInit {
           this.cadastroImovelForm.value.valorVenda == undefined ||
           this.cadastroImovelForm.value.valorVenda <= 0)
       ) {
-        return alert(
-          'O valor não pode ser nulo ou negativo'
-        );
+         return this.snackbar.open(
+          'O valor não pode ser nulo ou negativo',
+          'Ok',
+          {
+            duration: 3000,
+          })
       }
   
       if (
@@ -286,23 +293,25 @@ export class FormCadastroVendedorComponent implements OnInit {
       }
 
     this.salvandoInformacoes = true;
-
+      
 
 
     //Serviços
     const login: User = this.cadastroVendedorForm.value;
-    let linkFoto: any
-    for (let i = 0; i < this.foto.length; i++) {
-      linkFoto = this.imovelService.salvarFoto(this.foto[i])
-    }
+
+  
 
     this.authService.cadastrarVendedor(login).subscribe(
       (dadosUser) => {
         let idUser: number = dadosUser;
         let im: Imovel = this.cadastroImovelForm.value;
-        this.imovelService.cadastrarImovel(im, idUser, linkFoto).subscribe(
+
+        forkJoin(Array.from(this.foto).map((app) => (this.imovelService.salvarFoto(app)))).subscribe({
+          next: (links) => {
+            console.log(links);
+
+        this.imovelService.cadastrarImovel(im, idUser, links).subscribe(
           (dadosImovel) => {
-            console.log(dadosImovel);
             const carac: Caracteristica = this.cadastroCaracteristica.value;
             for (let a of this.cadastroCaracteristica.value.caracteristicas) {
               this.caracteristicaService
@@ -361,6 +370,7 @@ export class FormCadastroVendedorComponent implements OnInit {
             console.log(errorImovel);
           }
         );
+          }})
       },
       (errorUser) => {
         this.salvandoInformacoes = false;
@@ -393,9 +403,27 @@ export class FormCadastroVendedorComponent implements OnInit {
     }
   }
 
-  salvarFoto() {
-    // fotoTeste
+
+  recuperarFoto(event: any): void {
+    this.foto = event.target.files;
+    this.carregarPreview();
   }
+
+  carregarPreview(): void {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(this.foto[0]);
+
+    reader.onload = () => {
+      this.fotoPreview = reader.result as string;
+    };
+  }
+
+  // teste
+
+/*   salvarFoto() {
+    // fotoTeste
+  } */
 
   //fotoTeste
   indiceSelecionado = 0;

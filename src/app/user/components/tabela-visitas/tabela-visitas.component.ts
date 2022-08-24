@@ -73,7 +73,7 @@ export class TabelaVisitasComponent implements OnInit {
   roleUSer(){
     const roles = this.authService.decodeToken().roles
     
-    if (roles.includes("ADMIN") | roles.includes("VENDEDOR")) {
+    if (roles.includes("ADMIN") || roles.includes("VENDEDOR")) {
       this.vendedor = true
       
     }
