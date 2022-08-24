@@ -236,6 +236,12 @@ export class ImovelVendedorComponent implements OnInit {
           valor.descricao != this.imovel.descricao
         );
     });
+
+    this.caracteristicaForm.valueChanges.subscribe((valor) => {
+      this.desabilitar =
+        this.ImovelForm.invalid ||
+        !(valor.caracteristicas != this.mapearCaracteristicasImovel());
+    });
   }
 
   editarImovel() {
@@ -255,12 +261,9 @@ export class ImovelVendedorComponent implements OnInit {
         this.ImovelForm.value.valorAluguel == undefined ||
         this.ImovelForm.value.valorAluguel <= 0)
     ) {
-      return this.snackbar.open(
-        'O valor não pode ser nulo ou negativo',
-        'Ok',
-        {
-          duration: 3000,
-        })
+      return this.snackbar.open('O valor não pode ser nulo ou negativo', 'Ok', {
+        duration: 3000,
+      });
     }
     if (
       this.ImovelForm.value.contratoVenda == true &&
@@ -268,12 +271,9 @@ export class ImovelVendedorComponent implements OnInit {
         this.ImovelForm.value.valorVenda == undefined ||
         this.ImovelForm.value.valorVenda <= 0)
     ) {
-       return this.snackbar.open(
-        'O valor não pode ser nulo ou negativo',
-        'Ok',
-        {
-          duration: 3000,
-        })
+      return this.snackbar.open('O valor não pode ser nulo ou negativo', 'Ok', {
+        duration: 3000,
+      });
     }
 
     if (
@@ -291,11 +291,43 @@ export class ImovelVendedorComponent implements OnInit {
     };
 
     imovel.idImovel = this.idImovelData;
+
     this.imovelService.editarImovel(imovel).subscribe(
       (dadosImovel) => {
         this.snackbar.open('Imóvel atualizado com sucesso', 'Ok', {
           duration: 3000,
         });
+
+        this.caracteristicaService
+          .deleteCaracteristicaImovel(this.idImovelData)
+          .subscribe(
+            () => {
+              for (let a of this.caracteristicaForm.value.caracteristicas) {
+                this.caracteristicaService
+                  .postAddCaracteristicaImovel(a, this.idImovelData)
+                  .subscribe(
+                    (sucess) => {},
+                    (errorCarac) => {
+                      this.salvandoInformacoes = false;
+                      this.snackbar.open(
+                        'Não foi possível realizar o cadastro da característica',
+                        'Ok',
+                        {
+                          duration: 3000,
+                        }
+                      );
+                      console.log(errorCarac);
+                    }
+                  );
+              }
+            },
+            (error) => {
+              console.log('Não foi possível deletar as características');
+
+              console.log(error);
+            }
+          );
+
         this.dialogRef.close();
       },
       (error) => {
@@ -336,14 +368,14 @@ export class ImovelVendedorComponent implements OnInit {
     });
   }
 
- /*  editarCaracteristicas() {
+  editarCaracteristicas() {
     this.caracteristicaService
       .deleteCaracteristicaImovel(this.idImovelData)
       .subscribe(
         () => {
           for (let a of this.caracteristicaForm.value.caracteristicas) {
             this.caracteristicaService
-              .postAddCaracteristicaImovel(a.id, this.idImovelData)
+              .postAddCaracteristicaImovel(a, this.idImovelData)
               .subscribe(
                 (sucess) => {},
                 (errorCarac) => {
@@ -366,7 +398,5 @@ export class ImovelVendedorComponent implements OnInit {
           console.log(error);
         }
       );
-  } */
-
-  
+  }
 }
