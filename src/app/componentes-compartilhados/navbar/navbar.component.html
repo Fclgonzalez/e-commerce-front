@@ -16,23 +16,23 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-5">
         <li class="nav-item">
           <a
-            class="nav-link active text-light me-4"
+            class="nav-link active text-light me-4 links"
             aria-current="page"
             href="#"
             >Home</a
           >
         </li>
-        <li class="nav-item me-4">
-          <a class="nav-link text-light" href="#">Alugar</a>
+        <li class="nav-item me-4 links">
+          <a class="nav-link text-light" routerLink="/principal/busca-imoveis" [queryParams]="{ buscar: 'aluguel'}">Alugar</a>
         </li>
         <li class="nav-item me-4">
-          <a class="nav-link text-light" href="#">Comprar</a>
+          <a class="nav-link text-light links" routerLink="/principal/busca-imoveis" [queryParams]="{ buscar: 'venda'}">Comprar</a>
         </li>
         <li class="nav-item me-4">
-          <a class="nav-link text-light" href="#">Sobre</a>
+          <a class="nav-link text-light links" routerLink="/principal/saiba-mais">Sobre</a>
         </li>
         <li class="nav-item me-4">
-          <a class="nav-link text-light" href="#">Ajuda</a>
+          <a class="nav-link text-light links" routerLink="/principal/perguntas-frequentes">Ajuda</a>
         </li>
       </ul>
 
@@ -94,17 +94,20 @@
         <a
           class="nav-link active fs-5"
           aria-current="page"
-          routerLink="/user/perfil-usuario"
+          href="/user/perfil-usuario"
           ><mat-icon class="mx-3">person</mat-icon>Meu Perfil</a
         >
       </li>
       <ng-container *ngIf="anuncie === true">
         <li class="nav-item">
-          <a class="nav-link active fs-5 mt-4" routerLink="/user/perfil-usuario/" fragment="imoveisCadastrados" target="_blank" 
+          <a class="nav-link active fs-5 mt-4" href="/user/perfil-usuario/#imoveisCadastrados"
             ><mat-icon class="mx-3">home</mat-icon>Imóveis Cadastrados</a
           >
         </li>
       </ng-container>
+      <li class="nav-item">
+        <a class="nav-link active fs-5 mt-4" href="/user/perfil-usuario/#visitas"><mat-icon class="mx-3">date_range</mat-icon>Visitas Agendadas</a>
+      </li>
       <ng-container *ngIf="anuncie === true">
         <li class="nav-item">
           <a
@@ -114,9 +117,6 @@
           >
         </li>
       </ng-container>
-      <li class="nav-item">
-        <a class="nav-link active fs-5 mt-4" routerLink="/user/perfil-usuario/" fragment="visitas"  target="_blank"><mat-icon class="mx-3">date_range</mat-icon>Visitas Agendadas</a>
-      </li>
     </ul>
   </div>
 

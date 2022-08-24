@@ -31,3 +31,8 @@ mat-icon {
 .sair {
     margin: auto;
 }
+
+.links:hover{
+    font-size: 15px;
+    font-weight: 500;
+}

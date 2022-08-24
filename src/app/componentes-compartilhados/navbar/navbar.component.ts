@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   nomeUser?: string;
   userLogado: boolean = false;
   sub?: Subscription;
-  anuncie: boolean = false;
+  anuncie: boolean = true;
   imoveisCadastrados: boolean = false;
 
   constructor(
@@ -27,7 +27,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.logado();
     this.reload();
-    this.verificarConsumidorVendedorAdmin();
   }
 
   ngOnDestroy(): void {
@@ -54,6 +53,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.userLogado = this.auth.logado();
     if (this.userLogado) {
       this.nomeUsuario();
+      this.verificarConsumidorVendedorAdmin()
     }
   }
 

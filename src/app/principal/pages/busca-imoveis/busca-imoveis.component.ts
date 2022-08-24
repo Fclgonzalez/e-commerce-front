@@ -1,6 +1,11 @@
 import { Component, Injectable, NgModule, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
+import { filter } from 'rxjs';
+import { ImovelService } from 'src/app/admin/components/bar-chart-imoveis/imovel.service';
+import { Imovel } from 'src/app/imoveis/models/imovel';
+import { ImoveisService } from 'src/app/imoveis/service/imoveis.service';
 
 
 interface quarto {
@@ -77,8 +82,42 @@ export class BuscaImoveisComponent implements OnInit {
   comodosList: string[] = ['Área de serviço','Cozinha americana','Home-office','Jardim','Quintal','Varanda']
   acessibilidadeList: string[] = ['Banheiro adaptado','Corrimão','Piso tátil','Quartos e corredores com portas amplas','Rampas de acesso','Vaga de garagem acessível']
 
-  constructor() { }
+
+  todosImoveis!: Imovel[]
+  buscar?: string | null
+
+  constructor(
+    private imovelService: ImoveisService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+      this.route.queryParamMap.subscribe((params) => {
+      this.buscar = params.get('buscar')
+      this.buscaTodosImoveis()
+    }
+    );
+  }
+
+  buscaTodosImoveis(){
+    if (this.buscar == 'todos') {
+      this.imovelService.getImoveis().subscribe(
+        (imoveis) => {
+          this.todosImoveis = imoveis        
+        }
+      )
+    } else if (this.buscar == 'aluguel') {
+      this.imovelService.getImoveisContratoAluguel(true).subscribe(
+        (imoveis) => {
+          this.todosImoveis = imoveis        
+        }
+      )
+    } else if (this.buscar == 'venda') {
+      this.imovelService.getImoveisContratoVenda(true).subscribe(
+        (imoveis) => {
+          this.todosImoveis = imoveis        
+        }
+      )
+    }
   }
 }

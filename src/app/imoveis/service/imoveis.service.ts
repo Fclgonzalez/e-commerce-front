@@ -37,6 +37,18 @@ export class ImoveisService {
     return this.http.get<Imovel>(`${this.url}/inativo/${idVendedor}`)
   }
 
+  getImoveisContratoAluguel(contratoAluguel: boolean): Observable<Imovel[]> {
+    return this.http.get<Imovel[]>(
+      `${this.url}ContratoAluguel?contratoAluguel=${contratoAluguel}`
+    );
+  }
+  
+  getImoveisContratoVenda(contratoVenda: boolean): Observable<Imovel[]> {
+    return this.http.get<Imovel[]>(
+      `${this.url}ContratoVenda?contratoVenda=${contratoVenda}`
+    );
+  }
+
   
 
   cadastrarImovel(imovel: Imovel, idVendedor: number, linkFoto: any): Observable<Imovel> {
