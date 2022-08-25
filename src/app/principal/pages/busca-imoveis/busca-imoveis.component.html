@@ -1,121 +1,167 @@
 <!-- Campo de pesquisa -->
 <div class="box">
-    <div class="campoPesquisa input-group mb-3">
-    <span class="input-group-text" id="addon-wrapping"
-    ><mat-icon>search</mat-icon></span
-  >
-  <input
-    type="text"
-    class="form-control"
-    placeholder="Digite rua, bairro ou cidade"
-    aria-label="Text input with dropdown button"
-  />
-  <select class="form-select" id="inputGroupSelect01">
-    <option selected>Tipo</option>
-    <option>Apartamento</option>
-    <option>Casa</option>
-    <option>Andar Corporativo</option>
-    <option>Casa de Vila</option>
-    <option>Cobertura</option>
-    <option>Condominio</option>
-    <option>Flat</option>
-    <option>Terreno</option>
-    <option>Lote</option>
-    <option>Fazenda</option>
-    <option>Sitio/Chacara</option>
-    <option>Loja</option>
-    <option>Salao</option>
-    <option>Ponto Comercial</option>
-    <option>Sala</option>
-    <option>Casa Comercial</option>
-    <option>Hotel/Motel/Pousada</option>
-    <option>Laje Corporativa</option>
-    <option>Predio Inteiro</option>
-    <option>Galpao/Deposito/Armazém</option>
-    <option>Garagem</option>
-  </select>
-  
-  <div class="posicaoBotao">
-    <div class="botoesAluguelVenda">
-      <mat-radio-group aria-label="Select an option">
-        <mat-radio-button value="1">Aluguel</mat-radio-button>
-        <mat-radio-button value="2">Venda</mat-radio-button>
-      </mat-radio-group>
-    </div>
-  </div>
-  </div>
-  
-  <div>
-  <mat-form-field appearance="fill">
-    <mat-label>Quartos</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let quarto of quartos" [value]="quarto.value">
-        {{quarto.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  
-  <mat-form-field appearance="fill">
-    <mat-label>Banheiros</mat-label>
-    <mat-select>
-    <mat-option *ngFor="let banheiro of banheiros" [value]="banheiro.value">
-      {{banheiro.viewValue}}
-    </mat-option>
-  </mat-select>
-  </mat-form-field>
-  
-  <mat-form-field appearance="fill">
-  <mat-label>Vagas</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let vaga of vagas" [value]="vaga.value">
-      {{vaga.viewValue}}
-    </mat-option>
-  </mat-select>
-  </mat-form-field>
-  
-  <mat-form-field appearance="fill">
-    <mat-label>Características</mat-label>
-    <mat-select [formControl]="caracteristicas" multiple>
-      <mat-select-trigger>
-        {{caracteristicas.value?.[0] || ''}}
-        <span *ngIf="(caracteristicas.value?.length || 0) > 1" class="example-additional-selection">
-          (+{{(caracteristicas.value?.length || 0) - 1}} {{caracteristicas.value?.length === 2 ? 'other' : 'others'}})
-        </span>
-      </mat-select-trigger>
-      <mat-label>Condomínio</mat-label>
-      <mat-option *ngFor="let topping of condominioList" [value]="topping">{{topping}}</mat-option>
-      <mat-label>Comodidades</mat-label>
-      <mat-option *ngFor="let topping of comodidadesList" [value]="topping">{{topping}}</mat-option>
-      <mat-label>Mobílias</mat-label>
-      <mat-option *ngFor="let topping of mobiliasList" [value]="topping">{{topping}}</mat-option>
-      <mat-label>Bem-Estar</mat-label>
-      <mat-option *ngFor="let topping of bemEstarList" [value]="topping">{{topping}}</mat-option>
-      <mat-label>Eletrodomésticos</mat-label>
-      <mat-option *ngFor="let topping of eletrodomesticosList" [value]="topping">{{topping}}</mat-option>
-      <mat-label>Cômodos</mat-label>
-      <mat-option *ngFor="let topping of comodosList" [value]="topping">{{topping}}</mat-option>
-      <mat-label>Acessibilidade</mat-label>
-      <mat-option *ngFor="let topping of acessibilidadeList" [value]="topping">{{topping}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  
-  <button class="botaoArea btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Área (m²)</button>
-    <ul class="dropdown-menu">
-  
+<mat-tab-group animationDuration="500ms">
+  <mat-tab label="Venda">
+    <form [formGroup]="formPesquisa">
+      <div class="campoPesquisa input-group mb-3">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Finalidade</mat-label>
+          <mat-select id="inputGroupSelect01" formControlName="finalidadeImovel">
+            <mat-option *ngFor="let finalidade of finalidades" [value]="finalidade.value">
+              {{ finalidade.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Tipo</mat-label>
+          <mat-select id="inputGroupSelect01" formControlName="tipoImovel">
+            <mat-option *ngFor="let tipo of tipos" [value]="tipo.value">
+              {{ tipo.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="BarraPesquisa">
+        <mat-form-field appearance="fill">
+          <mat-label>Quartos</mat-label>
+          <mat-select formControlName="quartos">
+            <mat-option *ngFor="let quarto of quartos" [value]="quarto.value">
+              {{ quarto.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Banheiros</mat-label>
+          <mat-select formControlName="banheiros">
+            <mat-option
+              *ngFor="let banheiro of banheiros"
+              [value]="banheiro.value"
+            >
+              {{ banheiro.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Vagas</mat-label>
+          <mat-select formControlName="vagas">
+            <mat-option *ngFor="let vaga of vagas" [value]="vaga.value" >
+              {{ vaga.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Características</mat-label>
+          <mat-select formControlName="caracteristicas" multiple>
+            <mat-option
+                  *ngFor="let caracteristicas of caracteristica"
+                  [value]="caracteristicas"
+                  >{{ caracteristicas.caracteristica }}</mat-option
+                >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>Área mínima (m²)</mat-label>
+          <input matInput type="number" formControlName="area">
+        </mat-form-field>
+
+
+      </div>
+
+      <!-- <button type="button" class="botaoProcurar btn p-2" routerLink="/principal/busca-imoveis" [queryParams]="{ buscar: 'aluguel'}">
+        Procurar Imóveis
+      </button> -->
+
+      <button
+            type="submit"
+            class="botaoProcurar btn p-2"
+            (click)="filtroImoveis()"
+          >
+            Procurar Imóveis
+          </button>
+
+    </form>
+  </mat-tab>
+  <mat-tab label="Aluguel">
+    <form [formGroup]="formPesquisa">
+      <div class="campoPesquisa input-group mb-3">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Finalidade</mat-label>
+          <mat-select id="inputGroupSelect01" formControlName="finalidadeImovel">
+            <mat-option *ngFor="let finalidade of finalidades" [value]="finalidade.value">
+              {{ finalidade.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Tipo</mat-label>
+          <mat-select id="inputGroupSelect01" formControlName="tipoImovel">
+            <mat-option *ngFor="let tipo of tipos" [value]="tipo.value">
+              {{ tipo.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       <div>
-        <label class="valor2">Área mínima</label>
-        </div>
-          <input
-            type="number"
-            class="Área mínima"
-            placeholder="ex 20"
-            aria-label="number"
-            aria-describedby="basic-addon1"
-          />
-          <hr>
+        <mat-form-field appearance="fill">
+          <mat-label>Quartos</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let quarto of quartos" [value]="quarto.value">
+              {{ quarto.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Banheiros</mat-label>
+          <mat-select>
+            <mat-option
+              *ngFor="let banheiro of banheiros"
+              [value]="banheiro.value"
+            >
+              {{ banheiro.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Vagas</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let vaga of vagas" [value]="vaga.value">
+              {{ vaga.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Características</mat-label>
+          <mat-select formControlName="caracteristicas" multiple>
+            <mat-option
+                  *ngFor="let caracteristicas of caracteristica"
+                  [value]="caracteristicas"
+                  >{{ caracteristicas.caracteristica }}</mat-option
+                >
+          </mat-select>
+        </mat-form-field>
+
+        <button
+          class="botaoArea btn btn-outline-secondary dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Área (m²)
+        </button>
           <div>
-          <label class="valor2">Área máxima</label>
-        </div>
+            <label class="valor2">Área máxima</label>
+          </div>
           <input
             type="number"
             class="Área máxima"
@@ -123,90 +169,35 @@
             aria-label="number"
             aria-describedby="basic-addon1"
           />
-    </ul>
-  </div>
-  
-  </div>
-  
-  <!-- Card de pesquisa -->
 
-  <!-- <div class="boxCard">
-    <div id="PrimeiroCarrosel" class="carousel slide" data-bs-ride="true">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="https://granzottoimoveis.com.br/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-01-at-08.13.17-3-600x600.jpeg" class="d-block w-100" alt="Foto 1">
-        </div>
-        <div class="carousel-item">
-          <img src="https://espacoatualempreendimentos.com.br/imagem/62_9432b1f745aa802670ba08da1959b0ab.jpeg" class="d-block w-100" alt="Foto 2">
-        </div>
-        <div class="carousel-item">
-          <img src="https://cdn.uso.com.br/39792/2021/12/4f659e71414411ceb3089f043b0aa035.jpg" class="d-block w-100" alt="Foto 3">
-        </div>
-      </div>
-      <div class="controle">
-        <button class="carousel-control-prev" type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-  
-    </div>
-  <mat-card class="card">
-      <mat-card-title>R$350.000</mat-card-title>
-    <mat-card-subtitle>{{longText}}</mat-card-subtitle>
-    <mat-card-subtitle>{{shortText}}</mat-card-subtitle>
-    <mat-grid-list cols="5" rowHeight="5:2">
-      <mat-grid-tile>
-        <p class="dadosImovel2">
-          <mat-icon>straighten</mat-icon>
-          <br />
-        </p>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <p class="dadosImovel2">
-          <mat-icon>local_hotel</mat-icon>
-          <br />
-        </p>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <p class="dadosImovel2">
-          <mat-icon>bathtub</mat-icon>
-          <br />
-        </p>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <p class="dadosImovel2">
-          <span class="material-icons">shower</span>
-          <br />
-        </p>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <p class="dadosImovel2">
-          <mat-icon>directions_car</mat-icon>
-          <br />
-        </p>
-        </mat-grid-tile>
-      </mat-grid-list>
-    <mat-card-actions class="BotaoAcessar">
-      <button mat-raised-button color="warn">Acessar</button>
-    </mat-card-actions>
-  </mat-card>
-  </div>
-  
- -->
 
+      <!-- <button type="button" class="botaoProcurar btn p-2" routerLink="/principal/busca-imoveis" [queryParams]="{ buscar: 'venda'}">
+        Procurar Imóveis
+      </button> -->
 
+      <button
+            type="submit"
+            class="botaoProcurar btn p-2"
+            (click)="filtroImoveis()"
+          >
+            Procurar Imóveis
+          </button>
 
-  
+    </form>
+  </mat-tab>
+</mat-tab-group>
+</div>
+<!-- Card de pesquisa -->
+
+<mat-spinner
+            color="primary"
+            diameter="40"
+            class="carregarInformacoes input-box"
+            mode="indeterminate"
+            *ngIf="salvandoInformacoes"
+          ></mat-spinner>
+
   <div class="boxCard" *ngFor="let imov of todosImoveis">
     <div id="PrimeiroCarrosel" class="carousel slide" data-bs-ride="true">
       <div class="carousel-indicators">
@@ -235,7 +226,7 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
-  
+
     </div>
   <mat-card class="card">
       <mat-card-title *ngIf="imov.contratoAluguel">{{imov.valorAluguel}}</mat-card-title>
@@ -246,30 +237,37 @@
     <mat-grid-list cols="5" rowHeight="5:2">
       <mat-grid-tile>
         <p class="dadosImovel2">
+          {{imov.area}} m²
           <mat-icon>straighten</mat-icon>
           <br />
         </p>
       </mat-grid-tile>
       <mat-grid-tile>
         <p class="dadosImovel2">
+
+          {{imov.quartos}}
           <mat-icon>local_hotel</mat-icon>
           <br />
         </p>
       </mat-grid-tile>
       <mat-grid-tile>
         <p class="dadosImovel2">
+
+          {{imov.suite}}
           <mat-icon>bathtub</mat-icon>
           <br />
         </p>
       </mat-grid-tile>
       <mat-grid-tile>
         <p class="dadosImovel2">
+          {{imov.banheiros}}
           <span class="material-icons">shower</span>
           <br />
         </p>
       </mat-grid-tile>
       <mat-grid-tile>
         <p class="dadosImovel2">
+          {{imov.vagas}}
           <mat-icon>directions_car</mat-icon>
           <br />
         </p>
@@ -283,4 +281,8 @@
 
 
 
-  
+
+
+
+
+
