@@ -1,0 +1,21 @@
+
+
+.create-account{
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #012169;
+  border: none;
+  color: white;
+  margin-top: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+.form-group{
+  margin: 5px
+}
+

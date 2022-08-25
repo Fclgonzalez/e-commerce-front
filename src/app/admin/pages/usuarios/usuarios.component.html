@@ -1,0 +1,143 @@
+<app-navi>
+<div class="container">
+
+
+  <div class="col-sm-6 col-md-6 col-lg-12" style="margin-top: 50px;">
+    <h5 class="pull-left">Usuarios</h5>
+      <table class="table table-hover text-center" id="httptrace-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Nome</th>
+            <th>Identificação</th>
+            <th>View</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr *ngFor="let trace of allUsers | paginate: { id: 'trace-list',
+          itemsPerPage: pageSize,
+          currentPage: page,
+          totalItems: allUsers?.length }" style="cursor: pointer;">
+            <td (click)="onSelectTrace(trace)"> {{trace.idUser}} </td>
+            <td (click)="onSelectTrace(trace)">{{trace.username}} </td>
+            <td (click)="onSelectTrace(trace)"> {{trace.nome}}</td>
+            <td (click)="onSelectTrace(trace)" >{{trace.identificacao}}</td>
+            <td (click)="onSelectTrace(trace)">
+              <button  class="botsblue btn btn-outline-info"><i class="botsblue fa fa-eye"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls class="botsblue text-center" id="trace-list" (pageChange)="page = $event"  ></pagination-controls>
+
+ </div>
+
+</div>
+</app-navi>
+
+
+
+<button hidden="true" type="button" id="trace-modal" class="btn btn-primary" data-toggle="modal" data-target="#trace-info-modal"></button>
+
+
+<!-- Trace Information Modal -->
+
+
+
+<div class="modal fade " id="trace-info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Dados Usuário</h5>
+        <button mat-button class="close-icon" data-dismiss="modal">
+          <mat-icon>close</mat-icon>
+      </button>
+      </div>
+      <div class="modal-body right-left-margin">
+            <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="pill" href="#usuarios">
+                  <i class="fa fa-user"></i> Informações</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#endereco">
+                  <i class="fa fa-map-marker"></i> Endereço</a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade show active registration-form" id="usuarios" *ngIf="user">
+                <form [formGroup]="formUsuario">
+                  <div class="form-icon">
+                      <span><i class="icon icon-user"></i></span>
+                  </div>
+                  <div class="form-group">
+                    <mat-label> Nome:</mat-label>
+                      <input type="text" class="form-control item" id="nome" placeholder="Nome" formControlName="nome">
+                  </div>
+                  <div class="form-group">
+                    <mat-label> Email:</mat-label>
+                      <input type="text" class="form-control item" id="email" placeholder="Email" formControlName="email">
+                  </div>
+                  <div class="form-group">
+                    <mat-label> Identificação:</mat-label>
+                      <input type="text" class="form-control item" id="identificacao" placeholder="Identificação" formControlName="identificacao">
+                  </div>
+                  <div class="form-group">
+                    <mat-label> Celular:</mat-label>
+                      <input type="text" class="form-control item" id="celular" placeholder="Celular" formControlName="celular">
+                  </div>
+                  <div class="form-group">
+                    <mat-label> Telefone:</mat-label>
+                      <input type="text" class="form-control item" id="telefone" placeholder="Telefone" formControlName="telefone">
+                  </div>
+                  <div class="form-group">
+                      <button type="button" class="btn btn-block create-account">Salvar Alterações</button>
+                  </div>
+              </form>
+
+              </div>
+
+              <div class="tab-pane fade" id="endereco">
+                <form [formGroup]="formEndereco">
+                  <div class="form-icon">
+                      <span><i class="icon icon-user"></i></span>
+                  </div>
+                  <div class="form-group">
+                    <mat-label> Rua:</mat-label>
+                      <input type="text" class="form-control item" id="logradouro" placeholder="Rua" formControlName="logradouro">
+                  </div>
+                  <div class="form-group">
+                    <mat-label> Numero:</mat-label>
+                      <input type="text" class="form-control item" id="numero" placeholder="Numero" formControlName="numero">
+                  </div>
+                  <div class="form-group">
+                    <mat-label> Complemento:</mat-label>
+                      <input type="text" class="form-control item" id="complemento" placeholder="Complemento" formControlName="complemento">
+                  </div>
+                  <div class="form-group">
+                    <mat-label> Bairro:</mat-label>
+                      <input type="text" class="form-control item" id="cep" placeholder="Bairro" formControlName="cep">
+                  </div>
+                  <div class="form-group">
+                    <mat-label> CEP:</mat-label>
+                      <input type="text" class="form-control item" id="cep" placeholder="CEP" formControlName="cep">
+                  </div>
+                  <div class="form-group">
+                    <mat-label> Cidade:</mat-label>
+                    <input type="text" class="form-control item" id="cidade" placeholder="Cidade" formControlName="cidade">
+                </div>
+                <div class="form-group">
+                  <mat-label> UF:</mat-label>
+                  <input type="text" class="form-control item" id="uf" placeholder="UF" formControlName="uf">
+              </div>
+                  <div class="form-group">
+                      <button type="button" class="btn btn-block create-account">Salvar Alterações</button>
+                  </div>
+              </form>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>

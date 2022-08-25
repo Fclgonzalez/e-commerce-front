@@ -23,6 +23,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { ImovelDialogComponent } from './components/imovel-dialog/imovel-dialog.component';
 import { ActuatorComponent } from './pages/actuator/actuator.component';
 import { NgxPaginationModule } from  'ngx-pagination';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -35,6 +38,8 @@ import { NgxPaginationModule } from  'ngx-pagination';
     ImovelTableComponent,
     ImovelDialogComponent,
     ActuatorComponent,
+    UsuariosComponent,
+
   ],
   imports: [
     CommonModule,
@@ -52,6 +57,7 @@ import { NgxPaginationModule } from  'ngx-pagination';
     MatSortModule,
     HttpClientModule,
     NgxPaginationModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }
