@@ -13,8 +13,7 @@
   
     <div class="box">
     
-    
-      
+  
     <mat-card-content>
       <form action="" [formGroup]="formUser" (ngSubmit)="atualizarUser()">
 
@@ -38,7 +37,7 @@
               <input type="tel" placeholder="Ex: (71) 1234-5678" matInput formControlName="telefone">
           </mat-form-field>
                     
-          <button class="btnAtualizar" type="submit" mat-raised-button  id="salvar" [disabled]="desabilitar"   matTooltip="Salvar Atualizações do Usuario" matTooltipPosition="above">
+          <button class="btnAtualizar" type="submit" mat-raised-button  id="salvar" [disabled]="desabilitarUsuario"   matTooltip="Salvar Atualizações do Usuario" matTooltipPosition="above">
           Salvar Atualizações
           </button>
 
@@ -112,7 +111,7 @@
           <input type="text" placeholder="SP" matInput formControlName="uf">
       </mat-form-field>
                       
-            <button class="btnAtualizar" type="submit" mat-raised-button  id="salvar" [disabled]="desabilitar"   matTooltip="Salvar Atualizações do Usuario" matTooltipPosition="above">
+            <button class="btnAtualizar" type="submit" mat-raised-button  id="salvar" [disabled]="desabilitarEndereco"   matTooltip="Salvar Atualizações do Usuario" matTooltipPosition="above">
             Salvar Atualizações
             </button>
   

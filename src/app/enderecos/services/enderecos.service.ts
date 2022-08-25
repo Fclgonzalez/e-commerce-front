@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, mergeMap, Observable, tap } from 'rxjs';
 import { Endereco } from '../models/endereco';
 
 @Injectable({
@@ -35,16 +35,18 @@ export class EnderecosService {
       );
   }
 
-  /* postEnderecos(endereco: Enderecos) {
-    return this.http.post<Enderecos>(`${this.baseurl}`, endereco).pipe(
-      mergeMap((a: any) => {
-        return this.http.post<Enderecos>(
-          `${this.baseurl}/${a.idEndereco}`,
-          endereco
-        );
-      })
-    );
-  } */
+  cadastrarEnderecoUsuario(
+    endereco: Endereco,
+    idUser?: number
+  ): Observable<Endereco> {
+    return this.http
+      .post<Endereco>(`${this.url}/usuario/${idUser}`, endereco)
+      .pipe(
+        tap(() => {
+          this.atualizarEndereco$.next(true);
+        })
+      );
+  }
 
 
     atualizarEndereco(endereco: Endereco): Observable<Endereco> {
