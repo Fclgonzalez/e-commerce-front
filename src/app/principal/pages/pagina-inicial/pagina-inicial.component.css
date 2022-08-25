@@ -33,15 +33,27 @@
 }
 
 .campoPesquisa{
+  display: flex;
+  justify-content: space-around;
   position: relative;
   top: 10px;
 }
+.campoPesquisa mat-form-field{
+  width: 50%;
+  padding-bottom: 0px 0px 0px;
+}
 
 .espacamento{
+
   margin-left: 12px;
+}
+.ultimaLinha{
+  display: flex;
+  justify-content: space-between;
 }
 
 .botaoProcurar{
+  width: 510px;
   background-color: #0CA789;
   color: white;
   margin-top: 15px;
@@ -51,7 +63,7 @@
   margin-left: 20%;
   margin-bottom: 15px;
   width: 600px;
-  height: 550px;
+  height: 600px;
   padding: 40px;
   border: 2px solid black;
   background-color: white;
@@ -125,15 +137,34 @@
 
 
 .lançamentos{
+  display: flex;
+  justify-content: space-between;
   margin-top: 30px;
   margin-bottom: 30px;
   margin-left: 10%;
   font-size: 20px;
   color: grey;
 }
+.lançamentos a{
+  display: flex;
+  align-items: flex-end;
+  font-size: 18px;
+  margin-right: 65px;
+}
+.lançamentos a span{
+  text-decoration: underline;
+}
+.lançamentos a mat-icon{
+  margin-bottom: 0px;
+  font-size: 20px;
+}
+.lançamentos a:hover{
+  font-weight: bold;
+  margin-right: 65px;
+}
 
 .conjunto{
-  margin-top: 20px;
+  /* margin-top: 20px; */
   margin-bottom: 20px;
   margin-left: 5%;
   margin-right: 5%;
@@ -142,3 +173,14 @@
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 16px;
 }
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+/* p{
+  display: flex;
+  align-content: center;
+  margin: 0px;
+} */

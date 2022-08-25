@@ -15,6 +15,10 @@ export class ImoveisService {
 
   constructor(private http: HttpClient, private storage: AngularFireStorage) {}
 
+  postFiltrar(imovel:Imovel): Observable<Imovel[]>{
+    return this.http.post<Imovel[]>(`${this.url}Filtrar`, imovel)
+  }
+
   getImoveis(): Observable<Imovel[]> {
     return this.http.get<Imovel[]>(this.url);
   }
@@ -42,14 +46,14 @@ export class ImoveisService {
       `${this.url}ContratoAluguel?contratoAluguel=${contratoAluguel}`
     );
   }
-  
+
   getImoveisContratoVenda(contratoVenda: boolean): Observable<Imovel[]> {
     return this.http.get<Imovel[]>(
       `${this.url}ContratoVenda?contratoVenda=${contratoVenda}`
     );
   }
 
-  
+
 
   cadastrarImovel(imovel: Imovel, idVendedor: number, linkFoto: any): Observable<Imovel> {
     imovel.foto = linkFoto
@@ -67,7 +71,7 @@ export class ImoveisService {
       }))
   }
 
-  
+
 
   editarImovel(imovel: Imovel): Observable<Imovel> {
 

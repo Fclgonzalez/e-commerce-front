@@ -9,7 +9,7 @@ import { TermosDeUsoComponent } from './pages/termos-de-uso/termos-de-uso.compon
 import { SaibaMaisComponent } from './pages/saiba-mais/saiba-mais.component';
 import { PerguntasFrequentesComponent } from './pages/perguntas-frequentes/perguntas-frequentes.component';
 import { BuscaImoveisComponent } from './pages/busca-imoveis/busca-imoveis.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     PrincipalRoutingModule,
     ComponentesCompartilhadosModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class PrincipalModule { }
