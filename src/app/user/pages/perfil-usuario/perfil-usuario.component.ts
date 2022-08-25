@@ -28,7 +28,8 @@ export class PerfilUsuarioComponent implements OnInit {
   endereco!: Endereco;
   salvandoEndereco: boolean = false;
   salvandoUsuario: boolean = false;
-  desabilitar: boolean = false;
+  desabilitarUsuario: boolean = false;
+  desabilitarEndereco: boolean = false;
   idUser?: number = 0;
   idEndereco?: number = 0;
 
@@ -59,7 +60,7 @@ export class PerfilUsuarioComponent implements OnInit {
     private router: Router,
     private enderecoService: EnderecosService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userService.atualizarUsuarioSub$.subscribe((atualizar) => {
@@ -74,6 +75,9 @@ export class PerfilUsuarioComponent implements OnInit {
         this.recuperarEnderecoUsuario();
       }
     });
+
+    this.idUsuario()
+
   }
   idUsuario() {
     const email = this.authService.decodeToken().sub;
@@ -81,7 +85,9 @@ export class PerfilUsuarioComponent implements OnInit {
       .getUsuarioByUsername(email)
       .subscribe((response) => {
         this.idUser = response.idUser;
+
       });
+
   }
 
   recuperarUsuario() {
@@ -101,12 +107,12 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   recuperarEnderecoUsuario() {
-    const id = this.authService.decodeToken().sub;
-    this.userService.getUsuarioByUsername(id).subscribe((user) => {
-      this.enderecoService
-        .getEnderecosById(user.idUser!)
-        .subscribe((endereco) => {
-          this.endereco = endereco;
+    if (this.authService.logado()) {
+      const id = this.authService.decodeToken().sub;
+      this.userService.getUsuarioByUsername(id).subscribe((user) => {
+        this.endereco = user.endereco
+
+        if (user.endereco != null) {
           this.formEndereco.setValue({
             logradouro: this.endereco.logradouro,
             numero: this.endereco.numero,
@@ -116,15 +122,18 @@ export class PerfilUsuarioComponent implements OnInit {
             cidade: this.endereco.cidade,
             uf: this.endereco.uf,
           });
-          this.valorMudouEnderecoUsuario();
-        });
-    });
+        }
+         this.valorMudouEnderecoUsuario(); 
+
+      });
+    }
+
   }
 
   valorMudouUser() {
-    this.desabilitar = true;
+    this.desabilitarUsuario = true;
     this.formUser.valueChanges.subscribe((valores) => {
-      this.desabilitar =
+      this.desabilitarUsuario =
         this.formUser.invalid ||
         !(
           valores.nome != this.user.nome ||
@@ -136,19 +145,23 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   valorMudouEnderecoUsuario() {
-    this.desabilitar = true;
+    this.desabilitarEndereco = true;
     this.formEndereco.valueChanges.subscribe((valores) => {
-      this.desabilitar =
-        this.formEndereco.invalid ||
-        !(
-          valores.logradouro != this.endereco.logradouro ||
+      var retorno!: boolean 
+
+      if(this.endereco!=null || this.endereco!=undefined){
+      retorno =  (valores.logradouro != this.endereco.logradouro|| 
           valores.numero != this.endereco.numero ||
           valores.complemento != this.endereco.complemento ||
-          valores.cep != this.endereco.cep ||
+          valores.cep != this.endereco.cep|| 
           valores.bairro != this.endereco.bairro ||
           valores.cidade != this.endereco.cidade ||
-          valores.uf != this.endereco.uf
-        );
+          valores.uf != this.endereco.uf)
+      }
+
+      this.desabilitarEndereco =
+        this.formEndereco.invalid 
+        !( retorno );
     });
   }
 
@@ -168,24 +181,55 @@ export class PerfilUsuarioComponent implements OnInit {
   atualizarEndereco(): void {
     this.salvandoEndereco = true;
     const e: Endereco = { ...this.formEndereco.value };
-    e.idEndereco = this.endereco.idEndereco;
 
-    this.enderecoService.atualizarEndereco(e).subscribe((endereco) => {
-      this.snackbar.open('Alterações Salvas com Sucesso!', 'Ok', {
-        duration: 3000,
+    if (this.endereco == null || this.endereco == undefined) {
+      this.salvarEndereco()
+    }
+
+    else {
+      e.idEndereco = this.endereco.idEndereco;
+      this.enderecoService.atualizarEndereco(e).subscribe((endereco) => {
+        this.snackbar.open('Alterações Salvas com Sucesso!', 'Ok', {
+          duration: 3000,
+        });
+        this.dialog.closeAll();
       });
+    }
+  }
 
-      this.dialog.closeAll();
-    });
+  salvarEndereco() {
+    const en: Endereco = this.formEndereco.value;
+    this.enderecoService
+      .cadastrarEnderecoUsuario(en, this.idUser)
+
+      .subscribe(
+        (dadosEndereco) => {
+          this.snackbar.open('Cadastrado com sucesso', 'Ok', {
+            duration: 3000,
+          });
+
+        },
+        (errorEnderero) => {
+
+          this.snackbar.open(
+            'Não foi possível realizar o cadastro do endereço',
+            'Ok',
+            {
+              duration: 3000,
+            }
+          );
+          console.log(errorEnderero);
+        }
+      );
   }
 
 
   verificarConsumidorVendedorAdmin() {
-    const role = this.authService .decodeToken().roles;
-    
-    if (role.includes('ADMIN') || role.includes('VENDEDOR') ) {
+    const role = this.authService.decodeToken().roles;
+
+    if (role.includes('ADMIN') || role.includes('VENDEDOR')) {
       this.parteVendedor = true;
-     
+
     }
   }
 }

@@ -35,6 +35,19 @@ export class EnderecosService {
       );
   }
 
+  cadastrarEnderecoUsuario(
+    endereco: Endereco,
+    idUser?: number
+  ): Observable<Endereco> {
+    return this.http
+      .post<Endereco>(`${this.url}/usuario/${idUser}`, endereco)
+      .pipe(
+        tap(() => {
+          this.atualizarEndereco$.next(true);
+        })
+      );
+  }
+
   /* postEnderecos(endereco: Enderecos) {
     return this.http.post<Enderecos>(`${this.baseurl}`, endereco).pipe(
       mergeMap((a: any) => {
