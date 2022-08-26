@@ -53,7 +53,7 @@ export class PaginaInicialComponent implements OnInit {
     { value: 'LAJE_CORPORATIVA', viewValue: 'Laje Corporativa' },
     { value: 'PREDIO_INTEIRO', viewValue: 'Prédio Inteiro' },
     { value: 'GALPAO', viewValue: 'Galpão' },
-    { value: 'DEPOSITO', viewValue: 'Dep[osito' },
+    { value: 'DEPOSITO', viewValue: 'Deposito' },
     { value: 'ARMAZEM', viewValue: 'Armazém' },
     { value: 'GARAGEM', viewValue: 'Garagem' },
   ];
@@ -114,11 +114,11 @@ export class PaginaInicialComponent implements OnInit {
     });
   }
   imoveisCarrossel() {
-    this.imovelService.getImoveisById(19).subscribe((imovel) => {
+    this.imovelService.getImoveisById(1).subscribe((imovel) => {
       this.imovelCar1 = imovel;
-      this.imovelService.getImoveisById(102).subscribe((imovel) => {
+      this.imovelService.getImoveisById(4).subscribe((imovel) => {
         this.imovelCar2 = imovel;
-        this.imovelService.getImoveisById(77).subscribe((imovel) => {
+        this.imovelService.getImoveisById(3).subscribe((imovel) => {
           this.imovelCar3 = imovel;
           this.carregado = true;
         });
