@@ -229,9 +229,9 @@
 
     </div>
   <mat-card class="card">
-      <mat-card-title *ngIf="imov.contratoAluguel">{{imov.valorAluguel}}</mat-card-title>
-      <mat-card-title *ngIf="imov.contratoVenda">{{imov.valorVenda}}</mat-card-title>
-    <mat-card-subtitle>{{imov.titulo}}</mat-card-subtitle>
+      <mat-card-title *ngIf="imov.contratoAluguel">R$ {{imov.valorAluguel}}</mat-card-title>
+      <mat-card-title *ngIf="imov.contratoVenda">R$ {{imov.valorVenda}}</mat-card-title>
+    <mat-card-subtitle class="titulo">{{imov.titulo}}</mat-card-subtitle>
     <mat-card-subtitle>{{imov.descricao}}</mat-card-subtitle>
     <mat-card-subtitle>{{imov.endereco!.logradouro!}}, {{imov.endereco!.bairro!}}, {{imov.endereco!.cidade!}} - {{imov.endereco!.uf!}}</mat-card-subtitle>
     <mat-grid-list cols="5" rowHeight="5:2">
