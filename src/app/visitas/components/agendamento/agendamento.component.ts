@@ -23,12 +23,12 @@ export class AgendamentoComponent implements OnInit {
 
   consumidor?: User
   imovel?: Imovel
-
   card: boolean = true
   agenda: boolean = false
   enviado: boolean = false
   data: Date = new Date()
   date: Date = new Date()
+  desabilitar: boolean = false
 
   time: NgbTimeStruct = {hour: 13, minute: 30, second: 0};
   hourStep = 1;
@@ -41,13 +41,11 @@ export class AgendamentoComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private dialog: MatDialog,
-    @Inject(LOCALE_ID) public locale: string,
-
+    @Inject(LOCALE_ID) public locale: string
   ) {}
 
   ngOnInit(): void {
     this.recuperarImovel()
-    this.recuperarConsumidor()
     this.date.setDate(this.date.getDate() + 1)
     this.data = this.date
   }
@@ -58,9 +56,8 @@ export class AgendamentoComponent implements OnInit {
         let idImovel = parseInt(params.get('idImovel') ?? '0')
         this.imovelService.getImoveisById(idImovel).subscribe(
           (imov) => {
-            this.imovel = imov
-            console.log(this.imovel);
-            
+            this.imovel = imov 
+            this.recuperarConsumidor()
           }
         )
       }
@@ -73,6 +70,7 @@ export class AgendamentoComponent implements OnInit {
       this.userService.getUsuarioByUsername(email).subscribe(
         (user) => {
           this.consumidor = user
+          this.desabilitarBtnVisita()
         }
       )
     }
@@ -89,9 +87,10 @@ export class AgendamentoComponent implements OnInit {
 
   confirmarVisita(): void {
     const minutos = formatNumber(this.time.minute, this.locale, "2.0-0")
+    const horas = formatNumber(this.time.hour, this.locale, "2.0-0")
     const visita: Visita = {
       dataVisita: formatDate(this.data, 'dd/MM/yyyy', this.locale),
-      horarioVisita: `${this.time.hour}:${minutos}`,
+      horarioVisita: `${horas}:${minutos}`,
     }
     this.visitaService.getVisitasByImovelId(this.imovel?.idImovel!).subscribe({
       next: (visitas) => {
@@ -117,6 +116,12 @@ export class AgendamentoComponent implements OnInit {
         this.dialog.open(SolicitacaoVisitaComponent, {disableClose:true})
       }
     )
+  }
+
+  desabilitarBtnVisita() {
+    if (this.consumidor?.idUser == this.imovel?.userVendedor?.idUser) {
+      this.desabilitar = true
+    }
   }
 
 }
