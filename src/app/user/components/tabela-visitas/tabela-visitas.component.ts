@@ -24,7 +24,7 @@ export class TabelaVisitasComponent implements OnInit {
 
   visitasConsumidor!: Visita[]
   visitasVendedor!: Visita[]
-  colunas: string[] = ['data', 'horario', 'imovel', 'status']
+  colunas: string[] = ['data', 'horario', 'imovel', 'status', 'cancelar']
   colunasExpandidas = [...this.colunas, 'expand']
   expandedElement!: Visita | null
 
