@@ -3,23 +3,20 @@
     <mat-card-content>
         <p class="preco" *ngIf="imovel?.contratoAluguel">
             <span>Aluguel </span>
-            <span> R{{imovel?.valorAluguel | currency}}</span>
+            <span> R${{imovel?.valorAluguel}},00</span>
         </p>
         <p class="preco" *ngIf="imovel?.contratoVenda">
             <span>Venda </span>
-            <span> R{{imovel?.valorVenda | currency}}</span>
+            <span> R${{imovel?.valorVenda}},00</span>
         </p>
         <mat-divider></mat-divider>
         <div class="vendedor">
             <p id="nomeVendedor">{{imovel?.userVendedor?.nome}}</p>
-<!--             <p class="contato">
-                <mat-icon>phone</mat-icon> (XX)XXXXX-XXXX
-            </p> -->
             <p class="contato">
                 <mat-icon>mail</mat-icon> {{imovel?.userVendedor?.username}}
             </p>
         </div>
-        <button *ngIf="!enviado else done" id="btnAgendar" mat-raised-button (click)="agendarVisita()">Agendar Visita</button>
+        <button *ngIf="!enviado else done" id="btnAgendar" mat-raised-button [disabled]="desabilitar" (click)="agendarVisita()">Agendar Visita</button>
         <ng-template #done>
             <div class="solEnviada">
                 <p> Solicitação Enviada</p>

@@ -25,10 +25,16 @@
                 </ng-container>
                 <ng-container matColumnDef="status">
                     <th class="fixa" mat-header-cell *matHeaderCellDef> Status </th>
-                    <td class="fixa" mat-cell *matCellDef="let visita"> {{visita.statusVisita}} 
-                        <button  mat-icon-button color="warn" *ngIf="visita.statusVisita != 'CANCELADO' && visita.statusVisita != 'CONCLUIDO'" (click)="cancelarVisita(visita.idVisita)">
-                            <mat-icon>cancel</mat-icon>
-                        </button>
+                    <td class="fixa" mat-cell *matCellDef="let visita"> {{visita.statusVisita}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="cancelar">
+                    <th class="fixa" mat-header-cell *matHeaderCellDef>&nbsp;</th>
+                    <td class="fixa" mat-cell *matCellDef="let visita">
+                      <button  mat-icon-button matTooltip="Cancelar visita"
+                       color="warn" *ngIf="visita.statusVisita != 'CANCELADO' && visita.statusVisita != 'CONCLUIDO'" (click)="cancelarVisita(visita.idVisita)">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
                     </td>
                 </ng-container>
     
@@ -48,7 +54,7 @@
                            [@detailExpand]="visita == expandedElement ? 'expanded' : 'collapsed'">
                         <div class="info">
                           <div> Informações adicionais do imóvel: </div>
-                          <div> Endereço: {{visita.imovel.endereco}} </div>
+                          <div> Endereço: {{visita.imovel.endereco.logradouro}}, {{visita.imovel.endereco.bairro}}, {{visita.imovel.endereco.cidade}} - {{visita.imovel.endereco.uf}} </div>
                           <div> Descrição: {{visita.imovel.descricao}} </div>
                           <div> Proprietário: {{visita.imovel.userVendedor.nome}} </div>
                           <a routerLink="/imobil/imovel/{{visita.imovel.idImovel}}" target="_blank"> Página do imóvel </a>
@@ -84,11 +90,17 @@
               <ng-container matColumnDef="status">
                   <th class="fixa" mat-header-cell *matHeaderCellDef> Status </th>
                   <td class="fixa" mat-cell *matCellDef="let visita"> {{visita.statusVisita}} 
-                      <button *ngIf="visita.statusVisita != 'CANCELADO' && visita.statusVisita != 'CONCLUIDO'" mat-icon-button (click)="editarVisita(visita.idVisita)">
-                          <mat-icon>edit</mat-icon>
-                      </button>
                   </td>
               </ng-container>
+              <ng-container matColumnDef="cancelar">
+                <th class="fixa" mat-header-cell *matHeaderCellDef>&nbsp;</th>
+                <td class="fixa" mat-cell *matCellDef="let visita">
+                  <button *ngIf="visita.statusVisita != 'CANCELADO' && visita.statusVisita != 'CONCLUIDO'" mat-icon-button matTooltip="Editar status da visita" (click)="editarVisita(visita.idVisita)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                </td>
+            </ng-container>
+              
   
               <ng-container matColumnDef="expand">
                   <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
@@ -107,7 +119,7 @@
                       <div class="info">
                         <div> Informações adicionais: </div>
                         <div> Descrição do imóvel: {{visita.imovel.descricao}} </div>
-                        <div> Endereço do imóvel: {{visita.imovel.endereco}} </div>
+                        <div> Endereço do imóvel: {{visita.imovel.endereco.logradouro}}, {{visita.imovel.endereco.bairro}}, {{visita.imovel.endereco.cidade}} - {{visita.imovel.endereco.uf}} </div>
                         <div> Solicitante: {{visita.userConsumidor.nome}} </div>
                         <a routerLink="/imobil/imovel/{{visita.imovel.idImovel}}" target="_blank"> Página do imóvel </a>
                       </div>

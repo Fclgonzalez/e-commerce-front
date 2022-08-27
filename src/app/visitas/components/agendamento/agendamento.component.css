@@ -99,3 +99,7 @@ mat-card {
     width: fit-content;
     margin: auto;
 }
+
+#btnAgendar:disabled{
+    background-color: rgb(200, 200, 200);
+}
