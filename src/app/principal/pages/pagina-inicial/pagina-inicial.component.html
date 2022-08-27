@@ -5,7 +5,7 @@
     <p class="titulo">Busque aqui o imóvel do jeitinho que você quer</p>
 
     <form class="row g-3" [formGroup]="formPesquisa">
-      <mat-tab-group animationDuration="500ms">
+      <mat-tab-group mat-stretch-tabs animationDuration="500ms">
         <mat-tab label="Aluguel">
           <div class="container">
             <div class="campoPesquisa input-group mb-3">
@@ -47,7 +47,7 @@
                 />
               </div>
             </div>
-            <div class="bordaCidade">
+            <div class="bordaBairro">
               <label for="formFile" class="library"
                 ><mat-icon class="alinhamentoIcones">home</mat-icon
                 >Bairro</label
@@ -165,7 +165,7 @@
               />
             </div>
           </div>
-          <div class="bordaCidade">
+          <div class="bordaBairro">
             <label for="formFile" class="library"
               ><mat-icon class="alinhamentoIcones">home</mat-icon>Bairro</label
             >
@@ -250,8 +250,8 @@
 
 <!-- CARROSSEL -->
 
-<p class="lançamentos">
-  <span>Destaques</span>
+<p class="lançamentos2">
+  <span class="destaquesCarrossel">Destaques</span>
   <a routerLink="/principal/busca-imoveis"
   [queryParams]="{ buscar: 'todos' }">
     <span>Ver todos os imóveis</span> <mat-icon>arrow_forward</mat-icon>
