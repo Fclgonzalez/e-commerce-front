@@ -1,6 +1,4 @@
-
-
-.create-account{
+.create-account {
   border-radius: 30px;
   padding: 10px 20px;
   font-size: 18px;
@@ -15,7 +13,28 @@ form {
   display: flex;
   flex-direction: column;
 }
-.form-group{
-  margin: 5px
+.form-group {
+  margin: 5px;
 }
 
+.action {
+  padding: 1em;
+  margin: 1em;
+  display: block;
+    margin-left: auto;
+    margin-right: auto
+
+  }
+.addUser{
+  all: unset;
+  cursor: pointer;
+
+}
+.spaceb{
+  display: flex;
+  justify-content: space-between;
+}
+.modal-header2{
+  padding: 10px;
+  text-align: center;
+}

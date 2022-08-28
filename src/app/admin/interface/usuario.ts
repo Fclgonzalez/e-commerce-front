@@ -8,8 +8,6 @@ export interface Usuario {
   identificacao: string;
   celular?: string;
   telefone?: string;
-  dataCriacao: string;
-  dataAtualizacao: string;
   endereco: Endereco;
   roles: Role[];
 }
