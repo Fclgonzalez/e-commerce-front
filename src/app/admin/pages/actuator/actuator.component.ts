@@ -6,6 +6,7 @@ import { ActuatorService } from './actuator.service';
 import { Chart } from 'chart.js';
 import { ChartType } from '../../interface/enum/chart-type.enum';
 import { NONE_TYPE } from '@angular/compiler';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-actuator',
   templateUrl: './actuator.component.html',
@@ -25,9 +26,14 @@ export class ActuatorComponent implements OnInit {
   private timestamp!: number;
   public pageSize = 10;
   public page = 1;
-  constructor(private dashboardService: ActuatorService) {}
+
+  constructor(
+    private dashboardService: ActuatorService,
+    private title: Title
+    ) {}
 
   ngOnInit(): void {
+    this.title.setTitle('E-commerce Imobiliaria: Actuator')
     this.getTraces();
     this.getSystemCpu();
     this.getSystemHealth();

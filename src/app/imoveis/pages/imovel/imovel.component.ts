@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Endereco } from 'src/app/enderecos/models/endereco';
 import { Caracteristica } from '../../caracteristicas/models/caracteristica';
@@ -23,10 +24,12 @@ export class ImovelComponent implements OnInit {
   constructor(
     private imovelService: ImoveisService,
     private caracteristicaService: CaracteristicasService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('E-commerce Imobiliaria: Imóvel')
     this.route.paramMap.subscribe(
       (params) => {
         let id = parseInt(params.get('idImovel') ?? '0')

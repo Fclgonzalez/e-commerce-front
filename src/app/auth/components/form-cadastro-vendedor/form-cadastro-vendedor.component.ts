@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { Endereco } from 'src/app/enderecos/models/endereco';
@@ -306,7 +307,7 @@ export class FormCadastroVendedorComponent implements OnInit {
         let idUser: number = dadosUser;
         let im: Imovel = this.cadastroImovelForm.value;
         console.log(dadosUser);
-        
+
 
         forkJoin(Array.from(this.foto).map((app) => (this.imovelService.salvarFoto(app)))).subscribe({
           next: (links) => {
