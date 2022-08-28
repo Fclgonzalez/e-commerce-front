@@ -1,9 +1,12 @@
 <app-navi>
-<div class="container">
-
-
-  <div class="col-sm-6 col-md-6 col-lg-12" style="margin-top: 50px;">
-    <h5 class="pull-left">Usuarios</h5>
+  <div class="container">
+    <div class="col-sm-6 col-md-6 col-lg-12" style="margin-top: 50px">
+      <div class="spaceb">
+        <h5 class="pull-left">Usuarios</h5>
+        <button class="addUser" (click)="onSelectNewUser()">
+          <span class="material-icons"> person_add </span>
+        </button>
+      </div>
       <table class="table table-hover text-center" id="httptrace-table">
         <thead>
           <tr>
@@ -12,131 +15,476 @@
             <th>Nome</th>
             <th>Identificação</th>
             <th>View</th>
+            <th>Action</th>
           </tr>
         </thead>
-        <tbody >
-          <tr *ngFor="let trace of allUsers | paginate: { id: 'trace-list',
-          itemsPerPage: pageSize,
-          currentPage: page,
-          totalItems: allUsers?.length }" style="cursor: pointer;">
-            <td (click)="onSelectTrace(trace)"> {{trace.idUser}} </td>
-            <td (click)="onSelectTrace(trace)">{{trace.username}} </td>
-            <td (click)="onSelectTrace(trace)"> {{trace.nome}}</td>
-            <td (click)="onSelectTrace(trace)" >{{trace.identificacao}}</td>
+        <tbody>
+          <tr
+            *ngFor="
+              let trace of allUsers
+                | paginate
+                  : {
+                      id: 'trace-list',
+                      itemsPerPage: pageSize,
+                      currentPage: page,
+                      totalItems: allUsers?.length
+                    }
+            "
+            style="cursor: pointer"
+          >
+            <td (click)="onSelectTrace(trace)">{{ trace.idUser }}</td>
+            <td (click)="onSelectTrace(trace)">{{ trace.username }}</td>
+            <td (click)="onSelectTrace(trace)">{{ trace.nome }}</td>
+            <td (click)="onSelectTrace(trace)">{{ trace.identificacao }}</td>
             <td (click)="onSelectTrace(trace)">
-              <button  class="botsblue btn btn-outline-info"><i class="botsblue fa fa-eye"></i></button>
+              <button class="botsblue btn btn-outline-info">
+                <i class="botsblue fa fa-eye"></i>
+              </button>
+            </td>
+            <td>
+              <button
+                (click)="onSelectAction(trace)"
+                class="botsblue btn btn-outline-danger"
+              >
+                <i class="fa fa-exclamation-triangle"></i>
+              </button>
+              <button
+                *ngIf="isAdmin(trace) == false"
+                (click)="onSelectPromote(trace)"
+                class="botsblue btn btn-outline-primary"
+              >
+                <i class="fa fa-chevron-up"></i>
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
-      <pagination-controls class="botsblue text-center" id="trace-list" (pageChange)="page = $event"  ></pagination-controls>
-
- </div>
-
-</div>
+      <pagination-controls
+        class="botsblue text-center"
+        id="trace-list"
+        (pageChange)="page = $event"
+      ></pagination-controls>
+    </div>
+  </div>
 </app-navi>
 
+<button
+  hidden="true"
+  type="button"
+  id="trace-modal"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#trace-info-modal"
+></button>
 
+<button
+  hidden="true"
+  type="button"
+  id="action-modal"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#trace-action-modal"
+></button>
 
-<button hidden="true" type="button" id="trace-modal" class="btn btn-primary" data-toggle="modal" data-target="#trace-info-modal"></button>
+<button
+  hidden="true"
+  type="button"
+  id="new-user-modal"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#trace-new-user-modal"
+></button>
 
-
+<button
+  hidden="true"
+  type="button"
+  id="promote-modal"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#trace-promote-modal"
+></button>
 <!-- Trace Information Modal -->
 
-
-
-<div class="modal fade " id="trace-info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="trace-info-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Dados Usuário</h5>
-        <button mat-button class="close-icon" data-dismiss="modal">
+        <button
+          id="close-modal"
+          mat-button
+          class="close-icon"
+          data-dismiss="modal"
+        >
           <mat-icon>close</mat-icon>
-      </button>
+        </button>
       </div>
       <div class="modal-body right-left-margin">
-            <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#usuarios">
-                  <i class="fa fa-user"></i> Informações</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#endereco">
-                  <i class="fa fa-map-marker"></i> Endereço</a>
-              </li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane fade show active registration-form" id="usuarios" *ngIf="user">
-                <form [formGroup]="formUsuario">
-                  <div class="form-icon">
-                      <span><i class="icon icon-user"></i></span>
-                  </div>
-                  <div class="form-group">
-                    <mat-label> Nome:</mat-label>
-                      <input type="text" class="form-control item" id="nome" placeholder="Nome" formControlName="nome">
-                  </div>
-                  <div class="form-group">
-                    <mat-label> Email:</mat-label>
-                      <input type="text" class="form-control item" id="email" placeholder="Email" formControlName="email">
-                  </div>
-                  <div class="form-group">
-                    <mat-label> Identificação:</mat-label>
-                      <input type="text" class="form-control item" id="identificacao" placeholder="Identificação" formControlName="identificacao">
-                  </div>
-                  <div class="form-group">
-                    <mat-label> Celular:</mat-label>
-                      <input type="text" class="form-control item" id="celular" placeholder="Celular" formControlName="celular">
-                  </div>
-                  <div class="form-group">
-                    <mat-label> Telefone:</mat-label>
-                      <input type="text" class="form-control item" id="telefone" placeholder="Telefone" formControlName="telefone">
-                  </div>
-                  <div class="form-group">
-                      <button type="button" class="btn btn-block create-account">Salvar Alterações</button>
-                  </div>
-              </form>
+        <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#usuarios">
+              <i class="fa fa-user"></i> Informações</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#endereco">
+              <i class="fa fa-map-marker"></i> Endereço</a
+            >
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div
+            class="tab-pane fade show active registration-form"
+            id="usuarios"
+            *ngIf="user"
+          >
+            <form [formGroup]="formUsuario" (ngSubmit)="saveUsuario()">
+              <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
+              </div>
+              <div class="form-group">
+                <mat-label> Nome:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="nome"
+                  placeholder="Nome"
+                  formControlName="nome"
+                />
+              </div>
+              <div class="form-group">
+                <mat-label> Email:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="email"
+                  placeholder="Email"
+                  formControlName="email"
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <mat-label> Identificação:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="identificacao"
+                  placeholder="Identificação"
+                  formControlName="identificacao"
+                />
+              </div>
+              <div class="form-group">
+                <mat-label> Celular:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="celular"
+                  placeholder="Celular"
+                  formControlName="celular"
+                />
+              </div>
+              <div class="form-group">
+                <mat-label> Telefone:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="telefone"
+                  placeholder="Telefone"
+                  formControlName="telefone"
+                />
+              </div>
+              <div class="form-group">
+                <button *ngIf="loading == false" class="btn btn-block create-account" type="submit">
+                  Salvar atualizações
+                </button>
+                <mat-spinner   *ngIf="loading == true"></mat-spinner>
+              </div>
+            </form>
+          </div>
 
+          <div class="tab-pane fade" id="endereco">
+            <form [formGroup]="formEndereco" (ngSubmit)="saveEndereco()">
+              <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
               </div>
+              <div class="form-group">
+                <mat-label> Rua:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="logradouro"
+                  placeholder="Rua"
+                  formControlName="logradouro"
+                />
+              </div>
+              <div class="form-group">
+                <mat-label> Numero:</mat-label>
+                <input
+                  type="number"
+                  class="form-control item"
+                  id="numero"
+                  placeholder="Numero"
+                  formControlName="numero"
+                  min="1"
+                />
+              </div>
+              <div class="form-group">
+                <mat-label> Complemento:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="complemento"
+                  placeholder="Complemento"
+                  formControlName="complemento"
+                />
+              </div>
+              <div class="form-group">
+                <mat-label> Bairro:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="bairro"
+                  placeholder="Bairro"
+                  formControlName="bairro"
+                />
+              </div>
+              <div class="form-group">
+                <mat-label> CEP:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="cep"
+                  placeholder="CEP"
+                  formControlName="cep"
+                />
+              </div>
+              <div class="form-group">
+                <mat-label> Cidade:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="cidade"
+                  placeholder="Cidade"
+                  formControlName="cidade"
+                />
+              </div>
+              <div class="form-group">
+                <mat-label> UF:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="uf"
+                  placeholder="UF"
+                  formControlName="uf"
+                />
+              </div>
+              <div class="form-group">
+                <button
+                *ngIf="loading == false"
+                class="btn btn-block create-account" type="submit">
+                  Salvar atualizações
+                </button>
+                <mat-spinner class="action col-sm-6 col-md-6 col-lg-6" *ngIf="loading == true"></mat-spinner>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-              <div class="tab-pane fade" id="endereco">
-                <form [formGroup]="formEndereco">
-                  <div class="form-icon">
-                      <span><i class="icon icon-user"></i></span>
-                  </div>
-                  <div class="form-group">
-                    <mat-label> Rua:</mat-label>
-                      <input type="text" class="form-control item" id="logradouro" placeholder="Rua" formControlName="logradouro">
-                  </div>
-                  <div class="form-group">
-                    <mat-label> Numero:</mat-label>
-                      <input type="text" class="form-control item" id="numero" placeholder="Numero" formControlName="numero">
-                  </div>
-                  <div class="form-group">
-                    <mat-label> Complemento:</mat-label>
-                      <input type="text" class="form-control item" id="complemento" placeholder="Complemento" formControlName="complemento">
-                  </div>
-                  <div class="form-group">
-                    <mat-label> Bairro:</mat-label>
-                      <input type="text" class="form-control item" id="cep" placeholder="Bairro" formControlName="cep">
-                  </div>
-                  <div class="form-group">
-                    <mat-label> CEP:</mat-label>
-                      <input type="text" class="form-control item" id="cep" placeholder="CEP" formControlName="cep">
-                  </div>
-                  <div class="form-group">
-                    <mat-label> Cidade:</mat-label>
-                    <input type="text" class="form-control item" id="cidade" placeholder="Cidade" formControlName="cidade">
-                </div>
-                <div class="form-group">
-                  <mat-label> UF:</mat-label>
-                  <input type="text" class="form-control item" id="uf" placeholder="UF" formControlName="uf">
+<div
+  class="modal fade"
+  id="trace-action-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ações disponíveis</h5>
+        <button
+          id="close-modal2"
+          mat-button
+          class="close-icon"
+          data-dismiss="modal"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="container">
+        <button
+          *ngIf="selectedAction?.enabled == true"
+          class="action col-sm-6 col-md-6 col-lg-6"
+          mat-raised-button
+          color="accent"
+          (click)="disableEnableUser()"
+        >
+          Desabilitar Usuário<span class="material-icons"> warning_amber </span>
+        </button>
+        <button
+          *ngIf="selectedAction?.enabled == false && loading == false"
+          class="action col-sm-6 col-md-6 col-lg-6"
+          mat-raised-button
+          color="primary"
+          (click)="disableEnableUser()"
+
+        >
+          Habilitar Usuário<span class="material-icons"> info </span>
+        </button>
+
+        <button
+          class="action col-sm-6 col-md-6 col-lg-6"
+          mat-raised-button
+          color="warn"
+          (click)="deleteUser()"
+          *ngIf="loading == false"
+        >
+          Excluir Permanentemente
+          <span class="material-icons"> delete_forever </span>
+        </button>
+
+        <mat-spinner class="action col-sm-6 col-md-6 col-lg-6" *ngIf="loading == true"></mat-spinner>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="trace-new-user-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Novo Usuário</h5>
+        <button
+          id="close-modal3"
+          mat-button
+          class="close-icon"
+          data-dismiss="modal"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body right-left-margin">
+        <div class="tab-content">
+          <div
+            class="tab-pane fade show active registration-form"
+            id="usuarios"
+          >
+            <form [formGroup]="formNewUser" (ngSubmit)="saveNewUser()">
+              <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
               </div>
-                  <div class="form-group">
-                      <button type="button" class="btn btn-block create-account">Salvar Alterações</button>
-                  </div>
-              </form>
+              <div class="form-group">
+                <mat-label> Nome:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="nomeUser"
+                  placeholder="Nome"
+                  formControlName="nomeUser"
+                />
               </div>
-            </div>
+              <div class="form-group">
+                <mat-label> Email:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="username"
+                  placeholder="Email"
+                  formControlName="username"
+                />
+              </div>
+              <div class="form-group">
+                <mat-label> Senha:</mat-label>
+                <input
+                  type="password"
+                  class="form-control item"
+                  id="password"
+                  placeholder="Senha"
+                  formControlName="password"
+                />
+              </div>
+              <div class="form-group">
+                <mat-label> Identificação:</mat-label>
+                <input
+                  type="text"
+                  class="form-control item"
+                  id="identificacaoUser"
+                  placeholder="Identificação"
+                  formControlName="identificacaoUser"
+                />
+              </div>
+              <div class="form-group">
+                <button class="btn btn-block create-account" *ngIf="loading == false" type="submit">
+                  Cadastrar Usuário
+                </button>
+                <mat-spinner class="action col-sm-6 col-md-6 col-lg-6" *ngIf="loading == true"></mat-spinner>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="trace-promote-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content container">
+      <div class="modal-header2">
+        <h4>
+          Deseja promover {{ selectedPromotion?.nome | titlecase }} para ADMIN?
+        </h4>
+
+      </div>
+      <div class="container">
+        <button
+          class="action col-sm-6 col-md-6 col-lg-6"
+          mat-raised-button
+          color="primary"
+          (click)="promoteUser()"
+          *ngIf="loading == false"
+        >
+          Confirmar<span class="material-icons"> check </span>
+        </button>
+        <mat-spinner class="action col-sm-6 col-md-6 col-lg-6" *ngIf="loading == true"></mat-spinner>
+        <button
+
+          class="action col-sm-6 col-md-6 col-lg-6"
+          mat-raised-button
+          color="text-warning"
+          id="close-modal4"
+          mat-button
+          data-dismiss="modal"
+        >
+          Cancelar<span class="material-icons">
+             highlight_off
+            </span>
+        </button>
       </div>
     </div>
   </div>
