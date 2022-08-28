@@ -29,7 +29,7 @@ export class CadastroComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.title.setTitle('Cadastre-se')
+    this.title.setTitle('E-commerce Imobiliaria: Cadastre-se')
   }
 
   cadastrarConsumidor(): void {
@@ -38,9 +38,9 @@ export class CadastroComponent implements OnInit {
       .subscribe(
         () => {
           this.snackbar.open('Cadastrado com sucesso.', 'Ok', {
-            duration: 3000       
+            duration: 3000
         })
-         this.router.navigateByUrl('/auth/email') 
+         this.router.navigateByUrl('/auth/email')
   })
   }
 

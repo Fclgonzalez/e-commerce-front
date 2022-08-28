@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from '../../interface/usuario';
 import { UsersService } from './users.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-usuarios',
@@ -34,10 +35,14 @@ export class UsuariosComponent implements OnInit {
     uf: ['', []]
   })
 
-  constructor(private usuarioService: UsersService,
-    private fb: FormBuilder,) { }
+  constructor(
+    private usuarioService: UsersService,
+    private fb: FormBuilder,
+    private title: Title
+    ) { }
 
   ngOnInit(): void {
+    this.title.setTitle("E-commerce Imobiliaria: Perfil Usuário")
     this.getAllUsers();
   }
 

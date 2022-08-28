@@ -5,6 +5,7 @@ import { ConsumidoresServiceService } from '../../components/bar-chart/consumido
 import { ImovelService } from '../../components/bar-chart-imoveis/imovel.service';
 import { Chart } from 'chart.js';
 import { ChartType } from '../../interface/enum/chart-type.enum';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -18,10 +19,16 @@ export class DashboardComponent implements OnInit {
   public arrVisit: any[] = [];
 
 
-  constructor(private consumidores: ConsumidoresServiceService, private vendedores: VendedorService, private imoveis: ImovelService,
-    private visitas: VisitaService) { }
+  constructor(
+    private consumidores: ConsumidoresServiceService,
+    private vendedores: VendedorService,
+    private imoveis: ImovelService,
+    private visitas: VisitaService,
+    private title: Title
+    ) { }
 
   ngOnInit(): void {
+    this.title.setTitle("E-commerce Imobiliaria: Dashboard Admin")
     this.getConsumidores();
     this.getVendedores();
     this.getImoveis();

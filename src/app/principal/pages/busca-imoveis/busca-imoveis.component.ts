@@ -8,6 +8,7 @@ import { filter } from 'rxjs';
 import { ImovelService } from 'src/app/admin/components/bar-chart-imoveis/imovel.service';
 import { Imovel } from 'src/app/imoveis/models/imovel';
 import { ImoveisService } from 'src/app/imoveis/service/imoveis.service';
+import { Title } from '@angular/platform-browser';
 
 interface finalidade {
   value: string;
@@ -175,13 +176,15 @@ caractes:caracte[] = [
     private caracteristicaService: CaracteristicasService,
     private imovelService: ImoveisService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) {
     this.form = this.router.getCurrentNavigation()?.extras.state
     console.log(this.form)
   }
 
   ngOnInit(): void {
+    this.title.setTitle('E-commerce Imobiliaria: Busque seu imóvel')
       this.route.queryParamMap.subscribe((params) => {
       this.buscar = params.get('buscar')
       this.buscaTodosImoveis()

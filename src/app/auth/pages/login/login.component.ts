@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     username: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
     recaptcha: ['', Validators.required]
-   
+
   })
 
   constructor(
@@ -30,22 +30,22 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.title.setTitle('Login')
+    this.title.setTitle('E-commerce Imobiliaria: Login')
   }
   siteKey: string = '6LeDVSchAAAAAIns0CIpcMhwsc3AL0Xv8U902IYw'
 
-  login(): void {   
+  login(): void {
     const credenciais: User = this.loginForm.value
     this.authService.login(credenciais)
       .subscribe(
         () => {
           this.snackbar.open('Logado com sucesso.', 'Ok', {
-            duration: 3000       
+            duration: 3000
         })
-        this.router.navigateByUrl('/user/perfil-usuario') 
+        this.router.navigateByUrl('/user/perfil-usuario')
   })
   }
-  
+
 
 
 }

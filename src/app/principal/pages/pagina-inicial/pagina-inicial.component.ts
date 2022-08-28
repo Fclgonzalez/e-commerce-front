@@ -6,7 +6,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { TimeScale } from 'chart.js';
 import { ImovelService } from 'src/app/admin/components/bar-chart-imoveis/imovel.service';
 import { Imovel } from 'src/app/imoveis/models/imovel';
 import { ImoveisService } from 'src/app/imoveis/service/imoveis.service';
@@ -95,10 +97,12 @@ export class PaginaInicialComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private imovelService: ImoveisService,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) {}
 
   ngOnInit(): void {
+    this.title.setTitle('E-commerce Imobiliaria: Home')
     this.imoveisCarrossel();
     this.imoveisCard();
   }

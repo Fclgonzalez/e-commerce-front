@@ -13,7 +13,7 @@ export class EmailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.title.setTitle('Email de Confirmação')
+    this.title.setTitle('E-commerce Imobiliaria: Email de Confirmação')
   }
 
 }

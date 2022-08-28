@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-perguntas-frequentes',
@@ -69,7 +70,11 @@ export class PerguntasFrequentesComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private title: Title
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.title.setTitle('E-commerce Imobiliaria: Perguntas frequentes')
+  }
 }
