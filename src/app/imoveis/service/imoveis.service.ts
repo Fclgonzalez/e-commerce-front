@@ -55,16 +55,14 @@ export class ImoveisService {
 
 
 
-  cadastrarImovel(imovel: Imovel, idVendedor: number, linkFoto: any): Observable<Imovel> {
-    imovel.foto = linkFoto
+  cadastrarImovel(imovel: Imovel, idVendedor: number): Observable<Imovel> {
       return this.http.post<Imovel>(`${this.url}/${idVendedor}`, imovel)
       .pipe(tap(() => {
         this.atualizarImovel$.next(true)
       }))
   }
 
-  cadastrarImovelInicial(imovel: Imovel, idVendedor: number, linkFoto: any): Observable<Imovel> {
-    imovel.foto = linkFoto
+  cadastrarImovelInicial(imovel: Imovel, idVendedor: number): Observable<Imovel> {
       return this.http.post<Imovel>(`${this.url}/inicial/${idVendedor}`, imovel)
       .pipe(tap(() => {
         this.atualizarImovel$.next(true)

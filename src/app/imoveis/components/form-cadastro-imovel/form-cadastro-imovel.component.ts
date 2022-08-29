@@ -20,6 +20,8 @@ import { EnderecosService } from 'src/app/enderecos/services/enderecos.service';
 import { UserService } from 'src/app/user/services/user.service';
 import { Caracteristica } from '../../caracteristicas/models/caracteristica';
 import { CaracteristicasService } from '../../caracteristicas/services/caracteristicas.service';
+import { Foto } from '../../fotos/models/foto';
+import { FotoService } from '../../fotos/service/foto.service';
 import { Imovel } from '../../models/imovel';
 import { ImoveisService } from '../../service/imoveis.service';
 
@@ -31,6 +33,7 @@ import { ImoveisService } from '../../service/imoveis.service';
 export class FormCadastroImovelComponent implements OnInit {
   salvandoInformacoes: boolean = false;
   caracteristica: Caracteristica[] = [];
+  linkFoto?: Foto
   idUser?: number = 0;
 
   tipoImovelEnum: Array<any> = [
@@ -201,6 +204,7 @@ export class FormCadastroImovelComponent implements OnInit {
     private fb: FormBuilder,
     private imovelService: ImoveisService,
     private enderecoService: EnderecosService,
+    private fotoService: FotoService,
     private caracteristicaService: CaracteristicasService,
     private authService: AuthService,
     private userService: UserService,
@@ -287,7 +291,6 @@ export class FormCadastroImovelComponent implements OnInit {
     }
 
     this.salvandoInformacoes = true;
-    let foto: any;
     //Serviços
     let im: Imovel = this.cadastroImovelForm.value;
 
@@ -295,13 +298,8 @@ export class FormCadastroImovelComponent implements OnInit {
       Array.from(this.foto).map((app) => this.imovelService.salvarFoto(app))
     ).subscribe({
       next: (links) => {
-        console.log(links);
 
-        // for (let i = 0; i < array.length; i++) {
-        //   await salvarFotoBack(links[i])
-
-        // }
-        this.imovelService.cadastrarImovel(im, this.idUser!, links).subscribe(
+        this.imovelService.cadastrarImovel(im, this.idUser!).subscribe(
           (dadosImovel) => {
             const carac: Caracteristica = this.cadastroCaracteristica.value;
             for (let a of this.cadastroCaracteristica.value.caracteristicas) {
@@ -332,7 +330,7 @@ export class FormCadastroImovelComponent implements OnInit {
                   });
                   this.router.navigateByUrl('/principal/pagina-inicial');
                 },
-                (errorEnderero) => {
+                (errorEndereco) => {
                   this.salvandoInformacoes = false;
                   this.snackbar.open(
                     'Não foi possível realizar o cadastro do endereço',
@@ -341,9 +339,16 @@ export class FormCadastroImovelComponent implements OnInit {
                       duration: 3000,
                     }
                   );
-                  console.log(errorEnderero);
+                  console.log(errorEndereco);
                 }
               );
+
+              for (let i = 0; i < links.length; i++) {
+                this.linkFoto!.linkFoto = links[i]
+                this.linkFoto!.idImovel = im.idImovel!
+                this.fotoService.salvarLinkFoto(this.linkFoto!, im.idImovel!)
+              }
+
           },
           (errorImovel) => {
             this.salvandoInformacoes = false;

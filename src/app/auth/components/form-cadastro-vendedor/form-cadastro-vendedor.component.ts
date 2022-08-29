@@ -9,6 +9,8 @@ import { Endereco } from 'src/app/enderecos/models/endereco';
 import { EnderecosService } from 'src/app/enderecos/services/enderecos.service';
 import { Caracteristica } from 'src/app/imoveis/caracteristicas/models/caracteristica';
 import { CaracteristicasService } from 'src/app/imoveis/caracteristicas/services/caracteristicas.service';
+import { Foto } from 'src/app/imoveis/fotos/models/foto';
+import { FotoService } from 'src/app/imoveis/fotos/service/foto.service';
 import { Imovel } from 'src/app/imoveis/models/imovel';
 import { ImoveisService } from 'src/app/imoveis/service/imoveis.service';
 import { User } from 'src/app/user/models/user';
@@ -23,6 +25,7 @@ export class FormCadastroVendedorComponent implements OnInit {
   salvandoInformacoes: boolean = false;
   caracteristica: Caracteristica[] = [];
   foto!: FileList
+  linkFoto!: Foto
   fotoPreview: string = '';
 
   tipoImovelEnum: Array<any> = [
@@ -214,6 +217,7 @@ export class FormCadastroVendedorComponent implements OnInit {
     private imovelService: ImoveisService,
     private enderecoService: EnderecosService,
     private caracteristicaService: CaracteristicasService,
+    private fotoService: FotoService,
     private authService: AuthService,
     private snackbar: MatSnackBar,
     private router: Router
@@ -311,9 +315,8 @@ export class FormCadastroVendedorComponent implements OnInit {
 
         forkJoin(Array.from(this.foto).map((app) => (this.imovelService.salvarFoto(app)))).subscribe({
           next: (links) => {
-            console.log(links);
 
-        this.imovelService.cadastrarImovelInicial(im, idUser, links).subscribe(
+        this.imovelService.cadastrarImovelInicial(im, idUser).subscribe(
           (dadosImovel) => {
             const carac: Caracteristica = this.cadastroCaracteristica.value;
             for (let a of this.cadastroCaracteristica.value.caracteristicas) {
@@ -359,6 +362,12 @@ export class FormCadastroVendedorComponent implements OnInit {
                   console.log(errorEnderero);
                 }
               );
+
+              for (let i = 0; i < links.length; i++) {
+                this.linkFoto.linkFoto = links[i]
+                this.linkFoto.idImovel = im.idImovel!
+                this.fotoService.salvarLinkFoto(this.linkFoto, im.idImovel!)
+              }
           },
           (errorImovel) => {
             this.salvandoInformacoes = false;
