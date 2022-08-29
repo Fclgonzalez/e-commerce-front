@@ -1,3 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+
+.title {
+    font-family: 'Fredoka One', cursive;
+}
+
+.links{
+    font-size: 19px;
+    font-weight: 500;
+}
+.links:hover{
+    font-size: 21px;
+    font-weight: 500;
+ 
+}
+
+
 .botaoLogin{
     background-color: #0CA789;
     color: white;
@@ -32,7 +49,3 @@ mat-icon {
     margin: auto;
 }
 
-.links:hover{
-    font-size: 15px;
-    font-weight: 500;
-}
