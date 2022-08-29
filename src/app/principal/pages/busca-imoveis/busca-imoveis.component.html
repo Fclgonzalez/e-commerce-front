@@ -1,10 +1,47 @@
 <!-- Campo de pesquisa -->
 <div class="box">
-<mat-tab-group animationDuration="500ms">
+<mat-tab-group mat-stretch-tabs animationDuration="500ms">
   <mat-tab label="Venda">
     <form [formGroup]="formPesquisa">
-      <div class="campoPesquisa input-group mb-3">
 
+
+        <div class="endereco" formGroupName="endereco">
+          <div class="bordaCidade">
+            <label for="formFile" class="library"
+              ><mat-icon class="alinhamentoIcones">local_library</mat-icon
+              >Cidade</label
+            >
+            <div>
+              <input
+                type="text"
+                class="cidade"
+                placeholder="Busque por cidade"
+                formControlName="cidade"
+                aria-label="text"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+          </div>
+          <div class="bordaBairro">
+            <label for="formFile" class="library"
+              ><mat-icon class="alinhamentoIcones">home</mat-icon
+              >Bairro</label
+            >
+            <div>
+              <input
+                type="text"
+                class="cidade"
+                placeholder="Busque por bairro"
+                formControlName="bairro"
+                aria-label="text"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+          </div>
+        </div>
+
+
+        <div class="campoPesquisa input-group mb-3">
         <mat-form-field appearance="fill">
           <mat-label>Finalidade</mat-label>
           <mat-select id="inputGroupSelect01" formControlName="finalidadeImovel">
@@ -22,6 +59,8 @@
           </mat-select>
         </mat-form-field>
       </div>
+
+
 
       <div class="BarraPesquisa">
         <mat-form-field appearance="fill">
@@ -82,8 +121,44 @@
   </mat-tab>
   <mat-tab label="Aluguel">
     <form [formGroup]="formPesquisa">
-      <div class="campoPesquisa input-group mb-3">
 
+
+
+        <div class="endereco" formGroupName="endereco">
+          <div class="bordaCidade">
+            <label for="formFile" class="library"
+              ><mat-icon class="alinhamentoIcones">local_library</mat-icon
+              >Cidade</label
+            >
+            <div>
+              <input
+                type="text"
+                class="cidade"
+                placeholder="Busque por cidade"
+                formControlName="cidade"
+                aria-label="text"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+          </div>
+          <div class="bordaBairro">
+            <label for="formFile" class="library"
+              ><mat-icon class="alinhamentoIcones">home</mat-icon
+              >Bairro</label
+            >
+            <div>
+              <input
+                type="text"
+                class="cidade"
+                placeholder="Busque por bairro"
+                formControlName="bairro"
+                aria-label="text"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="campoPesquisa input-group mb-3">
         <mat-form-field appearance="fill">
           <mat-label>Finalidade</mat-label>
           <mat-select id="inputGroupSelect01" formControlName="finalidadeImovel">
@@ -101,6 +176,8 @@
           </mat-select>
         </mat-form-field>
       </div>
+
+
 
       <div>
         <mat-form-field appearance="fill">
@@ -144,24 +221,10 @@
           </mat-select>
         </mat-form-field>
 
-        <button
-          class="botaoArea btn btn-outline-secondary dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Área (m²)
-        </button>
-          <div>
-            <label class="valor2">Área máxima</label>
-          </div>
-          <input
-            type="number"
-            class="Área máxima"
-            placeholder="ex 400"
-            aria-label="number"
-            aria-describedby="basic-addon1"
-          />
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>Área mínima (m²)</mat-label>
+          <input matInput type="number" formControlName="area">
+        </mat-form-field>
       </div>
 
       <button
@@ -229,35 +292,35 @@
     <mat-grid-list cols="5" rowHeight="5:2">
       <mat-grid-tile *ngIf="imov.area! > 0">
         <p class="dadosImovel2">
-          {{imov.area}}m² 
+          {{imov.area}}m²
           <mat-icon matTooltip="Área">straighten</mat-icon>
           <br />
         </p>
       </mat-grid-tile>
       <mat-grid-tile *ngIf="imov.quartos! > 0">
         <p class="dadosImovel2">
-          {{imov.quartos}} 
+          {{imov.quartos}}
           <mat-icon matTooltip="Quartos">local_hotel</mat-icon>
           <br />
         </p>
       </mat-grid-tile>
       <mat-grid-tile *ngIf="imov.suite! > 0">
         <p class="dadosImovel2">
-          {{imov.suite}} 
+          {{imov.suite}}
           <mat-icon matTooltip="Suítes">bathtub</mat-icon>
           <br />
         </p>
       </mat-grid-tile>
       <mat-grid-tile *ngIf="imov.banheiros! > 0">
         <p class="dadosImovel2">
-          {{imov.banheiros}} 
+          {{imov.banheiros}}
           <span class="material-icons" matTooltip="Banheiros">shower</span>
           <br />
         </p>
       </mat-grid-tile>
       <mat-grid-tile *ngIf="imov.vagas! > 0">
         <p class="dadosImovel2">
-          {{imov.vagas}} 
+          {{imov.vagas}}
           <mat-icon matTooltip="Vagas">directions_car</mat-icon>
           <br />
         </p>
