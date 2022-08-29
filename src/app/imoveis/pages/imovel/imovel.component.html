@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<!-- Carrocel -->
+<!-- Carrossel -->
 <div class="content">
   <div class="col-xs-12 col-lg-12">
     <div
@@ -89,34 +89,34 @@
     <mat-divider></mat-divider>
     <br />
     <mat-grid-list cols="5" rowHeight="5:2">
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="imovel?.area! > 0">
         <p class="dadosImovel2">
           <mat-icon>straighten</mat-icon>
           <br />{{ imovel?.area }}m²
         </p>
       </mat-grid-tile>
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="imovel?.quartos! > 0">
         <p class="dadosImovel2">
           <mat-icon>local_hotel</mat-icon>
-          <br />{{ imovel?.quartos }} quarto
+          <br />{{ imovel?.quartos }} quarto<span *ngIf="imovel?.quartos! > 1">s</span>
         </p>
       </mat-grid-tile>
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="imovel?.suite! > 0">
         <p class="dadosImovel2">
           <mat-icon>bathtub</mat-icon>
-          <br />{{ imovel?.suite }} suíte
+          <br />{{ imovel?.suite }} suíte<span *ngIf="imovel?.suite! > 1">s</span>
         </p>
       </mat-grid-tile>
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="imovel?.banheiros! > 0">
         <p class="dadosImovel2">
           <span class="material-icons">shower</span>
-          <br />{{ imovel?.banheiros }} banheiro
+          <br />{{ imovel?.banheiros }} banheiro<span *ngIf="imovel?.banheiros! > 1">s</span>
         </p>
       </mat-grid-tile>
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="imovel?.vagas! > 0">
         <p class="dadosImovel2">
           <mat-icon>directions_car</mat-icon>
-          <br />{{ imovel?.vagas }} vaga
+          <br />{{ imovel?.vagas }} vaga<span *ngIf="imovel?.vagas! > 1">s</span>
         </p>
       </mat-grid-tile>
     </mat-grid-list>

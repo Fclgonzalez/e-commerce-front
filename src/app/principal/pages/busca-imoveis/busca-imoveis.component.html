@@ -13,8 +13,8 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Tipo</mat-label>
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo</mat-label>
           <mat-select id="inputGroupSelect01" formControlName="tipoImovel">
             <mat-option *ngFor="let tipo of tipos" [value]="tipo.value">
               {{ tipo.viewValue }}
@@ -69,20 +69,13 @@
           <mat-label>Área mínima (m²)</mat-label>
           <input matInput type="number" formControlName="area">
         </mat-form-field>
-
-
       </div>
-
-      <!-- <button type="button" class="botaoProcurar btn p-2" routerLink="/principal/busca-imoveis" [queryParams]="{ buscar: 'aluguel'}">
-        Procurar Imóveis
-      </button> -->
 
       <button
             type="submit"
             class="botaoProcurar btn p-2"
             (click)="filtroImoveis()"
-          >
-            Procurar Imóveis
+          > Procurar Imóveis
           </button>
 
     </form>
@@ -169,41 +162,36 @@
             aria-label="number"
             aria-describedby="basic-addon1"
           />
-
       </div>
-
-      <!-- <button type="button" class="botaoProcurar btn p-2" routerLink="/principal/busca-imoveis" [queryParams]="{ buscar: 'venda'}">
-        Procurar Imóveis
-      </button> -->
 
       <button
             type="submit"
             class="botaoProcurar btn p-2"
             (click)="filtroImoveis()"
-          >
-            Procurar Imóveis
-          </button>
+          > Procurar Imóveis
+      </button>
 
     </form>
   </mat-tab>
 </mat-tab-group>
 </div>
-<!-- Card de pesquisa -->
 
 <mat-spinner
-            color="primary"
-            diameter="40"
-            class="carregarInformacoes input-box"
-            mode="indeterminate"
-            *ngIf="salvandoInformacoes"
-          ></mat-spinner>
+  color="primary"
+  diameter="40"
+  class="carregarInformacoes input-box"
+  mode="indeterminate"
+  *ngIf="salvandoInformacoes"
+></mat-spinner>
+
+<!-- Card de pesquisa -->
 
   <div class="boxCard" *ngFor="let imov of todosImoveis">
-    <div id="PrimeiroCarrosel" class="carousel slide" data-bs-ride="true">
+    <div id="car_{{imov.idImovel}}" class="carousel slide" data-bs-ride="true">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" [attr.data-bs-target]="'#car_'+ imov.idImovel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" [attr.data-bs-target]="'#car_'+ imov.idImovel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" [attr.data-bs-target]="'#car_'+ imov.idImovel" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -217,11 +205,11 @@
         </div>
       </div>
       <div class="controle">
-        <button class="carousel-control-prev" type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#car_'+ imov.idImovel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#PrimeiroCarrosel" data-bs-slide="next">
+      <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#car_'+ imov.idImovel" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
@@ -229,60 +217,56 @@
 
     </div>
   <mat-card class="card">
-      <mat-card-title *ngIf="imov.contratoAluguel">R$ {{imov.valorAluguel}}</mat-card-title>
-      <mat-card-title *ngIf="imov.contratoVenda">R$ {{imov.valorVenda}}</mat-card-title>
+      <mat-card-title *ngIf="imov.contratoAluguel"><span> R$ {{imov.valorAluguel}},00 </span>
+        <span class="tag">Aluguel</span>
+      </mat-card-title>
+      <mat-card-title *ngIf="imov.contratoVenda"><span> R$ {{imov.valorVenda}},00 </span>
+        <span class="tag">Venda</span>
+      </mat-card-title>
     <mat-card-subtitle class="titulo">{{imov.titulo}}</mat-card-subtitle>
-    <mat-card-subtitle>{{imov.descricao}}</mat-card-subtitle>
+    <mat-card-subtitle class="descricao">{{imov.descricao}}</mat-card-subtitle>
     <mat-card-subtitle>{{imov.endereco!.logradouro!}}, {{imov.endereco!.bairro!}}, {{imov.endereco!.cidade!}} - {{imov.endereco!.uf!}}</mat-card-subtitle>
     <mat-grid-list cols="5" rowHeight="5:2">
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="imov.area! > 0">
         <p class="dadosImovel2">
-          {{imov.area}} m²
-          <mat-icon>straighten</mat-icon>
+          {{imov.area}}m² 
+          <mat-icon matTooltip="Área">straighten</mat-icon>
           <br />
         </p>
       </mat-grid-tile>
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="imov.quartos! > 0">
         <p class="dadosImovel2">
-
-          {{imov.quartos}}
-          <mat-icon>local_hotel</mat-icon>
+          {{imov.quartos}} 
+          <mat-icon matTooltip="Quartos">local_hotel</mat-icon>
           <br />
         </p>
       </mat-grid-tile>
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="imov.suite! > 0">
         <p class="dadosImovel2">
-
-          {{imov.suite}}
-          <mat-icon>bathtub</mat-icon>
+          {{imov.suite}} 
+          <mat-icon matTooltip="Suítes">bathtub</mat-icon>
           <br />
         </p>
       </mat-grid-tile>
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="imov.banheiros! > 0">
         <p class="dadosImovel2">
-          {{imov.banheiros}}
-          <span class="material-icons">shower</span>
+          {{imov.banheiros}} 
+          <span class="material-icons" matTooltip="Banheiros">shower</span>
           <br />
         </p>
       </mat-grid-tile>
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="imov.vagas! > 0">
         <p class="dadosImovel2">
-          {{imov.vagas}}
-          <mat-icon>directions_car</mat-icon>
+          {{imov.vagas}} 
+          <mat-icon matTooltip="Vagas">directions_car</mat-icon>
           <br />
         </p>
         </mat-grid-tile>
       </mat-grid-list>
     <mat-card-actions class="BotaoAcessar">
-      <button mat-raised-button color="warn" routerLink="/imobil/imovel/{{imov.idImovel}}">Acessar</button>
+      <a href="/imobil/imovel/{{imov.idImovel}}" target="_blank">
+        <button mat-raised-button color="warn">Acessar</button>
+      </a>
     </mat-card-actions>
   </mat-card>
   </div>
-
-
-
-
-
-
-
-
