@@ -1,9 +1,16 @@
-<div class="container">
-  <div class="box">
-    <form [formGroup]="cadastroForm" (ngSubmit)="cadastrarConsumidor()">
-      <div class="title">Imobiliaria Nosso Lar</div>
+<mat-card>
+  <div class="container">
+    <div class="box">
 
-      <!-- <div class="gmail">
+    <mat-card-content>
+      <form [formGroup]="cadastroForm" (ngSubmit)="cadastrarConsumidor()">
+      
+        <div class="title">
+         <img src='/assets/logo.jpg' alt="" width="30" height="30" > Imobiliaria Nosso Lar </div>
+       
+       
+
+         <!-- <div class="gmail">
         <a href="https://mail.google.com/"><i class="fab fa-gmail"></i>Entrar com Gmail</a>
       </div>
       <div class="facebook">
@@ -14,40 +21,51 @@
 
       <p class="text">Cadastre-se com seus Dados Pessoais</p>
 
-      <div class="input-box underline">
-        <input type="text" placeholder="Nome / Razão social" formControlName="nome">
-        <div class="underline"></div>
-      </div>
+          <mat-form-field class="input-box underline" appearance="legacy">
+              <mat-label>Nome / Razão Social</mat-label>
+              <input type="text" matInput placeholder="Nome / Razão social" formControlName="nome">
+              <mat-error>
+                <span>Campo obrigatório</span>
+              </mat-error>
+          </mat-form-field>
 
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput placeholder="email" formControlName="username">
+            <mat-error>
+              <span>Campo obrigatório</span>
+            </mat-error>
+        </mat-form-field>
 
-      <div class="input-box underline">
-        <input type="email" placeholder="Email" formControlName="username">
-        <div class="underline"></div>
-      </div>
+        <mat-form-field class="input-box underline" appearance="legacy">
+          <mat-label>Senha</mat-label>
+          <input type="password" placeholder="Senha" matInput formControlName="password">
+          <mat-error>
+            <span>Campo obrigatório</span>
+          </mat-error>
+      </mat-form-field>
 
+        <mat-form-field class="input-box underline" appearance="legacy">
+          <mat-label>CPF/ CNPJ</mat-label>
+          <input type="text" matInput placeholder="CPF/ CNPJ" formControlName="identificacao">
+          <mat-error>
+            <span>Campo obrigatório</span>
+          </mat-error>
+      </mat-form-field><br>
+      
 
-      <div class="input-box">
-        <input type="password" placeholder="Senha" formControlName="password">
-        <div class="underline"></div>
-      </div>
-
-
-      <div class="input-box underline">
-        <input type="text" placeholder="CPF / CNPJ" formControlName="identificacao">
-        <div class="underline"></div>
-      </div>
-
-
-      <div class="input-box button">
-        <button type="submit" [disabled]="cadastroForm.invalid">Cadastrar</button>
-      </div>
+      <button class="btn" type="submit" mat-raised-button  id="salvar" [disabled]="cadastroForm.invalid"  matTooltipPosition="above">
+        Cadastrar
+         </button>
 
       <div class="text sign-up-text">Já possui uma conta?
         <label for="flip"><a routerLink="/auth/login">Entre aqui</a></label>
       </div>
 
-
-      <p class="text">Ao continuar, você esta de Acordo com os Termos de Uso e Ciente da Política de Privacidade.</p>
+      <p class="text termos">Ao continuar, aceito os <strong>Termos de Uso</strong> e ciente da <strong> Política de Privacidade</strong> .</p>
     </form>
-  </div>
-</div>
+ 
+  </mat-card-content>
+    </div>
+ </div>
+</mat-card>
