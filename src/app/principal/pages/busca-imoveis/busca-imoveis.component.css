@@ -1,17 +1,10 @@
-/* body{
-  min-height: 100vh;
-} */
 .box{
     margin-left: auto;
     margin-right: auto;
     width: 1100px;
     height: 300px;
     padding: 40px;
-    margin-bottom: 25px;
-  }
-  .form-check{
-    margin-left: 7px;
-    margin-top: 7px;
+    margin-bottom: 100px;
   }
 
   .example-form-field {
@@ -24,28 +17,27 @@
     display: flex;
     flex-direction: row;
   }
+
   .botaoArea{
     margin-bottom: 15px;
     border: hidden;
     border-bottom: 1px solid black;
    background-color: 	#f1f1f1;
   }
-
-  .mat-radio-button ~ .mat-radio-button {
-    margin-left: 16px;
-  }
-
-  .botoesAluguelVenda{
-    margin-left: 7px;
-  }
+  
   .campoPesquisa{
     display: flex;
     justify-content: space-around;
     position: relative;
     top: 10px;
   }
+
   .campoPesquisa mat-form-field{
     width: 50%;
+  }
+
+  .BarraPesquisa mat-form-field{
+    width: 20%;
   }
 
   .posicaoBotao{
@@ -53,46 +45,49 @@
     align-items: center;
   }
 
-  .example-card {
-    max-width: 400px;
-  }
-
   .boxCard{
-
     display: flex;
     justify-content: center;
     margin-top: 10px;
     margin-bottom: 30px;
   }
+
   .mat-card-header{
     margin-top: 2px;
   }
+
   .card{
     display: flex;
     justify-content: center;
     text-align: justify;
+    width: 500px;
+    height: 300px;
   }
+
+  .card mat-card-title {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+    align-items: center;
+  }
+
   .mat-card-subtitle{
     padding-top: 10px;
   }
-  .dadosImovel2{
 
+  .dadosImovel2{
+    display: flex;
     justify-content: center;
-    text-align: center;
-    /* position: relative; */
+    align-items: center;
     right: 35px;
   }
 
   .material-icons {
     color: #0CA789;
   }
-  .preco{
-    color: green;
-  }
 
-  .card{
-    width: 500px;
-    height: 300px;
+  p mat-icon {
+    margin-left: 3px;
   }
 
   .carousel-inner{
@@ -100,16 +95,9 @@
     height: 300px;
   }
 
-  .informacao{
-    display: flex;
-    justify-content: flex-end;
-    margin-left: 300px;
-  }
-
-  .BotaoAcessar{
+  .BotaoAcessar {
     display: flex;
     justify-content: center;
-
   }
 
   .botaoProcurar{
@@ -120,18 +108,34 @@
     background-color: #0CA789;
     color: white;
     margin-top: 15px;
-
   }
 
   mat-spinner{
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;
-    height: 100px;
-    width: 100px;
+    margin-bottom: 50px;
   }
 
   .titulo{
     font-size: 20px;
     color: black;
+  }
+
+  mat-grid-list {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+  }
+
+  .descricao {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .tag {
+    font-size: 18px;
+    border: 1px solid #0CA789;
+    color: #0CA789;
+    padding: 2px 5px;
   }

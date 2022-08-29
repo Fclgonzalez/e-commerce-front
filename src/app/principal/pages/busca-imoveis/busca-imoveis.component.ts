@@ -39,8 +39,6 @@ interface caracte{
   viewValue: string;
 }
 
-
-
 @Component({
   selector: 'app-busca-imoveis',
   templateUrl: './busca-imoveis.component.html',
@@ -48,8 +46,6 @@ interface caracte{
 })
 
 export class BuscaImoveisComponent implements OnInit {
-
-
 
   formPesquisa: FormGroup = this.fb.group({
 
@@ -68,9 +64,6 @@ export class BuscaImoveisComponent implements OnInit {
     tipoImovel:["CASA"],
     caracteristicas:[[]]
   })
-
-  longText = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam fuga vero saepe? Quaerat impedit, tempore, nihil, reiciendis blanditiis vero natus aperiam laboriosam culpa officia provident. Similique, corrupti. Aliquid, quo odio.`;
-  shortText =`Rua dos Alfeneiros, nº4`
 
   caracteristica: Caracteristica[] = [];
 
@@ -150,21 +143,6 @@ export class BuscaImoveisComponent implements OnInit {
     {value: 9, viewValue:9},
     {value: 10, viewValue:10},
   ]
-caractes:caracte[] = [
-
-]
-
-  /* caracteristica = new FormControl('');
-  condominioList: string[] = ['Academia','Área verde','Brinquedoteca','Churrasqueira','Elevador','Lavanderia','Piscina','Playground','Portaria 24h','Quadra esportiva','Salão de festas','Salão de jogos','Sauna']
-  comodidadesList: string[] = ['Apartamento cobertura','Ar condicionado','Banheira','Box','Churrasqueira','Chuveiro a gás','Closet','Novos ou reformados','Piscina privativa','Somente uma casa no terreno','Tanque','Televisão','Utensílios de cozinha','Ventilador de teto']
-  mobiliasList: string[] = ['Armários na cozinha','Armários no quarto','Armários nos banheiros','Cama de casal','Cama de solteiro','Mesas e cadeiras de jantar','Sofá']
-  bemEstarList: string[] = ['Janelas grandes','Rua silenciosa','Sol da manhã','Sol da tarde','Vista livre']
-  eletrodomesticosList: string[] = ['Fogão','Fogão cooktop','Geladeira','Máquina de lavar','Microondas']
-  comodosList: string[] = ['Área de serviço','Cozinha americana','Home-office','Jardim','Quintal','Varanda']
-  acessibilidadeList: string[] = ['Banheiro adaptado','Corrimão','Piso tátil','Quartos e corredores com portas amplas','Rampas de acesso','Vaga de garagem acessível'] */
-
-
-
 
   todosImoveis!: Imovel[]
   buscar?: string | null
@@ -180,7 +158,6 @@ caractes:caracte[] = [
     private title: Title
   ) {
     this.form = this.router.getCurrentNavigation()?.extras.state
-    console.log(this.form)
   }
 
   ngOnInit(): void {
@@ -217,17 +194,13 @@ caractes:caracte[] = [
 
   filtroImoveis(){
     this.salvandoInformacoes = true;
-    console.log(this.formPesquisa.value)
     this.imovelService.postFiltrar(this.formPesquisa.value).subscribe(
       (response) =>{
-        console.log(response)
         this.todosImoveis = response
         this.salvandoInformacoes = false;
       }
     )
   }
-
-
 
   recuperarCaracteristicas() {
     this.caracteristicaService
