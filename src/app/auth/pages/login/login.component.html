@@ -1,10 +1,15 @@
-<div class="container">
-  <div class="box">
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-      <div class="title">Imobiliaria Nosso Lar</div>
+<mat-card>
+  <div class="container">
+    <div class="box">
 
+      <mat-card-content>
 
-      <!-- <div class="gmail">
+        <form action="" [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="title">
+            <img src='/assets/logo.jpg' alt="" width="30" height="30"> Imobiliaria Nosso Lar
+          </div>
+
+          <!-- <div class="gmail">
         <a href="https://mail.google.com/"><i class="fab fa-gmail"></i>Entrar com Gmail</a>
 
       </div>
@@ -14,34 +19,43 @@
 
       <div class="line"></div> -->
 
-      <p class="text">Entre com seu email</p>
+          <p class="text">Entre com seu email</p>
 
-      <div class="input-box underline">
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>E-mail</mat-label>
+            <input type="username" matInput placeholder="email@email.com" formControlName="username">
+            <mat-error>
+              <span>Campo obrigatório</span>
+            </mat-error>
+          </mat-form-field><br>
 
-        <input type="text" placeholder="Email" formControlName="username">
-        <div class="underline"></div>
-      </div>
-      <div class="input-box">
-        <input type="password" placeholder="Senha" formControlName="password">
-        <div class="underline"></div>
-      </div>
-      <div class="text"><a href="#">Esqueci minha senha</a></div>
-      <div class="recaptcha2">
-        <ngx-recaptcha2 #captchaElem
-          [siteKey]="siteKey"
-          formControlName="recaptcha">
-        </ngx-recaptcha2>
-      </div>
+          <mat-form-field class="input-box underline" appearance="legacy">
+            <mat-label>Senha</mat-label>
+            <input type="password" placeholder="Senha" matInput formControlName="password">
+            <mat-error>
+              <span>Campo obrigatório</span>
+            </mat-error>
+          </mat-form-field>
 
-      <div class="input-box button">
-        <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
-      </div>
+          <div class="text py-2"><a href="#">Esqueci minha senha</a></div>
+          <div class="recaptcha2">
+            <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha">
+            </ngx-recaptcha2>
+          </div>
 
-      <div class="text sign-up-text">Não tem uma conta?</div>
-      <div class="text"><a routerLink="/auth/cadastro">Cadastre-se agora</a></div>
+          <button class="btn" type="submit" mat-raised-button id="salvar" [disabled]="loginForm.invalid"
+            matTooltipPosition="above">
+            Entrar
+          </button>
 
+          <div class="text">Não tem uma conta?</div>
+          <div class="text"><a routerLink="/auth/cadastro">Cadastre-se agora</a></div>
 
-      <p class="text termos">Ao continuar, você esta de Acordo com os Termos de Uso e Ciente da Política de Privacidade.</p>
-    </form>
+          <p class="text termos">Ao continuar, aceito os <strong>Termos de Uso</strong> e ciente da <strong> Política de
+              Privacidade</strong> .</p>
+
+        </form>
+      </mat-card-content>
+    </div>
   </div>
-</div>
+</mat-card>
