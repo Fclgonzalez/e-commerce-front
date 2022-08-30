@@ -7,7 +7,7 @@ import { Foto } from '../models/foto';
   providedIn: 'root'
 })
 export class FotoService {
-  private readonly url: string = 'http://localhost:8080/imobil/fotos'
+  private readonly url: string = 'https://api-nossolar.herokuapp.com/imobil/fotos'
   private atualizarFoto$: BehaviorSubject<boolean> = new BehaviorSubject(true)
 
   constructor(

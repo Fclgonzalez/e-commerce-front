@@ -8,9 +8,9 @@ import {newUser} from '../../interface/newUser';
   providedIn: 'root',
 })
 export class UsersService {
-  private url: string = 'http://localhost:8080/imobil/usuarios';
-  private urlEnd: string = 'http://localhost:8080/imobil/enderecos';
-  private urlAdmin: string = 'http://localhost:8080/imobil';
+  private url: string = 'https://api-nossolar.herokuapp.com/imobil/usuarios';
+  private urlEnd: string = 'https://api-nossolar.herokuapp.com/imobil/enderecos';
+  private urlAdmin: string = 'https://api-nossolar.herokuapp.com/imobil';
 
   constructor(private http: HttpClient) {}
 

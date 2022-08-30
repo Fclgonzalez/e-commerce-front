@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class VisitaService {
-  private url: string = 'http://localhost:8080/imobil/visitas/mes';
+  private url: string = 'https://api-nossolar.herokuapp.com/imobil/visitas/mes';
 
 
   constructor(private http: HttpClient) { }

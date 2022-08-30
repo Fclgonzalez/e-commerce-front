@@ -8,7 +8,7 @@ import { Caracteristica } from '../models/caracteristica';
 })
 export class CaracteristicasService {
 
-  private readonly url: string = 'http://localhost:8080/imobil/caracts'
+  private readonly url: string = 'https://api-nossolar.herokuapp.com/imobil/caracts'
   public atualizarCaracteristica$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   constructor(
