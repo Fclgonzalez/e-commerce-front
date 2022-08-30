@@ -365,7 +365,7 @@ export class FormCadastroImovelComponent implements OnInit {
 
                 this.lnkFoto.linkFoto = link.toString() || {}
                 this.lnkFoto.idImovel = dadosImovel.idImovel!
-                this.fotoService.salvarLinkFoto(this.lnkFoto, dadosImovel.idImovel!)
+                this.fotoService.salvarLinkFoto(this.lnkFoto, dadosImovel.idImovel!).subscribe()
               });
 
           },

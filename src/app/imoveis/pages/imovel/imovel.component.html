@@ -2,7 +2,7 @@
 
 <!-- Carrossel -->
 <div class="content">
-  <div class="col-xs-12 col-lg-12">
+  <!-- <div class="col-xs-12 col-lg-12">
     <div
       id="carouselImoveis"
       class="carousel slide"
@@ -10,16 +10,62 @@
       data-interval=""
     >
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="row">
+        <div class="carousel-item active"> -->
+          <!-- <div class="row">
             <div class="col-xs-3 col-lg-3" *ngFor="let foto of fotos">
               <img
                 [src]="foto.linkFoto"
               />
             </div>
           </div>
-        </div>
-        <!-- <div class="carousel-item">
+        </div> -->
+          <div class="container text-center my-3">
+            <div class="row mx-auto my-auto justify-content-center">
+              <div
+                id="recipeCarousel"
+                class="carousel slide"
+                data-bs-ride="carousel"
+              >
+                <div class="carousel-inner" role="listbox">
+                  <div class="carousel-item active">
+                    <div class="col-md-3" *ngFor="let foto of fotos">
+                      <div class="card">
+                        <div class="card-img">
+                          <img
+                          [src]="foto.linkFoto"
+                            class="img-fluid"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a
+                  class="carousel-control-prev bg-transparent w-aut"
+                  href="#recipeCarousel"
+                  role="button"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    class="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                </a>
+                <a
+                  class="carousel-control-next bg-transparent w-aut"
+                  href="#recipeCarousel"
+                  role="button"
+                  data-bs-slide="next"
+                >
+                  <span
+                    class="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                </a>
+              </div>
+            </div>
+
+            <!-- <div class="carousel-item">
           <div class="row">
             <div class="col-xs-3 col-lg-3">
               <img
@@ -28,100 +74,117 @@
             </div>
           </div>
         </div> -->
+          <!-- </div>
+        </div>
+      </div>
+
+      <button
+        class="botaoCarousel carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselImoveis"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only"></span>
+      </button>
+      <button
+        class="botaoCarousel carousel-control-next"
+        type="button"
+        data-bs-target="#carouselImoveis"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only"></span>
+      </button>
+    </div> -->
+
+    <div class="imovel">
+      <div class="dadosImovel col-lg-6">
+        <h1 class="titulo">
+          <b>{{ imovel?.titulo }}</b>
+        </h1>
+        <p>
+          {{ imovel?.endereco?.logradouro }}, {{ imovel?.endereco?.bairro }},
+          {{ imovel?.endereco?.cidade }}
+        </p>
+        <mat-divider></mat-divider>
+        <br />
+        <mat-grid-list cols="5" rowHeight="5:2">
+          <mat-grid-tile *ngIf="imovel?.area! > 0">
+            <p class="dadosImovel2">
+              <mat-icon>straighten</mat-icon>
+              <br />{{ imovel?.area }}m²
+            </p>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="imovel?.quartos! > 0">
+            <p class="dadosImovel2">
+              <mat-icon>local_hotel</mat-icon>
+              <br />{{ imovel?.quartos }} quarto<span
+                *ngIf="imovel?.quartos! > 1"
+                >s</span
+              >
+            </p>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="imovel?.suite! > 0">
+            <p class="dadosImovel2">
+              <mat-icon>bathtub</mat-icon>
+              <br />{{ imovel?.suite }} suíte<span *ngIf="imovel?.suite! > 1"
+                >s</span
+              >
+            </p>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="imovel?.banheiros! > 0">
+            <p class="dadosImovel2">
+              <span class="material-icons">shower</span>
+              <br />{{ imovel?.banheiros }} banheiro<span
+                *ngIf="imovel?.banheiros! > 1"
+                >s</span
+              >
+            </p>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="imovel?.vagas! > 0">
+            <p class="dadosImovel2">
+              <mat-icon>directions_car</mat-icon>
+              <br />{{ imovel?.vagas }} vaga<span *ngIf="imovel?.vagas! > 1"
+                >s</span
+              >
+            </p>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-divider></mat-divider>
+        <div class="tituloDadosImovel">
+          <span class="material-icons iconeTitulo">workspace_premium</span>
+          <p>
+            <b>Caracteristicas</b>
+          </p>
+          <br />
+        </div>
+        <div>
+          <table class="caracteristicas">
+            <tr *ngFor="let caracteristicas of caracteristica">
+              <td>{{ caracteristicas.caracteristica }}</td>
+            </tr>
+            <br />
+          </table>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="tituloDadosImovel">
+          <mat-icon class="iconeTitulo">format_align_left</mat-icon>
+          <p>
+            <b>Descrição</b>
+          </p>
+        </div>
+        <br />
+        <p class="textoDescricao">
+          {{ imovel?.descricao }}
+        </p>
+      </div>
+
+      <div class="visita col-lg-6">
+        <app-agendamento></app-agendamento>
       </div>
     </div>
-  </div>
 
-  <button
-    class="botaoCarousel carousel-control-prev"
-    type="button"
-    data-bs-target="#carouselImoveis"
-    data-bs-slide="prev"
-  >
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only"></span>
-  </button>
-  <button
-    class="botaoCarousel carousel-control-next"
-    type="button"
-    data-bs-target="#carouselImoveis"
-    data-bs-slide="next"
-  >
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only"></span>
-  </button>
-</div>
-
-<div class="imovel">
-  <div class="dadosImovel col-lg-6">
-    <h1 class="titulo"><b>{{ imovel?.titulo }}</b></h1>
-    <p>{{ imovel?.endereco?.logradouro }}, {{ imovel?.endereco?.bairro }}, {{ imovel?.endereco?.cidade }}</p>
-    <mat-divider></mat-divider>
-    <br />
-    <mat-grid-list cols="5" rowHeight="5:2">
-      <mat-grid-tile *ngIf="imovel?.area! > 0">
-        <p class="dadosImovel2">
-          <mat-icon>straighten</mat-icon>
-          <br />{{ imovel?.area }}m²
-        </p>
-      </mat-grid-tile>
-      <mat-grid-tile *ngIf="imovel?.quartos! > 0">
-        <p class="dadosImovel2">
-          <mat-icon>local_hotel</mat-icon>
-          <br />{{ imovel?.quartos }} quarto<span *ngIf="imovel?.quartos! > 1">s</span>
-        </p>
-      </mat-grid-tile>
-      <mat-grid-tile *ngIf="imovel?.suite! > 0">
-        <p class="dadosImovel2">
-          <mat-icon>bathtub</mat-icon>
-          <br />{{ imovel?.suite }} suíte<span *ngIf="imovel?.suite! > 1">s</span>
-        </p>
-      </mat-grid-tile>
-      <mat-grid-tile *ngIf="imovel?.banheiros! > 0">
-        <p class="dadosImovel2">
-          <span class="material-icons">shower</span>
-          <br />{{ imovel?.banheiros }} banheiro<span *ngIf="imovel?.banheiros! > 1">s</span>
-        </p>
-      </mat-grid-tile>
-      <mat-grid-tile *ngIf="imovel?.vagas! > 0">
-        <p class="dadosImovel2">
-          <mat-icon>directions_car</mat-icon>
-          <br />{{ imovel?.vagas }} vaga<span *ngIf="imovel?.vagas! > 1">s</span>
-        </p>
-      </mat-grid-tile>
-    </mat-grid-list>
-    <mat-divider></mat-divider>
-    <div class="tituloDadosImovel">
-      <span class="material-icons iconeTitulo">workspace_premium</span>
-      <p>
-        <b>Caracteristicas</b>
-      </p>
-      <br>
-    </div>
-    <div>
-      <table class="caracteristicas">
-        <tr *ngFor="let caracteristicas of caracteristica">
-            <td>{{ caracteristicas.caracteristica }}</td>
-        </tr>
-        <br>
-      </table>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="tituloDadosImovel">
-      <mat-icon class="iconeTitulo">format_align_left</mat-icon>
-      <p>
-        <b>Descrição</b>
-      </p>
-    </div>
-    <br />
-    <p class="textoDescricao">
-      {{ imovel?.descricao }}
-    </p>
-  </div>
-
-  <div class="visita col-lg-6">
-    <app-agendamento></app-agendamento>
+    <app-footer></app-footer>
   </div>
 </div>
-
-<app-footer></app-footer>

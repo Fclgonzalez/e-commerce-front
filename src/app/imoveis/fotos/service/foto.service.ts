@@ -27,13 +27,13 @@ export class FotoService {
     )
   }
 
-  salvarLinkFoto(foto: Foto, idImovel: number): Observable<Foto> {
+  salvarLinkFoto(foto: Foto, idImovel: number) {
     // console.log(foto.linkFoto);
     // console.log(idImovel);
     console.log(`${this.url}/${idImovel}?linkFoto=${foto.linkFoto}`);
 
 
-    return this.http.post<any>(`${this.url}/${idImovel}?linkFoto=${foto.linkFoto}`, null)
+    return this.http.post(`${this.url}/${idImovel}?linkFoto=${foto.linkFoto}`, null)
   }
 
   deletarFoto(foto: Foto): Observable<Foto> {
