@@ -19,6 +19,7 @@ import { ImovelVendedorComponent } from 'src/app/imoveis/components/imovel-vende
 import { Imovel } from 'src/app/imoveis/models/imovel';
 import { ImoveisService } from 'src/app/imoveis/service/imoveis.service';
 import { UserService } from '../../services/user.service';
+import { ConfirmarExclusaoImovelComponent } from '../confirmar-exclusao-imovel/confirmar-exclusao-imovel.component';
 
 @Component({
   selector: 'app-listar-imoveis-vendedor',
@@ -87,12 +88,21 @@ export class ListarImoveisVendedorComponent implements OnInit {
   }
 
   inativarImovel(imovel: Imovel) {
-    this.imovelService.inativarImovel(imovel).subscribe(() => {
-      this.snackbar.open('Imóvel deletado', 'Ok', {
-        duration: 3000,
+    this.dialog
+      .open(ConfirmarExclusaoImovelComponent, {
+        width: '250px',
+      })
+      .afterClosed()
+      .subscribe((resposta) => {
+        if (resposta) {
+          this.imovelService.inativarImovel(imovel).subscribe(() => {
+            this.snackbar.open('Imóvel deletado', 'Ok', {
+              duration: 3000,
+            });
+            this.recuperarImoveis();
+          });
+        }
       });
-      this.recuperarImoveis();
-    });
   }
 
   editarImovel(idImovel: number) {

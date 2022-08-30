@@ -13,6 +13,7 @@ import { ListarImoveisVendedorComponent } from './components/listar-imoveis-vend
 import { ImoveisModule } from '../imoveis/imoveis.module';
 import { EnderecosModule } from '../enderecos/enderecos.module';
 import { VisitasModule } from '../visitas/visitas.module';
+import { ConfirmarExclusaoImovelComponent } from './components/confirmar-exclusao-imovel/confirmar-exclusao-imovel.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { VisitasModule } from '../visitas/visitas.module';
     TabelaVisitasComponent,
     CancelarVisitaComponent,
     EditarVisitaComponent,
+    ConfirmarExclusaoImovelComponent,
   ],
   imports: [
     CommonModule,
