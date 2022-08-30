@@ -1,157 +1,119 @@
 <app-navbar></app-navbar>
 
+
 <!-- Carrossel -->
 <div class="content">
   <div class="col-xs-12 col-lg-12">
-    <div
-      id="carouselImoveis"
-      class="carousel slide"
-      data-ride="carousel"
-      data-interval=""
-    >
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="row">
-            <div class="col-xs-3 col-lg-3">
+    <section class="carousel">
+      <br>
+      <div class="container-fluid">
+        <div class="slider-wrap">
+          <div class="slider-main">
+            <div class="item" *ngFor="let foto of fotos">
               <img
-                src="https://cdn.uso.com.br/39792/2021/12/4f659e71414411ceb3089f043b0aa035.jpg"
-              />
-            </div>
-            <div class="col-xs-3 col-lg-3">
-              <img
-                src="https://espacoatualempreendimentos.com.br/imagem/62_9432b1f745aa802670ba08da1959b0ab.jpeg"
-              />
-            </div>
-            <div class="col-xs-3 col-lg-3">
-              <img
-                src="https://cdn.uso.com.br/39792/2021/12/4f659e71414411ceb3089f043b0aa035.jpg"
-              />
-            </div>
-            <div class="col-xs-3 col-lg-3">
-              <img
-                src="https://espacoatualempreendimentos.com.br/imagem/62_9432b1f745aa802670ba08da1959b0ab.jpeg"
+                [src]="foto.linkFoto"
               />
             </div>
           </div>
-        </div>
-        <div class="carousel-item">
-          <div class="row">
-            <div class="col-xs-3 col-lg-3">
-              <img
-                src="https://espacoatualempreendimentos.com.br/imagem/62_9432b1f745aa802670ba08da1959b0ab.jpeg"
-              />
-            </div>
-            <div class="col-xs-3 col-lg-3">
-              <img
-                src="https://espacoatualempreendimentos.com.br/imagem/62_9432b1f745aa802670ba08da1959b0ab.jpeg"
-              />
-            </div>
-            <div class="col-xs-3 col-lg-3">
-              <img
-                src="https://espacoatualempreendimentos.com.br/imagem/62_9432b1f745aa802670ba08da1959b0ab.jpeg"
-              />
-            </div>
-            <div class="col-xs-3 col-lg-3">
-              <img
-                src="https://espacoatualempreendimentos.com.br/imagem/62_9432b1f745aa802670ba08da1959b0ab.jpeg"
-              />
-            </div>
+          <div class="button-area">
+            <button type="button" class="prev" appPrev>
+              <mat-icon class="botao">navigate_before</mat-icon>
+            </button>
+            <button type="button" class="next" appNext>
+              <mat-icon class="botao">navigate_next</mat-icon>
+            </button>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <button
-    class="botaoCarousel carousel-control-prev"
-    type="button"
-    data-bs-target="#carouselImoveis"
-    data-bs-slide="prev"
-  >
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only"></span>
-  </button>
-  <button
-    class="botaoCarousel carousel-control-next"
-    type="button"
-    data-bs-target="#carouselImoveis"
-    data-bs-slide="next"
-  >
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only"></span>
-  </button>
-</div>
+    <div class="imovel">
+      <div class="dadosImovel col-lg-6">
+        <h1 class="titulo">
+          <b>{{ imovel?.titulo }}</b>
+        </h1>
+        <p>
+          {{ imovel?.endereco?.logradouro }}, {{ imovel?.endereco?.bairro }},
+          {{ imovel?.endereco?.cidade }}
+        </p>
+        <mat-divider></mat-divider>
+        <br />
+        <mat-grid-list cols="5" rowHeight="5:2">
+          <mat-grid-tile *ngIf="imovel?.area! > 0">
+            <p class="dadosImovel2">
+              <mat-icon>straighten</mat-icon>
+              <br />{{ imovel?.area }}m²
+            </p>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="imovel?.quartos! > 0">
+            <p class="dadosImovel2">
+              <mat-icon>local_hotel</mat-icon>
+              <br />{{ imovel?.quartos }} quarto<span
+                *ngIf="imovel?.quartos! > 1"
+                >s</span
+              >
+            </p>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="imovel?.suite! > 0">
+            <p class="dadosImovel2">
+              <mat-icon>bathtub</mat-icon>
+              <br />{{ imovel?.suite }} suíte<span *ngIf="imovel?.suite! > 1"
+                >s</span
+              >
+            </p>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="imovel?.banheiros! > 0">
+            <p class="dadosImovel2">
+              <span class="material-icons">shower</span>
+              <br />{{ imovel?.banheiros }} banheiro<span
+                *ngIf="imovel?.banheiros! > 1"
+                >s</span
+              >
+            </p>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="imovel?.vagas! > 0">
+            <p class="dadosImovel2">
+              <mat-icon>directions_car</mat-icon>
+              <br />{{ imovel?.vagas }} vaga<span *ngIf="imovel?.vagas! > 1"
+                >s</span
+              >
+            </p>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-divider></mat-divider>
+        <div class="tituloDadosImovel">
+          <span class="material-icons iconeTitulo">workspace_premium</span>
+          <p>
+            <b>Caracteristicas</b>
+          </p>
+          <br />
+        </div>
+        <div>
+          <table class="caracteristicas">
+            <tr *ngFor="let caracteristicas of caracteristica">
+              <td>{{ caracteristicas.caracteristica }}</td>
+            </tr>
+            <br />
+          </table>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="tituloDadosImovel">
+          <mat-icon class="iconeTitulo">format_align_left</mat-icon>
+          <p>
+            <b>Descrição</b>
+          </p>
+        </div>
+        <br />
+        <p class="textoDescricao">
+          {{ imovel?.descricao }}
+        </p>
+      </div>
 
-<div class="imovel">
-  <div class="dadosImovel col-lg-6">
-    <h1 class="titulo"><b>{{ imovel?.titulo }}</b></h1>
-    <p>{{ imovel?.endereco?.logradouro }}, {{ imovel?.endereco?.bairro }}, {{ imovel?.endereco?.cidade }}</p>
-    <mat-divider></mat-divider>
-    <br />
-    <mat-grid-list cols="5" rowHeight="5:2">
-      <mat-grid-tile *ngIf="imovel?.area! > 0">
-        <p class="dadosImovel2">
-          <mat-icon>straighten</mat-icon>
-          <br />{{ imovel?.area }}m²
-        </p>
-      </mat-grid-tile>
-      <mat-grid-tile *ngIf="imovel?.quartos! > 0">
-        <p class="dadosImovel2">
-          <mat-icon>local_hotel</mat-icon>
-          <br />{{ imovel?.quartos }} quarto<span *ngIf="imovel?.quartos! > 1">s</span>
-        </p>
-      </mat-grid-tile>
-      <mat-grid-tile *ngIf="imovel?.suite! > 0">
-        <p class="dadosImovel2">
-          <mat-icon>bathtub</mat-icon>
-          <br />{{ imovel?.suite }} suíte<span *ngIf="imovel?.suite! > 1">s</span>
-        </p>
-      </mat-grid-tile>
-      <mat-grid-tile *ngIf="imovel?.banheiros! > 0">
-        <p class="dadosImovel2">
-          <span class="material-icons">shower</span>
-          <br />{{ imovel?.banheiros }} banheiro<span *ngIf="imovel?.banheiros! > 1">s</span>
-        </p>
-      </mat-grid-tile>
-      <mat-grid-tile *ngIf="imovel?.vagas! > 0">
-        <p class="dadosImovel2">
-          <mat-icon>directions_car</mat-icon>
-          <br />{{ imovel?.vagas }} vaga<span *ngIf="imovel?.vagas! > 1">s</span>
-        </p>
-      </mat-grid-tile>
-    </mat-grid-list>
-    <mat-divider></mat-divider>
-    <div class="tituloDadosImovel">
-      <span class="material-icons iconeTitulo">workspace_premium</span>
-      <p>
-        <b>Caracteristicas</b>
-      </p>
-      <br>
+      <div class="visita col-lg-6">
+        <app-agendamento></app-agendamento>
+      </div>
     </div>
-    <div>
-      <table class="caracteristicas">
-        <tr *ngFor="let caracteristicas of caracteristica">
-            <td>{{ caracteristicas.caracteristica }}</td>
-        </tr>
-        <br>
-      </table>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="tituloDadosImovel">
-      <mat-icon class="iconeTitulo">format_align_left</mat-icon>
-      <p>
-        <b>Descrição</b>
-      </p>
-    </div>
-    <br />
-    <p class="textoDescricao">
-      {{ imovel?.descricao }}
-    </p>
-  </div>
 
-  <div class="visita col-lg-6">
-    <app-agendamento></app-agendamento>
+    <app-footer></app-footer>
   </div>
 </div>
-
-<app-footer></app-footer>

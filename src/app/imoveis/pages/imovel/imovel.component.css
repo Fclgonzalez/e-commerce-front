@@ -83,3 +83,63 @@ p, h1 {
   flex-direction: column;
   flex-wrap: wrap;
 }
+
+/* Carousel */
+
+.product{
+  padding: 20px 0;
+}
+
+.slider-wrap{
+  position: relative;
+  overflow: hidden;
+  height: 500px;
+}
+
+.slider-main{
+  position: absolute;
+  width: 200%;
+}
+
+.item{
+  display: inline-block;
+  width: 450px;
+  height: 250px;
+  position: relative;
+  margin: 0 12px;
+}
+
+.prev{
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  background: white;
+  opacity: 0.6;
+}
+
+.next{
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  background: white;
+  opacity: 0.6;
+}
+
+.botao{
+  position: relative;
+  top: 2.5px;
+  color: black;
+}
+
+/* .next :hover {
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+} */

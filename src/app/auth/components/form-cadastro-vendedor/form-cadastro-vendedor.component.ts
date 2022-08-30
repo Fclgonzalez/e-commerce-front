@@ -10,6 +10,8 @@ import { Endereco } from 'src/app/enderecos/models/endereco';
 import { EnderecosService } from 'src/app/enderecos/services/enderecos.service';
 import { Caracteristica } from 'src/app/imoveis/caracteristicas/models/caracteristica';
 import { CaracteristicasService } from 'src/app/imoveis/caracteristicas/services/caracteristicas.service';
+import { Foto } from 'src/app/imoveis/fotos/models/foto';
+import { FotoService } from 'src/app/imoveis/fotos/service/foto.service';
 import { Imovel } from 'src/app/imoveis/models/imovel';
 import { ImoveisService } from 'src/app/imoveis/service/imoveis.service';
 import { User } from 'src/app/user/models/user';
@@ -23,11 +25,14 @@ import { AuthService } from '../../services/auth.service';
 export class FormCadastroVendedorComponent implements OnInit {
   salvandoInformacoes: boolean = false;
   caracteristica: Caracteristica[] = [];
+  // fotoPreview: string = '';
   foto!: FileList;
+  lnkFoto = {} as Foto;
   fotoPreview!: any;
   indiceSelecionado = 0;
   indicador = true;
   controle = true;
+
 
   tipoImovelEnum: Array<any> = [
     {
@@ -218,6 +223,7 @@ export class FormCadastroVendedorComponent implements OnInit {
     private imovelService: ImoveisService,
     private enderecoService: EnderecosService,
     private caracteristicaService: CaracteristicasService,
+    private fotoService: FotoService,
     private authService: AuthService,
     private snackbar: MatSnackBar,
     private router: Router
@@ -347,6 +353,7 @@ export class FormCadastroVendedorComponent implements OnInit {
           Array.from(this.foto).map((app) => this.imovelService.salvarFoto(app))
         ).subscribe({
           next: (links) => {
+
             this.imovelService
               .cadastrarImovelInicial(im, idUser, links)
               .subscribe(
@@ -397,6 +404,13 @@ export class FormCadastroVendedorComponent implements OnInit {
                         console.log(errorEnderero);
                       }
                     );
+                    links.forEach(link => {
+                      console.log(link);
+
+                      this.lnkFoto.linkFoto = link.toString() || {}
+                      this.lnkFoto.idImovel = dadosImovel.idImovel!
+                      this.fotoService.salvarLinkFoto(this.lnkFoto, dadosImovel.idImovel!).subscribe()
+                    });
                 },
                 (errorImovel) => {
                   this.salvandoInformacoes = false;
@@ -411,6 +425,7 @@ export class FormCadastroVendedorComponent implements OnInit {
                   console.log(errorImovel);
                 }
               );
+
           },
         });
       },
