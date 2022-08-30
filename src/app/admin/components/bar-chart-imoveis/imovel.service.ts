@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ImovelService {
 
 
-  private url: string = 'http://localhost:8080/imobil/imoveis/mes';
+  private url: string = 'https://api-nossolar.herokuapp.com/imobil/imoveis/mes';
 constructor(private http: HttpClient) {}
 
   getImoveis(): Observable<[]> {

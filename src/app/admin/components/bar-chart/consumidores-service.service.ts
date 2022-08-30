@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ConsumidoresServiceService {
-  private url: string = 'http://localhost:8080/imobil/usuarios/registrados/2';
+  private url: string = 'https://api-nossolar.herokuapp.com/imobil/usuarios/registrados/2';
 
 
 constructor(private http: HttpClient) { }

@@ -9,7 +9,7 @@ import { SystemCpu } from '../../interface/system.cpu';
 })
 export class ActuatorService {
 
-  private url: string = 'http://localhost:8080/actuator';
+  private url: string = 'https://api-nossolar.herokuapp.com/actuator';
 
 constructor(private http:HttpClient) { }
 

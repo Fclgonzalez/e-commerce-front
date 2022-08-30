@@ -8,10 +8,10 @@ import { Visita } from '../models/visita';
 })
 export class VisitaService {
 
-  private readonly baseUrl: string = 'http://localhost:8080/imobil/visitas'
+  private readonly baseUrl: string = 'https://api-nossolar.herokuapp.com/imobil/visitas'
 
   constructor(
-    private http: HttpClient 
+    private http: HttpClient
   ) { }
 
   getVisitas(): Observable<Visita[]> {
@@ -21,7 +21,7 @@ export class VisitaService {
   getVisitaById(idVisita: number): Observable<Visita> {
     return this.http.get<Visita>(`${this.baseUrl}/${idVisita}`)
   }
-  
+
   getVisitasByImovelId(idImovel: number): Observable<Visita[]> {
     return this.http.get<Visita[]>(`${this.baseUrl}/imovel/${idImovel}`)
   }
@@ -29,19 +29,19 @@ export class VisitaService {
   getVisitasByConsumidorId(idConsumidor: number): Observable<Visita[]> {
     return this.http.get<Visita[]>(`${this.baseUrl}/consumidor/${idConsumidor}`)
   }
-  
+
   getVisitasByVendedorId(idVendedor: number): Observable<Visita[]> {
     return this.http.get<Visita[]>(`${this.baseUrl}/vendedor/${idVendedor}`)
   }
-  
+
   getVisitaByStatus(status: string): Observable<Visita[]> {
     return this.http.get<Visita[]>(`${this.baseUrl}/status?status=${status}`)
   }
-  
+
   getVisitaByStatusAndIdConsumidor(idConsumidor:number, status: string): Observable<Visita[]> {
     return this.http.get<Visita[]>(`${this.baseUrl}/status/consumidor/${idConsumidor}?status=${status}`)
   }
-  
+
   getVisitaByStatusAndIdVendedor(idVendedor:number, status: string): Observable<Visita[]> {
     return this.http.get<Visita[]>(`${this.baseUrl}/status/vendedor/${idVendedor}?status=${status}`)
   }

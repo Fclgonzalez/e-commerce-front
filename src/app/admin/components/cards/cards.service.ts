@@ -13,23 +13,23 @@ constructor(private http: HttpClient) { }
 
 getTotalConsumidores(): Observable<number> {
 
-  return this.http.get<number>('http://localhost:8080/imobil/usuarios/total/2');
+  return this.http.get<number>('https://api-nossolar.herokuapp.com/imobil/usuarios/total/2');
 }
 
 getTotalVendedores(): Observable<number> {
 
-    return this.http.get<number>('http://localhost:8080/imobil/usuarios/total/3');
+    return this.http.get<number>('https://api-nossolar.herokuapp.com/imobil/usuarios/total/3');
 
 }
 
 getTotalVisitas(): Observable<number> {
 
-      return this.http.get<number>('http://localhost:8080/imobil/visitas/total');
+      return this.http.get<number>('https://api-nossolar.herokuapp.com/imobil/visitas/total');
 }
 
 getTotalImoveis(): Observable<number> {
 
-      return this.http.get<number>('http://localhost:8080/imobil/imoveis/total');
+      return this.http.get<number>('https://api-nossolar.herokuapp.com/imobil/imoveis/total');
 }
 
 }

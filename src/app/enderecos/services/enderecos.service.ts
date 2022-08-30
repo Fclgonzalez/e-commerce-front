@@ -7,7 +7,7 @@ import { Endereco } from '../models/endereco';
   providedIn: 'root',
 })
 export class EnderecosService {
-  private readonly url: string = 'http://localhost:8080/imobil/enderecos';
+  private readonly url: string = 'https://api-nossolar.herokuapp.com/imobil/enderecos';
   public atualizarEndereco$: BehaviorSubject<boolean> = new BehaviorSubject(
     true
   );
@@ -48,16 +48,7 @@ export class EnderecosService {
       );
   }
 
-  /* postEnderecos(endereco: Enderecos) {
-    return this.http.post<Enderecos>(`${this.baseurl}`, endereco).pipe(
-      mergeMap((a: any) => {
-        return this.http.post<Enderecos>(
-          `${this.baseurl}/${a.idEndereco}`,
-          endereco
-        );
-      })
-    );
-  } */
+ 
 
 
     atualizarEndereco(endereco: Endereco): Observable<Endereco> {
@@ -69,7 +60,7 @@ export class EnderecosService {
         })
       )
 
-    } 
+    }
 
-   
+
 }
