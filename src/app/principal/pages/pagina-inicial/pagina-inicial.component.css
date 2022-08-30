@@ -217,3 +217,9 @@ a{
   font-size: 20px;
   font-weight: bold;
 }
+
+.descricao {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
