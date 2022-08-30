@@ -25,6 +25,10 @@ import { ActuatorComponent } from './pages/actuator/actuator.component';
 import { NgxPaginationModule } from  'ngx-pagination';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { VisitasComponent } from './pages/visitas/visitas.component';
+import { DeleteVisitaComponent } from './components/delete-visita/delete-visita.component';
+import { EditVisitaComponent } from './components/edit-visita/edit-visita.component';
+import { CadastrarVisitaComponent } from './components/cadastrar-visita/cadastrar-visita.component';
 
 
 
@@ -39,6 +43,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     ImovelDialogComponent,
     ActuatorComponent,
     UsuariosComponent,
+    VisitasComponent,
+    DeleteVisitaComponent,
+    EditVisitaComponent,
+    CadastrarVisitaComponent,
 
   ],
   imports: [

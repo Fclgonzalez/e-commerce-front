@@ -1,0 +1,13 @@
+<h3 mat-dialog-title>Deletar Visita Permanentemente
+    <button mat-dialog-close mat-button>
+        <mat-icon>close</mat-icon>
+    </button>
+</h3>
+<mat-divider></mat-divider>
+<div class="container">
+    <button class="action col-sm-6 col-md-6 col-lg-6" mat-raised-button color="warn" (click)="deleteVisita()">
+        Excluir Permanentemente
+        <span class="material-icons"> delete_forever </span>
+    </button>
+    <mat-spinner *ngIf="loading == true"></mat-spinner>
+</div>
