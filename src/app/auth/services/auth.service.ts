@@ -10,7 +10,7 @@ import { User } from 'src/app/user/models/user';
 })
 export class AuthService {
 
-  private readonly baseUrl: string = 'http://localhost:8080'
+  private readonly baseUrl: string = 'https://api-nossolar.herokuapp.com'
   private helper = new JwtHelperService()
 
   constructor(
@@ -18,11 +18,11 @@ export class AuthService {
     private router: Router
   ) { }
 
-    login(user: User): Observable<{accessToken: string}> {    
+    login(user: User): Observable<{accessToken: string}> {
       return this.http.post<{accessToken: string}>(`${this.baseUrl}/login`, user)
       .pipe(
         tap((response) => {
-          this.armazenarToken(response.accessToken)       
+          this.armazenarToken(response.accessToken)
         })
       )
     }
@@ -35,7 +35,7 @@ export class AuthService {
     cadastrarConsumidor(user: User): Observable<any> {
       return this.http.post<any>(`${this.baseUrl}/imobil/registro/consumidor`, user)
     }
-    
+
     cadastrarVendedor(user: User): Observable<any> {
       return this.http.post<any>(`${this.baseUrl}/imobil/registro/vendedor`, user)
     }
@@ -59,7 +59,7 @@ export class AuthService {
       }
       return !this.helper.isTokenExpired(token)
     }
-  
+
     decodeToken() {
       const token = this.recuperarToken()
       const decode = this.helper.decodeToken(token!)
@@ -69,7 +69,7 @@ export class AuthService {
     verificaUsername(username:String):Observable<User>{
       return this.http.get<User>(`${this.baseUrl}/imobil/usuarios/username?username=${username}`)
     }
-    
+
     verificaIdentificacao(identificacao:String):Observable<User>{
       return this.http.get<User>(`${this.baseUrl}/imobil/usuarios/identificacao?identificacao=${identificacao}`)
     }

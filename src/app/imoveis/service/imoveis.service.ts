@@ -9,7 +9,7 @@ import { ImovelComponent } from '../pages/imovel/imovel.component';
   providedIn: 'root',
 })
 export class ImoveisService {
-  private readonly url: string = 'http://localhost:8080/imobil/imoveis';
+  private readonly url: string = 'https://api-nossolar.herokuapp.com/imobil/imoveis';
   private readonly urlCep: string = 'https://viacep.com.br/ws';
   public atualizarImovel$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
