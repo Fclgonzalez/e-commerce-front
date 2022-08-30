@@ -14,40 +14,36 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { NaviComponent } from './components/navi/navi.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PendenteComponent } from './pages/pendente/pendente.component';
 import { CardsComponent } from './components/cards/cards.component';
-import { ImovelTableComponent } from './components/imovel-table/imovel-table.component';
+
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { ImovelDialogComponent } from './components/imovel-dialog/imovel-dialog.component';
 import { ActuatorComponent } from './pages/actuator/actuator.component';
-import { NgxPaginationModule } from  'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { VisitasComponent } from './pages/visitas/visitas.component';
 import { DeleteVisitaComponent } from './components/delete-visita/delete-visita.component';
 import { EditVisitaComponent } from './components/edit-visita/edit-visita.component';
 import { CadastrarVisitaComponent } from './components/cadastrar-visita/cadastrar-visita.component';
-
-
+import { DeleteImovelComponent } from './components/delete-imovel/delete-imovel.component';
+import { ImoveisAdminComponent } from './pages/imoveis-admin/imoveis-admin.component';
 
 
 @NgModule({
   declarations: [
     NaviComponent,
     DashboardComponent,
-    PendenteComponent,
     CardsComponent,
-    ImovelTableComponent,
-    ImovelDialogComponent,
     ActuatorComponent,
     UsuariosComponent,
     VisitasComponent,
     DeleteVisitaComponent,
     EditVisitaComponent,
     CadastrarVisitaComponent,
-
+    DeleteImovelComponent,
+    ImoveisAdminComponent,
   ],
   imports: [
     CommonModule,
@@ -65,7 +61,7 @@ import { CadastrarVisitaComponent } from './components/cadastrar-visita/cadastra
     MatSortModule,
     HttpClientModule,
     NgxPaginationModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}

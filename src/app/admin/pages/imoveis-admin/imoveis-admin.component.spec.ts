@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ImovelDialogComponent } from './imovel-dialog.component';
+import { ImoveisAdminComponent } from './imoveis-admin.component';
 
-describe('ImovelDialogComponent', () => {
-  let component: ImovelDialogComponent;
-  let fixture: ComponentFixture<ImovelDialogComponent>;
+describe('ImoveisAdminComponent', () => {
+  let component: ImoveisAdminComponent;
+  let fixture: ComponentFixture<ImoveisAdminComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ImovelDialogComponent ]
+      declarations: [ ImoveisAdminComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ImovelDialogComponent);
+    fixture = TestBed.createComponent(ImoveisAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
