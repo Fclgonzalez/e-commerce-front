@@ -1,3 +1,7 @@
+.body {
+  min-height: 63.5vh;
+}
+
 .box{
     margin-left: auto;
     margin-right: auto;
@@ -171,4 +175,9 @@
     border: 1px solid #0CA789;
     color: #0CA789;
     padding: 2px 5px;
+  }
+
+  .buscaVazia  {
+    font-size: medium;
+    text-align: center;
   }
