@@ -1,102 +1,31 @@
 <app-navbar></app-navbar>
 
+
 <!-- Carrossel -->
 <div class="content">
-  <!-- <div class="col-xs-12 col-lg-12">
-    <div
-      id="carouselImoveis"
-      class="carousel slide"
-      data-ride="carousel"
-      data-interval=""
-    >
-      <div class="carousel-inner">
-        <div class="carousel-item active"> -->
-          <!-- <div class="row">
-            <div class="col-xs-3 col-lg-3" *ngFor="let foto of fotos">
+  <div class="col-xs-12 col-lg-12">
+    <section class="carousel">
+      <br>
+      <div class="container-fluid">
+        <div class="slider-wrap">
+          <div class="slider-main">
+            <div class="item" *ngFor="let foto of fotos">
               <img
                 [src]="foto.linkFoto"
               />
             </div>
           </div>
-        </div> -->
-          <div class="container text-center my-3">
-            <div class="row mx-auto my-auto justify-content-center">
-              <div
-                id="recipeCarousel"
-                class="carousel slide"
-                data-bs-ride="carousel"
-              >
-                <div class="carousel-inner" role="listbox">
-                  <div class="carousel-item active">
-                    <div class="col-md-3" *ngFor="let foto of fotos">
-                      <div class="card">
-                        <div class="card-img">
-                          <img
-                          [src]="foto.linkFoto"
-                            class="img-fluid"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <a
-                  class="carousel-control-prev bg-transparent w-aut"
-                  href="#recipeCarousel"
-                  role="button"
-                  data-bs-slide="prev"
-                >
-                  <span
-                    class="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                </a>
-                <a
-                  class="carousel-control-next bg-transparent w-aut"
-                  href="#recipeCarousel"
-                  role="button"
-                  data-bs-slide="next"
-                >
-                  <span
-                    class="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
-                </a>
-              </div>
-            </div>
-
-            <!-- <div class="carousel-item">
-          <div class="row">
-            <div class="col-xs-3 col-lg-3">
-              <img
-                [src]="imovel?.foto"
-              />
-            </div>
+          <div class="button-area">
+            <button type="button" class="prev" appPrev>
+              <mat-icon class="botao">navigate_before</mat-icon>
+            </button>
+            <button type="button" class="next" appNext>
+              <mat-icon class="botao">navigate_next</mat-icon>
+            </button>
           </div>
-        </div> -->
-          <!-- </div>
         </div>
       </div>
-
-      <button
-        class="botaoCarousel carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselImoveis"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only"></span>
-      </button>
-      <button
-        class="botaoCarousel carousel-control-next"
-        type="button"
-        data-bs-target="#carouselImoveis"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only"></span>
-      </button>
-    </div> -->
+    </section>
 
     <div class="imovel">
       <div class="dadosImovel col-lg-6">

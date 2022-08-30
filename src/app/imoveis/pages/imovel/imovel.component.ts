@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Endereco } from 'src/app/enderecos/models/endereco';
@@ -21,7 +21,6 @@ export class ImovelComponent implements OnInit {
   endereco?: Endereco
   caracteristica?: Array<Caracteristica>
   fotos?: Foto[]
-
 
 
   naoEncontrado: boolean = false
@@ -67,28 +66,4 @@ export class ImovelComponent implements OnInit {
         this.caracteristica = caracteristicasLista
       })
   }
-
-
-
-    // carrocel() {
-    //   let items = document.querySelectorAll('.carousel .carousel-item')
-
-    //   items.forEach((el) => {
-    //     const minPerSlide = 4
-    //     let next = el.nextElementSibling
-    //     for (var i=1; i<minPerSlide; i++) {
-    //         if (!next) {
-    //             // wrap carousel by using first child
-    //           next = items[0]
-    //         }
-    //         let cloneChild = next.cloneNode(true)
-    //         el.appendChild(cloneChild.children[0])
-    //         next = next.nextElementSibling
-    //     }
-    //   })
-    // }
-
-
-
-
 }

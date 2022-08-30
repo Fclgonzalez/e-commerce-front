@@ -84,36 +84,62 @@ p, h1 {
   flex-wrap: wrap;
 }
 
-@media (max-width: 767px) {
-  .carousel-inner .carousel-item > div {
-      display: none;
-  }
-  .carousel-inner .carousel-item > div:first-child {
-      display: block;
-  }
+/* Carousel */
+
+.product{
+  padding: 20px 0;
 }
 
-.carousel-inner .carousel-item.active,
-.carousel-inner .carousel-item-next,
-.carousel-inner .carousel-item-prev {
-  display: flex;
+.slider-wrap{
+  position: relative;
+  overflow: hidden;
+  height: 500px;
 }
 
-/* medium and up screens */
-@media (min-width: 768px) {
-
-  .carousel-inner .carousel-item-end.active,
-  .carousel-inner .carousel-item-next {
-    transform: translateX(25%);
-  }
-
-  .carousel-inner .carousel-item-start.active,
-  .carousel-inner .carousel-item-prev {
-    transform: translateX(-25%);
-  }
+.slider-main{
+  position: absolute;
+  width: 200%;
 }
 
-.carousel-inner .carousel-item-end,
-.carousel-inner .carousel-item-start {
-transform: translateX(0);
+.item{
+  display: inline-block;
+  width: 450px;
+  height: 250px;
+  position: relative;
+  margin: 0 12px;
 }
+
+.prev{
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  background: white;
+  opacity: 0.6;
+}
+
+.next{
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  background: white;
+  opacity: 0.6;
+}
+
+.botao{
+  position: relative;
+  top: 2.5px;
+  color: black;
+}
+
+/* .next :hover {
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+} */

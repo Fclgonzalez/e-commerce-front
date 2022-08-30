@@ -11,7 +11,8 @@ import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentesCompartilhadosModule } from '../componentes-compartilhados/componentes-compartilhados.module';
 import { ImovelVendedorComponent } from './components/imovel-vendedor/imovel-vendedor.component';
-
+import { PrevDirective } from './pages/diretivas/prev.directive';
+import { NextDirective } from './pages/diretivas/next.directive';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { ImovelVendedorComponent } from './components/imovel-vendedor/imovel-ven
     ImovelComponent,
     CadastroImovelComponent,
     FormCadastroImovelComponent,
-    ImovelVendedorComponent
+    ImovelVendedorComponent,
+    PrevDirective,
+    NextDirective
   ],
   imports: [
     CommonModule,
@@ -29,6 +32,6 @@ import { ImovelVendedorComponent } from './components/imovel-vendedor/imovel-ven
     VisitasModule,
     ComponentesCompartilhadosModule
   ],
-  
+
 })
 export class ImoveisModule { }

@@ -25,9 +25,9 @@ import { AuthService } from '../../services/auth.service';
 export class FormCadastroVendedorComponent implements OnInit {
   salvandoInformacoes: boolean = false;
   caracteristica: Caracteristica[] = [];
-  linkFoto!: Foto
   // fotoPreview: string = '';
   foto!: FileList;
+  lnkFoto = {} as Foto;
   fotoPreview!: any;
   indiceSelecionado = 0;
   indicador = true;
@@ -404,6 +404,13 @@ export class FormCadastroVendedorComponent implements OnInit {
                         console.log(errorEnderero);
                       }
                     );
+                    links.forEach(link => {
+                      console.log(link);
+
+                      this.lnkFoto.linkFoto = link.toString() || {}
+                      this.lnkFoto.idImovel = dadosImovel.idImovel!
+                      this.fotoService.salvarLinkFoto(this.lnkFoto, dadosImovel.idImovel!).subscribe()
+                    });
                 },
                 (errorImovel) => {
                   this.salvandoInformacoes = false;
