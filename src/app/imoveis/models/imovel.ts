@@ -18,6 +18,7 @@ export interface Imovel {
   finalidadeImovel?: string;
   tipoImovel?: string;
   caracteristica?: string;
+  foto?: Array<string>;
   endereco?: Endereco;
   userVendedor?: User;
 }

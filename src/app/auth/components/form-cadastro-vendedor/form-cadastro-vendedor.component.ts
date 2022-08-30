@@ -316,7 +316,7 @@ export class FormCadastroVendedorComponent implements OnInit {
         forkJoin(Array.from(this.foto).map((app) => (this.imovelService.salvarFoto(app)))).subscribe({
           next: (links) => {
 
-        this.imovelService.cadastrarImovelInicial(im, idUser).subscribe(
+        this.imovelService.cadastrarImovelInicial(im, idUser, links).subscribe(
           (dadosImovel) => {
             const carac: Caracteristica = this.cadastroCaracteristica.value;
             for (let a of this.cadastroCaracteristica.value.caracteristicas) {
@@ -363,11 +363,6 @@ export class FormCadastroVendedorComponent implements OnInit {
                 }
               );
 
-              for (let i = 0; i < links.length; i++) {
-                this.linkFoto.linkFoto = links[i]
-                this.linkFoto.idImovel = im.idImovel!
-                this.fotoService.salvarLinkFoto(this.linkFoto, im.idImovel!)
-              }
           },
           (errorImovel) => {
             this.salvandoInformacoes = false;

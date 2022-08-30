@@ -62,7 +62,8 @@ export class ImoveisService {
       }))
   }
 
-  cadastrarImovelInicial(imovel: Imovel, idVendedor: number): Observable<Imovel> {
+  cadastrarImovelInicial(imovel: Imovel, idVendedor: number, linkFoto: any): Observable<Imovel> {
+    imovel.foto = linkFoto
       return this.http.post<Imovel>(`${this.url}/inicial/${idVendedor}`, imovel)
       .pipe(tap(() => {
         this.atualizarImovel$.next(true)

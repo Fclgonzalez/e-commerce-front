@@ -1,3 +1,4 @@
+import { ListKeyManager } from '@angular/cdk/a11y';
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
@@ -33,7 +34,7 @@ import { ImoveisService } from '../../service/imoveis.service';
 export class FormCadastroImovelComponent implements OnInit {
   salvandoInformacoes: boolean = false;
   caracteristica: Caracteristica[] = [];
-  linkFoto?: Foto
+  lnkFoto = {} as Foto;
   idUser?: number = 0;
 
   tipoImovelEnum: Array<any> = [
@@ -294,11 +295,11 @@ export class FormCadastroImovelComponent implements OnInit {
     //Serviços
     let im: Imovel = this.cadastroImovelForm.value;
 
+
     forkJoin(
       Array.from(this.foto).map((app) => this.imovelService.salvarFoto(app))
     ).subscribe({
       next: (links) => {
-
         this.imovelService.cadastrarImovel(im, this.idUser!).subscribe(
           (dadosImovel) => {
             const carac: Caracteristica = this.cadastroCaracteristica.value;
@@ -342,12 +343,13 @@ export class FormCadastroImovelComponent implements OnInit {
                   console.log(errorEndereco);
                 }
               );
+              links.forEach(link => {
+                console.log(link);
 
-              for (let i = 0; i < links.length; i++) {
-                this.linkFoto!.linkFoto = links[i]
-                this.linkFoto!.idImovel = im.idImovel!
-                this.fotoService.salvarLinkFoto(this.linkFoto!, im.idImovel!)
-              }
+                this.lnkFoto.linkFoto = link.toString() || {}
+                this.lnkFoto.idImovel = dadosImovel.idImovel!
+                this.fotoService.salvarLinkFoto(this.lnkFoto, dadosImovel.idImovel!)
+              });
 
           },
           (errorImovel) => {
@@ -361,6 +363,7 @@ export class FormCadastroImovelComponent implements OnInit {
             );
             console.log(errorImovel);
           }
+
         );
       },
     });
