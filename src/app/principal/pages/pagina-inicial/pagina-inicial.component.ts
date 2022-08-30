@@ -118,11 +118,11 @@ export class PaginaInicialComponent implements OnInit {
     });
   }
   imoveisCarrossel() {
-    this.imovelService.getImoveisById(1).subscribe((imovel) => {
+    this.imovelService.getImoveisById(75).subscribe((imovel) => {
       this.imovelCar1 = imovel;
-      this.imovelService.getImoveisById(4).subscribe((imovel) => {
+      this.imovelService.getImoveisById(77).subscribe((imovel) => {
         this.imovelCar2 = imovel;
-        this.imovelService.getImoveisById(3).subscribe((imovel) => {
+        this.imovelService.getImoveisById(79).subscribe((imovel) => {
           this.imovelCar3 = imovel;
           this.carregado = true;
         });
