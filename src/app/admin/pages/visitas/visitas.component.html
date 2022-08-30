@@ -1,0 +1,57 @@
+<app-navi>
+    <div class="container">
+        <div class="col-sm-6 col-md-6 col-lg-12" style="margin-top: 50px">
+            <div class="spaceb">
+                <h5 class="pull-left">Visitas</h5>
+                <button mat-icon-button class="addVisita"(click)="adicionarVisita()">
+                    <mat-icon> add_circle </mat-icon>
+                </button>
+            </div>
+            <table class="table table-hover text-center" id="httptrace-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Horário</th>
+                        <th>Data</th>
+                        <th>Status</th>
+                        <th>Vendedor</th>
+                        <th>Consumidor</th>
+                        <th>View</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="
+                let visita of visitas
+                  | paginate
+                    : {
+                        id: 'trace-list',
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: visitas?.length
+                      }
+              " style="cursor: pointer">
+                        <td (click)="recuperarVisita(visita)">{{ visita.idVisita }}</td>
+                        <td (click)="recuperarVisita(visita)">{{ visita.horarioVisita }}</td>
+                        <td (click)="recuperarVisita(visita)">{{ visita.dataVisita }}</td>
+                        <td (click)="recuperarVisita(visita)">{{ visita.statusVisita }}</td>
+                        <td (click)="recuperarVisita(visita)">{{ visita.userVendedor!.nome! }}</td>
+                        <td (click)="recuperarVisita(visita)">{{ visita.userConsumidor!.nome! }}</td>
+                        <td (click)="recuperarVisita(visita)">
+                            <button class="botsblue btn btn-outline-info">
+                                <i class="botsblue fa fa-eye"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button (click)="deletarVisita(visita.idVisita!)" class="botsblue btn btn-outline-danger">
+                                <i class="fa fa-exclamation-triangle"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls class="botsblue text-center" id="trace-list" (pageChange)="page = $event">
+            </pagination-controls>
+        </div>
+    </div>
+</app-navi>

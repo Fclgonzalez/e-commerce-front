@@ -1,0 +1,47 @@
+<h3 class="modal-title" id="exampleModalLabel">Editar Visita
+    <button mat-dialog-close mat-button>
+        <mat-icon>close</mat-icon>
+    </button>
+</h3>
+<mat-divider></mat-divider>
+
+<form [formGroup]="formVisita" (ngSubmit)="atualizarVisita()">
+    <div class="form-icon">
+        <span><i class="icon icon-user"></i></span>
+    </div>
+    <div class="form-group">
+        <mat-label> Data da Visita:</mat-label>
+        <input type="string" class="form-control item"
+            formControlName="dataVisita">
+    </div>
+    <div class="form-group">
+        <mat-label> Horário da Visita:</mat-label>
+        <input type="string" class="form-control item"
+            formControlName="horarioVisita"/>
+    </div>
+    <div class="form-group">
+        <mat-label> Status da Visita:<br></mat-label>
+        <select matNativeControl formControlName="statusVisita">
+            <option>PENDENTE</option>
+            <option>CONFIRMADO</option>
+            <option>CONCLUIDO</option>
+            <option>CANCELADO</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <mat-label> Id do Imóvel:</mat-label>
+        <input type="text" class="form-control item"
+             formControlName="idImovel" readonly/>
+    </div>
+    <div class="form-group">
+        <mat-label> Id do Consumidor:</mat-label>
+        <input type="text" class="form-control item"
+            formControlName="idConsumidor" readonly/>
+    </div>
+    <div class="form-group">
+        <button *ngIf="loading == false" [disabled]="desabilitarBtn" class="btn btn-block create-account" type="submit">
+            Atualizar Visita
+        </button>
+        <mat-spinner *ngIf="loading == true"></mat-spinner>
+    </div>
+</form>
