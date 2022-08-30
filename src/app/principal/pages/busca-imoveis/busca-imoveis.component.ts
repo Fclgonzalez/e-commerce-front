@@ -48,7 +48,6 @@ interface caracte{
 export class BuscaImoveisComponent implements OnInit {
 
   formPesquisa: FormGroup = this.fb.group({
-
     endereco:this.fb.group({
       cidade:[""],
       bairro:[""],
@@ -148,6 +147,7 @@ export class BuscaImoveisComponent implements OnInit {
   buscar?: string | null
   form?: Imovel
   salvandoInformacoes: boolean = false;
+  buscaVazia: boolean = false
 
   constructor(
     private fb:FormBuilder,
@@ -192,12 +192,36 @@ export class BuscaImoveisComponent implements OnInit {
     }
   }
 
-  filtroImoveis(){
+  filtroImoveisVenda(){
+    this.buscaVazia = false
     this.salvandoInformacoes = true;
-    this.imovelService.postFiltrar(this.formPesquisa.value).subscribe(
+    const imovel: Imovel = this.formPesquisa.value
+    imovel.contratoVenda = true
+    this.imovelService.postFiltrar(imovel).subscribe(
       (response) =>{
         this.todosImoveis = response
+        console.log(response);
         this.salvandoInformacoes = false;
+        if (response.length == 0) {
+          this.buscaVazia = true
+        }
+      }
+    )
+  }
+  
+  filtroImoveisAluguel(){
+    this.buscaVazia = false
+    this.salvandoInformacoes = true;
+    const imovel: Imovel = this.formPesquisa.value
+    imovel.contratoAluguel = true
+    this.imovelService.postFiltrar(imovel).subscribe(
+      (response) =>{
+        this.todosImoveis = response
+        console.log(response);
+        this.salvandoInformacoes = false;
+        if (response.length == 0) {
+          this.buscaVazia = true
+        }
       }
     )
   }
