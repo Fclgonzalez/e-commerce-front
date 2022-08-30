@@ -26,7 +26,9 @@ export class UserService {
   getUsuarioByUsername(username: string): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/username/${username}`)
   }
-  
+
+ 
+
   getUsuarioByRoleId(idRole: number): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/role/${idRole}`)
   }

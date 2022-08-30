@@ -32,6 +32,11 @@ export class FormCadastroImovelComponent implements OnInit {
   salvandoInformacoes: boolean = false;
   caracteristica: Caracteristica[] = [];
   idUser?: number = 0;
+  foto!: FileList;
+  fotoPreview!: any;
+  indiceSelecionado = 0;
+  indicador = true;
+  controle = true;
 
   tipoImovelEnum: Array<any> = [
     {
@@ -184,7 +189,7 @@ export class FormCadastroImovelComponent implements OnInit {
   });
 
   cadastroCaracteristica: FormGroup = this.fb.group({
-    caracteristicas: [''],
+    caracteristicas: ['',Validators.required],
   });
 
   cadastroEnderecoForm: FormGroup = this.fb.group({
@@ -273,6 +278,18 @@ export class FormCadastroImovelComponent implements OnInit {
         this.cadastroImovelForm.value.valorVenda <= 0)
     ) {
       return this.snackbar.open('O valor não pode ser nulo ou negativo', 'Ok', {
+        duration: 3000,
+      });
+    }
+
+    if (
+      this.cadastroImovelForm.value.quartos < 0 ||
+      this.cadastroImovelForm.value.banheiros < 0 ||
+      this.cadastroImovelForm.value.suite < 0 ||
+      this.cadastroImovelForm.value.vagas < 0 ||
+      this.cadastroImovelForm.value.area < 0
+    ) {
+      return this.snackbar.open('O valor não pode ser negativo', 'Ok', {
         duration: 3000,
       });
     }
@@ -399,39 +416,18 @@ export class FormCadastroImovelComponent implements OnInit {
     }
   }
 
-  foto!: FileList;
-  fotoPreview: string = '';
-
   recuperarFoto(event: any): void {
     this.foto = event.target.files;
-    this.carregarPreview();
+
+    this.fotoPreview = [].slice.apply(this.foto);
+    this.fotoPreview.forEach((valores: any, index: number) => {
+      var reader = new FileReader();
+      reader.onload = () => {
+        this.fotoPreview[index] = reader.result as string;
+      };
+      reader.readAsDataURL(valores);
+    });
   }
-
-  carregarPreview(): void {
-    const reader = new FileReader();
-
-    reader.readAsDataURL(this.foto[0]);
-
-    reader.onload = () => {
-      this.fotoPreview = reader.result as string;
-    };
-  }
-
-  // salvarFoto() {
-  //   fotoTeste
-  // }
-
-  //fotoTeste
-  indiceSelecionado = 0;
-  slide = [
-    { src: 'https://picsum.photos/400' },
-    { src: 'https://picsum.photos/401' },
-    { src: 'https://picsum.photos/402' },
-    { src: 'https://picsum.photos/403' },
-    { src: 'https://picsum.photos/404' },
-  ];
-  indicador = true;
-  controle = true;
 
   selecionarImagem(index: number) {
     //fotoTeste

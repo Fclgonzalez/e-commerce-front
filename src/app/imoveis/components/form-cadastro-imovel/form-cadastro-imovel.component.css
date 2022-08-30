@@ -7,6 +7,7 @@
 }
 
 .container {
+  position: relative;
   background: #fff;
   height: auto;
   width: 100%;
@@ -16,12 +17,17 @@
   flex-direction: row;
   justify-content: center;
   display: flex;
-  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .box {
-  width: 434px;
+  width: 30vw;
+  min-width: 300px;
   background: #fff;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .container form .title {
@@ -38,6 +44,14 @@
   height: 40px;
   margin-top: 20px;
   position: relative;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: #0ca789;
+}
+
+::ng-deep .mat-step-icon-state-edit {
+  background-color: #0ca789 !important;
 }
 
 .line {
@@ -96,6 +110,11 @@
   transform-origin: left;
 }
 
+::ng-deep .mat-checkbox-checked .mat-checkbox-background,
+.mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: #0ca789 !important;
+}
+
 .container form .button {
   margin: 20px 0 10px 0;
 }
@@ -103,7 +122,6 @@
 .container form .input-box input:hover {
   background: linear-gradient(to left, #41eecb6d 0%, #2e968131 100%);
 }
-
 
 .container .option {
   font-size: 14px;
@@ -136,16 +154,13 @@ input.example-right-align {
 }
 
 .valor {
-  width: auto;
+  width: 140px;
   position: absolute;
+  right: 0px;
 }
 
 .btnStep:hover {
   background: linear-gradient(to left, #41eecb51 0%, #2e968120 100%);
-}
-
-.rs {
-  margin-left: 60px;
 }
 
 .carousel-container {
@@ -167,6 +182,14 @@ input.example-right-align {
   display: block;
   width: 100%;
   height: 350px;
+  border-radius: 10px;
+}
+
+.semFoto {
+  display: block;
+  width: 100%;
+  height: 350px;
+  border-radius: 10px;
 }
 
 .carousel-dot {
@@ -178,7 +201,9 @@ input.example-right-align {
   justify-content: center;
   padding: 0;
   margin-bottom: 1rem;
-
+  border: none;
+  background: none;
+  flex-wrap: wrap;
 }
 
 .dot {
@@ -207,4 +232,32 @@ input.example-right-align {
   color: white;
 }
 
+.fotos {
+  margin-top: 20px;
+  width: 100%;
+}
 
+#file-input {
+  display: none;
+}
+
+@media screen and (max-width: 1440px) {
+  .carousel-container img.imagem-ativa,
+  .semFoto {
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .carousel-container img.imagem-ativa,
+  .semFoto {
+    height: 250px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .carousel-container img.imagem-ativa,
+  .semFoto {
+    height: 200px;
+  }
+}

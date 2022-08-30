@@ -1,166 +1,168 @@
-<form [formGroup]="ImovelForm" (ngSubmit)="editarImovel()">
-  <div class="titulo">Editar Imovel</div>
-  <mat-form-field class="input-box underline" appearance="legacy">
-    <mat-label>Titulo</mat-label>
-    <input
-      type="text"
-      placeholder="Ex: Tipo do Imovel, valor, localização"
-      matInput
-      formControlName="titulo"
-    />
-    <mat-error><span>Campo Obrigatório</span></mat-error>
-  </mat-form-field>
-  <div class="input-box underline">
-        <mat-checkbox
-          #checkAlugar
-          formControlName="contratoAluguel"
-          value="contratoAluguel"
-          >Alugar</mat-checkbox
-        >
-        <ng-container *ngIf="checkAlugar.checked">
-          <mat-form-field appearance="legacy" floatLabel="always" class="valor">
-            <mat-label>Valor aluguel</mat-label>
-            <input
-              matInput
-              type="number"
-              formControlName="valorAluguel"
-              class="example-right-align"
-              placeholder="0"
-            />
-            <span class="rs" matPrefix>R$&nbsp;</span>
-            <span matSuffix>.00</span>
-          </mat-form-field>
-        </ng-container>
-      </div>
-      <div class="input-box underline">
-        <mat-checkbox
-          #checkVender
-          formControlName="contratoVenda"
-          value="contratoVenda"
-          >Vender</mat-checkbox
-        >
-        <ng-container *ngIf="checkVender.checked">
-          <mat-form-field appearance="legacy" floatLabel="always" class="valor">
-            <mat-label>Valor Venda</mat-label>
-            <input
-              matInput
-              formControlName="valorVenda"
-              type="number"
-              class="example-right-align"
-              placeholder="0"
-            />
-            <span class="rs" matPrefix>R$&nbsp;</span>
-            <span matSuffix>.00</span>
-          </mat-form-field>
-        </ng-container>
-      </div>
+<div class="container">
+  <form [formGroup]="ImovelForm" (ngSubmit)="editarImovel()">
+    <div class="titulo">Editar Imovel</div>
+    <mat-form-field class="input-box underline" appearance="legacy">
+      <mat-label>Titulo</mat-label>
+      <input
+        type="text"
+        placeholder="Ex: Tipo do Imovel, valor, localização"
+        matInput
+        formControlName="titulo"
+      />
+      <mat-error><span>Campo Obrigatório</span></mat-error>
+    </mat-form-field>
+    <div class="input-box underline">
+      <mat-checkbox
+        #checkAlugar
+        formControlName="contratoAluguel"
+        value="contratoAluguel"
+        >Alugar</mat-checkbox
+      >
+      <ng-container *ngIf="checkAlugar.checked">
+        <mat-form-field appearance="legacy" floatLabel="always" class="valor">
+          <mat-label>Valor aluguel</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="valorAluguel"
+            class="example-right-align"
+            placeholder="0"
+          />
+          <span matPrefix>R$&nbsp;</span>
+          <span matSuffix>.00</span>
+        </mat-form-field>
+      </ng-container>
+    </div>
+    <div class="input-box underline">
+      <mat-checkbox
+        #checkVender
+        formControlName="contratoVenda"
+        value="contratoVenda"
+        >Vender</mat-checkbox
+      >
+      <ng-container *ngIf="checkVender.checked">
+        <mat-form-field appearance="legacy" floatLabel="always" class="valor">
+          <mat-label>Valor Venda</mat-label>
+          <input
+            matInput
+            formControlName="valorVenda"
+            type="number"
+            class="example-right-align"
+            placeholder="0"
+          />
+          <span  matPrefix>R$&nbsp;</span>
+          <span matSuffix>.00</span>
+        </mat-form-field>
+      </ng-container>
+    </div>
 
     <mat-form-field appearance="legacy" class="input-box underline">
-        <mat-label>Tipo do Imóvel</mat-label>
-        <mat-select formControlName="tipoImovel" name="tipoImovel">
-          <mat-option
-            *ngFor="let tipoI of tipoImovelEnum; let i = index"
-            [value]="tipoI.tipo"
-          >
-            {{ tipoI.nome }}
-          </mat-option>
-        </mat-select>
-        <mat-error><span>Campo Obrigatório</span></mat-error>
-      </mat-form-field>
+      <mat-label>Tipo do Imóvel</mat-label>
+      <mat-select formControlName="tipoImovel" name="tipoImovel">
+        <mat-option
+          *ngFor="let tipoI of tipoImovelEnum; let i = index"
+          [value]="tipoI.tipo"
+        >
+          {{ tipoI.nome }}
+        </mat-option>
+      </mat-select>
+      <mat-error><span>Campo Obrigatório</span></mat-error>
+    </mat-form-field>
 
-      <mat-form-field appearance="legacy" class="input-box underline">
-        <mat-label>Finalidade do Imóvel</mat-label>
-        <mat-select formControlName="finalidadeImovel" name="finalidadeImovel">
-          <mat-option
-            *ngFor="let finalidadeI of finalidadeImovelEnum; let i = index"
-            [value]="finalidadeI.tipo"
-          >
-            {{ finalidadeI.nome }}
-          </mat-option>
-        </mat-select>
-        <mat-error><span>Campo Obrigatório</span></mat-error>
-      </mat-form-field> 
+    <mat-form-field appearance="legacy" class="input-box underline">
+      <mat-label>Finalidade do Imóvel</mat-label>
+      <mat-select formControlName="finalidadeImovel" name="finalidadeImovel">
+        <mat-option
+          *ngFor="let finalidadeI of finalidadeImovelEnum; let i = index"
+          [value]="finalidadeI.tipo"
+        >
+          {{ finalidadeI.nome }}
+        </mat-option>
+      </mat-select>
+      <mat-error><span>Campo Obrigatório</span></mat-error>
+    </mat-form-field>
 
-      <mat-form-field appearance="legacy" class="input-box underline">
-        <mat-label>Quartos</mat-label>
-        <input
-          type="number"
-          placeholder="0"
-          matInput
-          formControlName="quartos"
-        />
-        <mat-error><span>Campo Obrigatório</span></mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="legacy" class="input-box underline">
-        <mat-label>Banheiros</mat-label>
-        <input
-          type="number"
-          placeholder="0"
-          matInput
-          formControlName="banheiros"
-        />
-        <mat-error><span>Campo Obrigatório</span></mat-error>
-      </mat-form-field>
-      <mat-form-field class="input-box underline" appearance="legacy">
-        <mat-label>Suítes</mat-label>
-        <input type="number" placeholder="0" matInput formControlName="suite" />
-        <mat-error><span>Campo Obrigatório</span></mat-error>
-      </mat-form-field>
-      <mat-form-field class="input-box underline" appearance="legacy">
-        <mat-label>Vagas</mat-label>
-        <input type="number" placeholder="0" matInput formControlName="vagas" />
-        <mat-error><span>Campo Obrigatório</span></mat-error>
-      </mat-form-field>
+    <mat-form-field appearance="legacy" class="input-box underline">
+      <mat-label>Quartos</mat-label>
+      <input type="number" placeholder="0" matInput formControlName="quartos" />
+      <mat-error><span>Campo Obrigatório</span></mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="legacy" class="input-box underline">
+      <mat-label>Banheiros</mat-label>
+      <input
+        type="number"
+        placeholder="0"
+        matInput
+        formControlName="banheiros"
+      />
+      <mat-error><span>Campo Obrigatório</span></mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-box underline" appearance="legacy">
+      <mat-label>Suítes</mat-label>
+      <input type="number" placeholder="0" matInput formControlName="suite" />
+      <mat-error><span>Campo Obrigatório</span></mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-box underline" appearance="legacy">
+      <mat-label>Vagas</mat-label>
+      <input type="number" placeholder="0" matInput formControlName="vagas" />
+      <mat-error><span>Campo Obrigatório</span></mat-error>
+    </mat-form-field>
 
-      <mat-form-field class="input-box underline" appearance="legacy">
-        <mat-label>Área (&#13217;)</mat-label>
-        <input
-          type="number"
-          class="example-right-align"
-          placeholder="0"
-          matInput
-          formControlName="area"
-        />
+    <mat-form-field class="input-box underline" appearance="legacy">
+      <mat-label>Área (&#13217;)</mat-label>
+      <input
+        type="number"
+        class="example-right-align"
+        placeholder="0"
+        matInput
+        formControlName="area"
+      />
 
-        <span matSuffix>.00</span>
-        <mat-error><span>Campo Obrigatório</span></mat-error>
-      </mat-form-field> 
-   <mat-form-field
-        class="input-box underline"
-        appearance="legacy"
-        [formGroup]="caracteristicaForm"
-      >
-        <mat-label>Caracteristicas</mat-label>
-        <mat-select multiple formControlName="caracteristicas">
-          <mat-option id="carac" 
-            *ngFor="let caracteristicas of caracteristica"
-            [value]="caracteristicas.id"
-            >{{ caracteristicas.caracteristica }}</mat-option
-          >
-        </mat-select>
-      </mat-form-field>
-
-  <mat-form-field class="input-box" appearance="legacy">
-    <mat-label>Descrição</mat-label>
-    <textarea matInput formControlName="descricao" name="descricao"></textarea>
-  </mat-form-field>
-
-  <mat-spinner
-    color="primary"
-    diameter="40"
-    class="carregarInformacoes input-box"
-    mode="indeterminate"
-    *ngIf="salvandoInformacoes; else carregarInfo"
-  ></mat-spinner>
-  <ng-template #carregarInfo>
-    <button
-      type="submit"
-      class="input-box submit"
-      mat-stroked-button
-      [disabled]="desabilitar"
+      <span matSuffix>.00</span>
+      <mat-error><span>Campo Obrigatório</span></mat-error>
+    </mat-form-field>
+    <mat-form-field
+      class="input-box underline"
+      appearance="legacy"
+      [formGroup]="caracteristicaForm"
     >
-      Cadastrar
-    </button>
-  </ng-template>
-</form>
+      <mat-label>Caracteristicas</mat-label>
+      <mat-select multiple formControlName="caracteristicas">
+        <mat-option
+          id="carac"
+          *ngFor="let caracteristicas of caracteristica"
+          [value]="caracteristicas.id"
+          >{{ caracteristicas.caracteristica }}</mat-option
+        >
+      </mat-select>
+      <mat-error><span>Campo Obrigatório</span></mat-error>
+    </mat-form-field>
 
+    <mat-form-field class="input-box" appearance="legacy">
+      <mat-label>Descrição</mat-label>
+      <textarea
+        matInput
+        formControlName="descricao"
+        name="descricao"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-spinner
+      color="primary"
+      diameter="40"
+      class="carregarInformacoes input-box"
+      mode="indeterminate"
+      *ngIf="salvandoInformacoes; else carregarInfo"
+    ></mat-spinner>
+    <ng-template #carregarInfo>
+      <button
+        type="submit"
+        class="input-box submit"
+        mat-stroked-button
+        [disabled]="desabilitar"
+      >
+        Atualizar
+      </button>
+    </ng-template>
+  </form>
+</div>

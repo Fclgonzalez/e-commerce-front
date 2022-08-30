@@ -66,4 +66,12 @@ export class AuthService {
       return decode
     }
 
+    verificaUsername(username:String):Observable<User>{
+      return this.http.get<User>(`${this.baseUrl}/imobil/usuarios/username?username=${username}`)
+    }
+    
+    verificaIdentificacao(identificacao:String):Observable<User>{
+      return this.http.get<User>(`${this.baseUrl}/imobil/usuarios/identificacao?identificacao=${identificacao}`)
+    }
+
 }

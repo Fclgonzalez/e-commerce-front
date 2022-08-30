@@ -171,7 +171,7 @@ export class ImovelVendedorComponent implements OnInit {
   });
 
   caracteristicaForm: FormGroup = this.fb.group({
-    caracteristicas: [''],
+    caracteristicas: ['', Validators.required],
   });
 
   constructor(
@@ -272,6 +272,18 @@ export class ImovelVendedorComponent implements OnInit {
         this.ImovelForm.value.valorVenda <= 0)
     ) {
       return this.snackbar.open('O valor não pode ser nulo ou negativo', 'Ok', {
+        duration: 3000,
+      });
+    }
+
+    if (
+      this.ImovelForm.value.quartos < 0 ||
+      this.ImovelForm.value.banheiros < 0 ||
+      this.ImovelForm.value.suite < 0 ||
+      this.ImovelForm.value.vagas < 0 ||
+      this.ImovelForm.value.area < 0
+    ) {
+      return this.snackbar.open('O valor não pode ser negativo', 'Ok', {
         duration: 3000,
       });
     }
