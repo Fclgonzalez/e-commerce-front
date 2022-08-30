@@ -1,4 +1,3 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap");
 
 * {
@@ -7,11 +6,26 @@
   box-sizing: border-box;
 }
 
-mat-form-field {
-  width: 400px;
-
+.container {
+  overflow-y: auto;
+  background: #fff;
+  height: 80vh;
+  width: 100%;
+  padding: 25px 30px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  flex-direction: row;
+  justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
+mat-form-field {
+  width: 400px;
+}
 
 .titulo {
   font-size: 24px;
@@ -28,7 +42,6 @@ form {
   align-items: center;
   flex-direction: column;
   width: 400px;
-  
 }
 
 form .input-box {
@@ -70,11 +83,10 @@ form .underline::after {
 }
 
 form .input-box input:focus ~ .underline::after,
- form .input-box input:valid ~ .underline::after {
+form .input-box input:valid ~ .underline::after {
   transform: scaleX(1);
   transform-origin: left;
 }
-
 
 form .button {
   margin: 20px 0 10px 0;
@@ -84,12 +96,9 @@ form .input-box input:hover {
   background: linear-gradient(to left, #41eecb6d 0%, #2e968131 100%);
 }
 
-
 #uppercase {
   text-transform: uppercase;
 }
-
-
 
 .submit {
   width: 100%;
@@ -101,7 +110,6 @@ form .input-box input:hover {
   background-color: #0ca789;
   color: white;
 }
-
 
 #uppercase {
   text-transform: uppercase;
