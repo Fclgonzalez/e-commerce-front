@@ -340,7 +340,7 @@ export class ImovelVendedorComponent implements OnInit {
             }
           );
 
-        this.dialogRef.close();
+          this.dialogRef.close(true);
       },
       (error) => {
         console.log(error);

@@ -9,6 +9,7 @@ export interface Imovel {
   contratoVenda?: boolean;
   valorAluguel?: number;
   valorVenda?: number;
+  inativo?: boolean
   area?: number;
   descricao?: string;
   quartos?: number;

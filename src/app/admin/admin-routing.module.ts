@@ -4,7 +4,9 @@ import { AdminLogadoGuard } from '../guards/admin-logado.guard';
 import { UserLogadoGuard } from '../guards/user-logado.guard';
 import { ActuatorComponent } from './pages/actuator/actuator.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PendenteComponent } from './pages/pendente/pendente.component';
+import { ImoveisAdminComponent } from './pages/imoveis-admin/imoveis-admin.component';
+
+
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { VisitasComponent } from './pages/visitas/visitas.component';
 
@@ -17,8 +19,8 @@ const routes: Routes = [
       AdminLogadoGuard
     ]
   },{
-    path:'pendente',
-    component: PendenteComponent,
+    path:'imoveis',
+    component: ImoveisAdminComponent,
     canActivate: [
       UserLogadoGuard,
       AdminLogadoGuard

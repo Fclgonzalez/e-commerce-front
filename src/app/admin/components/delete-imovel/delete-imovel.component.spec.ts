@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PendenteComponent } from './pendente.component';
+import { DeleteImovelComponent } from './delete-imovel.component';
 
-describe('PendenteComponent', () => {
-  let component: PendenteComponent;
-  let fixture: ComponentFixture<PendenteComponent>;
+describe('DeleteImovelComponent', () => {
+  let component: DeleteImovelComponent;
+  let fixture: ComponentFixture<DeleteImovelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PendenteComponent ]
+      declarations: [ DeleteImovelComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PendenteComponent);
+    fixture = TestBed.createComponent(DeleteImovelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

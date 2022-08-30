@@ -1,0 +1,123 @@
+<app-navi>
+  <div class="container">
+    <div class="col-sm-6 col-md-6 col-lg-12" style="margin-top: 50px">
+      <table class="table table-hover text-center" id="httptrace-table">
+        <thead>
+          <tr>
+            <th>ID Imóvel</th>
+            <th>ID Vendedor</th>
+            <th>Status</th>
+            <th>Tipo</th>
+            <th>Finalidade</th>
+            <th>Contrato de Aluguel</th>
+            <th>Valor do Aluguel</th>
+            <th>Contrato de Venda</th>
+            <th>Valor de Venda</th>
+            <th>Imóvel View</th>
+            <th>Endereço View</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let imovel of imoveis
+                | paginate
+                  : {
+                      id: 'trace-list',
+                      itemsPerPage: pageSize,
+                      currentPage: page,
+                      totalItems: imoveis?.length
+                    }
+            "
+            style="cursor: pointer"
+          >
+            <td (click)="recuperarImovel(imovel)">{{ imovel.idImovel }}</td>
+            <td (click)="recuperarImovel(imovel)">
+              {{ imovel.userVendedor?.idUser }}
+            </td>
+
+            <td
+              *ngIf="imovel.inativo == true; else imovelAtivo"
+              (click)="recuperarImovel(imovel)"
+            >
+              Inativo
+            </td>
+
+            <ng-template #imovelAtivo>
+              <td (click)="recuperarImovel(imovel)">Ativo</td>
+            </ng-template>
+
+            <td (click)="recuperarImovel(imovel)">
+              {{ imovel.tipoImovel | titlecase }}
+            </td>
+            <td (click)="recuperarImovel(imovel)">
+              {{ imovel.finalidadeImovel | titlecase }}
+            </td>
+
+            <td
+              *ngIf="
+                imovel.contratoAluguel == true;
+                else contratoAluguelInativo
+              "
+              (click)="recuperarImovel(imovel)"
+            >
+              <mat-icon>check_circle_outline</mat-icon>
+            </td>
+
+            <ng-template #contratoAluguelInativo>
+              <td (click)="recuperarImovel(imovel)">
+                <mat-icon>radio_button_unchecked</mat-icon>
+              </td>
+            </ng-template>
+
+            <td  (click)="recuperarImovel(imovel)">
+              {{ imovel.valorAluguel | currency: "BRL ":"symbol":"4.2-2" }}
+            </td>
+
+            <td  *ngIf="
+            imovel.contratoVenda == true;
+            else contratoVendaInativo
+          " (click)="recuperarImovel(imovel)">
+          <mat-icon>check_circle_outline</mat-icon>
+            </td>
+
+            <ng-template #contratoVendaInativo>
+              <td (click)="recuperarImovel(imovel)">
+                <mat-icon>radio_button_unchecked</mat-icon>
+              </td>
+            </ng-template>
+
+
+            <td (click)="recuperarImovel(imovel)">
+              {{ imovel.valorVenda | currency: "BRL ":"symbol":"4.2-2" }}
+            </td>
+            <td (click)="recuperarImovel(imovel)">
+              <button class="botsblue btn btn-outline-info">
+                <i class="botsblue fa fa-eye"></i>
+              </button>
+            </td>
+            <td (click)="recuperarEnderecoImovel(imovel)">
+              <button class="botsblue btn btn-outline-info">
+                <i class="botsblue fa fa-eye"></i>
+              </button>
+            </td>
+            <td>
+              <button
+                (click)="deletarImovel(imovel)"
+                class="botsblue btn btn-outline-danger"
+              >
+                <i class="fa fa-exclamation-triangle"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls
+        class="botsblue text-center"
+        id="trace-list"
+        (pageChange)="page = $event"
+      ></pagination-controls>
+    </div>
+  </div>
+</app-navi>

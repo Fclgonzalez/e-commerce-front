@@ -117,7 +117,7 @@ export class FormEnderecoComponent implements OnInit {
         this.snackbar.open('Cliente atualizado com sucesso', 'Ok', {
           duration: 3000,
         });
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       },
       (error) => {
         console.log(error);

@@ -1,0 +1,42 @@
+
+ <h3 mat-dialog-title>Ações disponíveis
+<button mat-dialog-close mat-button>
+  <mat-icon>close</mat-icon>
+</button>
+</h3>
+<mat-divider></mat-divider>
+<div class="container">
+  <button
+    *ngIf="imovel.inativo == false"
+    class="action col-sm-6 col-md-6 col-lg-6"
+    mat-raised-button
+    color="accent"
+    (click)="inativarImovel()"
+  >
+    Inativar Imóvel<span class="material-icons"> warning_amber </span>
+  </button>
+  <button
+    *ngIf="imovel.inativo == true && loading == false"
+    class="action col-sm-6 col-md-6 col-lg-6"
+    mat-raised-button
+    color="primary"
+    (click)="ativarImovel()"
+  >
+    Ativar Imóvel<span class="material-icons"> info </span>
+  </button>
+
+  <button
+    class="action col-sm-6 col-md-6 col-lg-6"
+    mat-raised-button
+    color="warn"
+    (click)="deletarImovel()"
+  >
+    Excluir Permanentemente
+    <span class="material-icons"> delete_forever </span>
+  </button>
+
+  <mat-spinner
+    class="action col-sm-6 col-md-6 col-lg-6"
+    *ngIf="loading == true"
+  ></mat-spinner>
+</div> 

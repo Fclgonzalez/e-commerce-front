@@ -1,0 +1,27 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+}
+
+h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+}
+
+mat-divider{
+    margin-bottom: 10px;
+}
+
+.container button {
+    height: 65px;
+    width: 100%; 
+    margin: 5px;
+}
+span{
+    float: right;
+}
