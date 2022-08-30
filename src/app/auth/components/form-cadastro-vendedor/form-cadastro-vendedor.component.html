@@ -1,7 +1,7 @@
 <div class="container">
   <div class="box">
     <form [formGroup]="cadastroVendedorForm" (ngSubmit)="salvar()">
-      <mat-stepper orientation="vertical" linear animationDuration="800">
+      <mat-stepper orientation="horizontal"  linear animationDuration="1000">
         <mat-step [stepControl]="cadastroVendedorForm">
           <div class="title">Dados Pessoais</div>
           <mat-form-field class="input-box underline" appearance="legacy">
@@ -100,7 +100,7 @@
                 value="contratoAluguel"
                 >Alugar</mat-checkbox
               >
-              <ng-container *ngIf="checkAlugar.checked">
+              <ng-container *ngIf="checkAlugar.checked" >
                 <mat-form-field
                   appearance="legacy"
                   floatLabel="always"
@@ -114,7 +114,7 @@
                     class="example-right-align"
                     placeholder="0"
                   />
-                  <span class="rs" matPrefix>R$&nbsp;</span>
+                  <span  matPrefix>R$&nbsp;</span>
                   <span matSuffix>.00</span>
                 </mat-form-field>
               </ng-container>
@@ -140,7 +140,7 @@
                     class="example-right-align"
                     placeholder="0"
                   />
-                  <span class="rs" matPrefix>R$&nbsp;</span>
+                  <span matPrefix>R$&nbsp;</span>
                   <span matSuffix>.00</span>
                 </mat-form-field>
               </ng-container>
@@ -246,6 +246,7 @@
                   >{{ caracteristicas.caracteristica }}</mat-option
                 >
               </mat-select>
+              <mat-error><span>Campo Obrigatório</span></mat-error>
             </mat-form-field>
 
             <mat-form-field class="input-box" appearance="legacy">
@@ -408,18 +409,22 @@
 
         <mat-step>
           <!--     //fotoTeste -->
-          <div *ngIf="slide && slide.length > 0" class="carousel-container">
+          <div *ngIf="fotoPreview && fotoPreview.length > 0; else semFoto" class="carousel-container fotos">
             <img
-              *ngFor="let imagem of slide; let index = index"
-              [src]="imagem.src"
+              *ngFor="let imagem of fotoPreview; let index = index"
+              [src]="imagem"
               [ngClass]="{ 'imagem-ativa': indiceSelecionado === index }"
             />
           </div>
 
+          <ng-template #semFoto class="carousel-container fotos">
+            <img src="../../../../assets/No image.jpg" class="semFoto" alt="Não há fotos">
+          </ng-template>
+
           <!--     //fotoTeste -->
           <button type="button" *ngIf="indicador" class="carousel-dot">
             <span
-              *ngFor="let dot of slide; let index = index"
+              *ngFor="let dot of fotoPreview; let index = index"
               class="dot"
               [ngClass]="{ ativo: indiceSelecionado === index }"
               (click)="selecionarImagem(index)"
@@ -441,9 +446,9 @@
 
           <button
           matTooltip="selecione uma imagem"
+          class="input-box"
           type="button"
           mat-stroked-button
-          color="primary"
           (click)="fileInput.click()"
         >
           Selecione uma imagem
@@ -471,7 +476,7 @@
               type="submit"
               class="input-box submit"
               mat-stroked-button
-              [disabled]="slide.length == 0"
+              [disabled]="fotoPreview?.length == 0 || fotoPreview == undefined"
             >
               Cadastrar
             </button>

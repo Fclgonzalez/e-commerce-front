@@ -62,6 +62,8 @@ export class PerfilUsuarioComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
+ 
+
   ngOnInit(): void {
     this.userService.atualizarUsuarioSub$.subscribe((atualizar) => {
       if (atualizar) {
@@ -77,6 +79,9 @@ export class PerfilUsuarioComponent implements OnInit {
     });
 
     this.idUsuario()
+
+    
+    
 
   }
   idUsuario() {

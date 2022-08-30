@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { read } from '@popperjs/core';
 import { forkJoin, Observable } from 'rxjs';
 import { Endereco } from 'src/app/enderecos/models/endereco';
 import { EnderecosService } from 'src/app/enderecos/services/enderecos.service';
@@ -22,8 +23,11 @@ import { AuthService } from '../../services/auth.service';
 export class FormCadastroVendedorComponent implements OnInit {
   salvandoInformacoes: boolean = false;
   caracteristica: Caracteristica[] = [];
-  foto!: FileList
-  fotoPreview: string = '';
+  foto!: FileList;
+  fotoPreview!: any;
+  indiceSelecionado = 0;
+  indicador = true;
+  controle = true;
 
   tipoImovelEnum: Array<any> = [
     {
@@ -179,11 +183,11 @@ export class FormCadastroVendedorComponent implements OnInit {
     vagas: [0, Validators.required],
     area: [0, Validators.required],
     descricao: [''],
-    foto: ['']
+    foto: [''],
   });
 
   cadastroCaracteristica: FormGroup = this.fb.group({
-    caracteristicas: [''],
+    caracteristicas: ['', Validators.required],
   });
 
   cadastroEnderecoForm: FormGroup = this.fb.group({
@@ -242,138 +246,173 @@ export class FormCadastroVendedorComponent implements OnInit {
       });
   }
 
-
   salvar() {
     //Regras do formulário
     this.cadastroEnderecoForm.value.uf =
       this.cadastroEnderecoForm.value.uf.toUpperCase();
 
+    if (this.cadastroImovelForm.value.contratoVenda == false) {
+      this.cadastroImovelForm.value.valorVenda = 0;
+    }
 
-      if (this.cadastroImovelForm.value.contratoVenda == false) {
-        this.cadastroImovelForm.value.valorVenda = 0;
-      }
+    if (this.cadastroImovelForm.value.contratoAluguel == false) {
+      this.cadastroImovelForm.value.valorAluguel = 0;
+    }
 
-      if (this.cadastroImovelForm.value.contratoAluguel == false) {
-        this.cadastroImovelForm.value.valorAluguel = 0;
-      }
+    if (
+      this.cadastroImovelForm.value.contratoAluguel == true &&
+      (this.cadastroImovelForm.value.valorAluguel == null ||
+        this.cadastroImovelForm.value.valorAluguel == undefined ||
+        this.cadastroImovelForm.value.valorAluguel <= 0)
+    ) {
+      return this.snackbar.open('O valor não pode ser nulo ou negativo', 'Ok', {
+        duration: 3000,
+      });
+    }
+    if (
+      this.cadastroImovelForm.value.contratoVenda == true &&
+      (this.cadastroImovelForm.value.valorVenda == null ||
+        this.cadastroImovelForm.value.valorVenda == undefined ||
+        this.cadastroImovelForm.value.valorVenda <= 0)
+    ) {
+      return this.snackbar.open('O valor não pode ser nulo ou negativo', 'Ok', {
+        duration: 3000,
+      });
+    }
 
-      if (
-        this.cadastroImovelForm.value.contratoAluguel == true &&
-        (this.cadastroImovelForm.value.valorAluguel == null ||
-          this.cadastroImovelForm.value.valorAluguel == undefined ||
-          this.cadastroImovelForm.value.valorAluguel <= 0)
-      ) {
-        return this.snackbar.open(
-          'O valor não pode ser nulo ou negativo',
-          'Ok',
-          {
+    if (
+      this.cadastroImovelForm.value.quartos < 0 ||
+      this.cadastroImovelForm.value.banheiros < 0 ||
+      this.cadastroImovelForm.value.suite < 0 ||
+      this.cadastroImovelForm.value.vagas < 0 ||
+      this.cadastroImovelForm.value.area < 0
+    ) {
+      return this.snackbar.open('O valor não pode ser negativo', 'Ok', {
+        duration: 3000,
+      });
+    }
+
+    if (
+      this.cadastroImovelForm.value.contratoAluguel == false &&
+      this.cadastroImovelForm.value.contratoVenda == false
+    ) {
+      return alert(
+        'O checkbox do aluguel ou da venda do imóvel deve estar ativo'
+      );
+    }
+
+    // check username e identificação
+    const login: User = this.cadastroVendedorForm.value;
+
+    this.authService.verificaUsername(login.username).subscribe(
+      (sucesso) => {
+        if (sucesso != null) {
+          this.snackbar.open('Username já cadastrado', 'Ok', {
             duration: 3000,
-          })
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+          });
+        }
+      },
+      (error) => {
+        console.log(error);
       }
-      if (
-        this.cadastroImovelForm.value.contratoVenda == true &&
-        (this.cadastroImovelForm.value.valorVenda == null ||
-          this.cadastroImovelForm.value.valorVenda == undefined ||
-          this.cadastroImovelForm.value.valorVenda <= 0)
-      ) {
-         return this.snackbar.open(
-          'O valor não pode ser nulo ou negativo',
-          'Ok',
-          {
-            duration: 3000,
-          })
-      }
+    );
 
-      if (
-        this.cadastroImovelForm.value.contratoAluguel == false &&
-        this.cadastroImovelForm.value.contratoVenda == false
-      ) {
-        return alert(
-          'O checkbox do aluguel ou da venda do imóvel deve estar ativo'
-        );
+    this.authService.verificaIdentificacao(login.identificacao!).subscribe(
+      (sucesso) => {
+        if (sucesso != null) {
+          this.snackbar.open('CPF / CNPJ já cadastrado já cadastrado', 'Ok', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+          });
+        }
+      },
+      (error) => {
+        console.log(error);
       }
+    );
 
     this.salvandoInformacoes = true;
 
-
-
     //Serviços
-    const login: User = this.cadastroVendedorForm.value;
-
-
 
     this.authService.cadastrarVendedor(login).subscribe(
       (dadosUser) => {
         let idUser: number = dadosUser;
         let im: Imovel = this.cadastroImovelForm.value;
-        console.log(dadosUser);
 
-
-        forkJoin(Array.from(this.foto).map((app) => (this.imovelService.salvarFoto(app)))).subscribe({
+        forkJoin(
+          Array.from(this.foto).map((app) => this.imovelService.salvarFoto(app))
+        ).subscribe({
           next: (links) => {
-            console.log(links);
+            this.imovelService
+              .cadastrarImovelInicial(im, idUser, links)
+              .subscribe(
+                (dadosImovel) => {
+                  const carac: Caracteristica =
+                    this.cadastroCaracteristica.value;
+                  for (let a of this.cadastroCaracteristica.value
+                    .caracteristicas) {
+                    this.caracteristicaService
+                      .postAddCaracteristicaImovel(a.id, dadosImovel.idImovel!)
+                      .subscribe(
+                        () => {},
+                        (errorCarac) => {
+                          this.salvandoInformacoes = false;
+                          this.snackbar.open(
+                            'Não foi possível realizar o cadastro da característica',
+                            'Ok',
+                            {
+                              duration: 3000,
+                            }
+                          );
 
-        this.imovelService.cadastrarImovelInicial(im, idUser, links).subscribe(
-          (dadosImovel) => {
-            const carac: Caracteristica = this.cadastroCaracteristica.value;
-            for (let a of this.cadastroCaracteristica.value.caracteristicas) {
-              this.caracteristicaService
-                .postAddCaracteristicaImovel(a.id, dadosImovel.idImovel!)
-                .subscribe(
-                  () => {},
-                  (errorCarac) => {
-                    this.salvandoInformacoes = false;
-                    this.snackbar.open(
-                      'Não foi possível realizar o cadastro da característica',
-                      'Ok',
-                      {
-                        duration: 3000,
+                          console.log(errorCarac);
+                        }
+                      );
+                  }
+
+                  const en: Endereco = this.cadastroEnderecoForm.value;
+                  this.enderecoService
+                    .cadastrarEnderecoImovel(en, dadosImovel.idImovel)
+                    .subscribe(
+                      (dadosEndereco) => {
+                        this.snackbar.open('Cadastrado com sucesso', 'Ok', {
+                          duration: 3000,
+                        });
+                        this.router.navigateByUrl('/auth/email');
+                      },
+                      (errorEnderero) => {
+                        this.salvandoInformacoes = false;
+                        this.snackbar.open(
+                          'Não foi possível realizar o cadastro do endereço',
+                          'Ok',
+                          {
+                            duration: 3000,
+                          }
+                        );
+
+                        console.log(errorEnderero);
                       }
                     );
-
-                    console.log(errorCarac);
-                  }
-                );
-            }
-
-            const en: Endereco = this.cadastroEnderecoForm.value;
-            this.enderecoService
-              .cadastrarEnderecoImovel(en, dadosImovel.idImovel)
-              .subscribe(
-                (dadosEndereco) => {
-                  this.snackbar.open('Cadastrado com sucesso', 'Ok', {
-                    duration: 3000,
-                  });
-                  this.router.navigateByUrl('/auth/email');
                 },
-                (errorEnderero) => {
+                (errorImovel) => {
                   this.salvandoInformacoes = false;
                   this.snackbar.open(
-                    'Não foi possível realizar o cadastro do endereço',
+                    'Não foi possível realizar o cadastro do imóvel',
                     'Ok',
                     {
                       duration: 3000,
                     }
                   );
 
-                  console.log(errorEnderero);
+                  console.log(errorImovel);
                 }
               );
           },
-          (errorImovel) => {
-            this.salvandoInformacoes = false;
-            this.snackbar.open(
-              'Não foi possível realizar o cadastro do imóvel',
-              'Ok',
-              {
-                duration: 3000,
-              }
-            );
-
-            console.log(errorImovel);
-          }
-        );
-          }})
+        });
       },
       (errorUser) => {
         this.salvandoInformacoes = false;
@@ -406,42 +445,19 @@ export class FormCadastroVendedorComponent implements OnInit {
     }
   }
 
-
   recuperarFoto(event: any): void {
     this.foto = event.target.files;
-    this.carregarPreview();
+    this.fotoPreview = [].slice.apply(this.foto);
+    this.fotoPreview.forEach((valores: any, index: number) => {
+      var reader = new FileReader();
+      reader.onload = () => {
+        this.fotoPreview[index] = reader.result as string;
+      };
+      reader.readAsDataURL(valores);
+    });
   }
-
-  carregarPreview(): void {
-    const reader = new FileReader();
-
-    reader.readAsDataURL(this.foto[0]);
-
-    reader.onload = () => {
-      this.fotoPreview = reader.result as string;
-    };
-  }
-
-  // teste
-
-/*   salvarFoto() {
-    // fotoTeste
-  } */
-
-  //fotoTeste
-  indiceSelecionado = 0;
-  slide = [
-    { src: 'https://picsum.photos/400' },
-    { src: 'https://picsum.photos/401' },
-    { src: 'https://picsum.photos/402' },
-    { src: 'https://picsum.photos/403' },
-    { src: 'https://picsum.photos/404' },
-  ];
-  indicador = true;
-  controle = true;
 
   selecionarImagem(index: number) {
-    //fotoTeste
     this.indiceSelecionado = index;
   }
 }
