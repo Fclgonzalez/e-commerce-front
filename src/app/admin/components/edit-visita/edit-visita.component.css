@@ -1,0 +1,27 @@
+h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 10px;
+}
+
+.create-account {
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #012169;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+
+.form-group {
+    margin: 5px;
+  }

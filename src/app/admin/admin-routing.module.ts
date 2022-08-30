@@ -6,6 +6,7 @@ import { ActuatorComponent } from './pages/actuator/actuator.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PendenteComponent } from './pages/pendente/pendente.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { VisitasComponent } from './pages/visitas/visitas.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,14 @@ const routes: Routes = [
   {
     path:'usuarios',
      component: UsuariosComponent,
+     canActivate: [
+      UserLogadoGuard,
+      AdminLogadoGuard
+    ]
+  },
+  {
+    path:'visitas',
+     component: VisitasComponent,
      canActivate: [
       UserLogadoGuard,
       AdminLogadoGuard
