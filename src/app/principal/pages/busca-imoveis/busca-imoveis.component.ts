@@ -17,9 +17,9 @@ interface finalidade {
   viewValue: string;
 }
 
-interface tipo{
-  value:string;
-  viewValue:string;
+interface tipo {
+  value: string;
+  viewValue: string;
 }
 
 interface quarto {
@@ -27,16 +27,16 @@ interface quarto {
   viewValue: number;
 }
 
-interface banheiro{
+interface banheiro {
   value: number;
   viewValue: number;
 }
 
-interface vaga{
+interface vaga {
   value: number;
   viewValue: number;
 }
-interface caracte{
+interface caracte {
   value: string;
   viewValue: string;
 }
@@ -44,116 +44,114 @@ interface caracte{
 @Component({
   selector: 'app-busca-imoveis',
   templateUrl: './busca-imoveis.component.html',
-  styleUrls: ['./busca-imoveis.component.css']
+  styleUrls: ['./busca-imoveis.component.css'],
 })
-
 export class BuscaImoveisComponent implements OnInit {
-
   formPesquisa: FormGroup = this.fb.group({
-    endereco:this.fb.group({
-      cidade:[""],
-      bairro:[""],
+    endereco: this.fb.group({
+      cidade: [''],
+      bairro: [''],
     }),
-    valorAluguel:[0],
-    valorVenda:[0],
-    area:[0],
-    quartos:[0],
-    suite:[0],
-    banheiros:[0],
-    vagas:[0],
-    finalidadeImovel:["RESIDENCIAL"],
-    tipoImovel:["CASA"],
-    caracteristicas:[[]]
-  })
+    valorAluguel: [0],
+    valorVenda: [0],
+    area: [0],
+    quartos: [0],
+    suite: [0],
+    banheiros: [0],
+    vagas: [0],
+    finalidadeImovel: ['RESIDENCIAL'],
+    tipoImovel: ['CASA'],
+    caracteristicas: [[]],
+  });
 
   caracteristica: Caracteristica[] = [];
 
-  tipos:tipo[] =[
-    {value: "APARTAMENTO", viewValue: "Apartamento"},
-    {value: "COMERCIAL", viewValue: "Comercial"},
-    {value: "CASA", viewValue: "Casa"},
-    {value: "ANDAR_CORPORATIVO", viewValue: "Andar Corporativo"},
-    {value: "CASA_DE_VILA", viewValue: "Casa de Vila"},
-    {value: "COBERTURA", viewValue: "Cobertura"},
-    {value: "CONDOMINIO", viewValue: "Condomínio"},
-    {value: "FLAT", viewValue: "Flat"},
-    {value: "TERRENO", viewValue: "Terreno"},
-    {value: "LOTE", viewValue: "Lote"},
-    {value: "FAZENDA", viewValue: "Fazenda"},
-    {value: "SITIO", viewValue: "Sítio"},
-    {value: "CHACARA", viewValue: "Chácara"},
-    {value: "LOJA", viewValue: "Loja"},
-    {value: "SALAO", viewValue: "Salão"},
-    {value: "PONTO_COMERCIAL", viewValue: "Ponto Comercial"},
-    {value: "SALA", viewValue: "Sala"},
-    {value: "CASA_COMERCIAL", viewValue: "Casa Comercial"},
-    {value: "HOTEL", viewValue: "Hotel"},
-    {value: "MOTEL", viewValue: "Motel"},
-    {value: "LAJE_CORPORATIVA", viewValue: "Laje Corporativa"},
-    {value: "PREDIO_INTEIRO", viewValue: "Prédio Inteiro"},
-    {value: "GALPAO", viewValue: "Galpão"},
-    {value: "DEPOSITO", viewValue: "Depósito"},
-    {value: "ARMAZEM", viewValue: "Armazém"},
-    {value: "GARAGEM", viewValue: "Garagem"},
-  ]
+  tipos: tipo[] = [
+    { value: 'APARTAMENTO', viewValue: 'Apartamento' },
+    { value: 'COMERCIAL', viewValue: 'Comercial' },
+    { value: 'CASA', viewValue: 'Casa' },
+    { value: 'ANDAR_CORPORATIVO', viewValue: 'Andar Corporativo' },
+    { value: 'CASA_DE_VILA', viewValue: 'Casa de Vila' },
+    { value: 'COBERTURA', viewValue: 'Cobertura' },
+    { value: 'CONDOMINIO', viewValue: 'Condomínio' },
+    { value: 'FLAT', viewValue: 'Flat' },
+    { value: 'TERRENO', viewValue: 'Terreno' },
+    { value: 'LOTE', viewValue: 'Lote' },
+    { value: 'FAZENDA', viewValue: 'Fazenda' },
+    { value: 'SITIO', viewValue: 'Sítio' },
+    { value: 'CHACARA', viewValue: 'Chácara' },
+    { value: 'LOJA', viewValue: 'Loja' },
+    { value: 'SALAO', viewValue: 'Salão' },
+    { value: 'PONTO_COMERCIAL', viewValue: 'Ponto Comercial' },
+    { value: 'SALA', viewValue: 'Sala' },
+    { value: 'CASA_COMERCIAL', viewValue: 'Casa Comercial' },
+    { value: 'HOTEL', viewValue: 'Hotel' },
+    { value: 'MOTEL', viewValue: 'Motel' },
+    { value: 'LAJE_CORPORATIVA', viewValue: 'Laje Corporativa' },
+    { value: 'PREDIO_INTEIRO', viewValue: 'Prédio Inteiro' },
+    { value: 'GALPAO', viewValue: 'Galpão' },
+    { value: 'DEPOSITO', viewValue: 'Depósito' },
+    { value: 'ARMAZEM', viewValue: 'Armazém' },
+    { value: 'GARAGEM', viewValue: 'Garagem' },
+  ];
 
   finalidades: finalidade[] = [
-    {value: "COMERCIAL", viewValue: "Comercial"},
-    {value: "CORPORATIVA", viewValue: "Corporativa"},
-    {value: "INDUSTRIAL", viewValue: "Industrial"},
-    {value: "RESIDENCIAL", viewValue: "Residencial"},
-    {value: "RURAL", viewValue: "Rural"},
-    {value: "TEMPORADA", viewValue: "Temporada"},
+    { value: 'COMERCIAL', viewValue: 'Comercial' },
+    { value: 'CORPORATIVA', viewValue: 'Corporativa' },
+    { value: 'INDUSTRIAL', viewValue: 'Industrial' },
+    { value: 'RESIDENCIAL', viewValue: 'Residencial' },
+    { value: 'RURAL', viewValue: 'Rural' },
+    { value: 'TEMPORADA', viewValue: 'Temporada' },
   ];
 
   quartos: quarto[] = [
-    {value: 1, viewValue: 1},
-    {value: 2, viewValue: 2},
-    {value: 3, viewValue: 3},
-    {value: 4, viewValue: 4},
-    {value: 5, viewValue: 5},
-    {value: 6, viewValue: 6},
-    {value: 7, viewValue: 7},
-    {value: 8, viewValue: 8},
-    {value: 9, viewValue: 9},
-    {value: 10, viewValue: 10},
+    { value: 1, viewValue: 1 },
+    { value: 2, viewValue: 2 },
+    { value: 3, viewValue: 3 },
+    { value: 4, viewValue: 4 },
+    { value: 5, viewValue: 5 },
+    { value: 6, viewValue: 6 },
+    { value: 7, viewValue: 7 },
+    { value: 8, viewValue: 8 },
+    { value: 9, viewValue: 9 },
+    { value: 10, viewValue: 10 },
   ];
 
   banheiros: banheiro[] = [
-    {value: 1, viewValue:1},
-    {value: 2, viewValue:2},
-    {value: 3, viewValue:3},
-    {value: 4, viewValue:4},
-    {value: 5, viewValue:5},
-    {value: 6, viewValue:6},
-    {value: 7, viewValue:7},
-    {value: 8, viewValue:8},
-    {value: 9, viewValue:9},
-    {value: 10, viewValue:10},
-  ]
+    { value: 1, viewValue: 1 },
+    { value: 2, viewValue: 2 },
+    { value: 3, viewValue: 3 },
+    { value: 4, viewValue: 4 },
+    { value: 5, viewValue: 5 },
+    { value: 6, viewValue: 6 },
+    { value: 7, viewValue: 7 },
+    { value: 8, viewValue: 8 },
+    { value: 9, viewValue: 9 },
+    { value: 10, viewValue: 10 },
+  ];
 
   vagas: vaga[] = [
-    {value: 1, viewValue:1},
-    {value: 2, viewValue:2},
-    {value: 3, viewValue:3},
-    {value: 4, viewValue:4},
-    {value: 5, viewValue:5},
-    {value: 6, viewValue:6},
-    {value: 7, viewValue:7},
-    {value: 8, viewValue:8},
-    {value: 9, viewValue:9},
-    {value: 10, viewValue:10},
-  ]
+    { value: 1, viewValue: 1 },
+    { value: 2, viewValue: 2 },
+    { value: 3, viewValue: 3 },
+    { value: 4, viewValue: 4 },
+    { value: 5, viewValue: 5 },
+    { value: 6, viewValue: 6 },
+    { value: 7, viewValue: 7 },
+    { value: 8, viewValue: 8 },
+    { value: 9, viewValue: 9 },
+    { value: 10, viewValue: 10 },
+  ];
 
-  todosImoveis!: Imovel[]
-  buscar?: string | null
-  form?: Imovel
+  todosImoveis!: Imovel[];
+  buscar?: string | null;
+  form?: Imovel;
   salvandoInformacoes: boolean = false;
-  buscaVazia: boolean = false
-  fotos: any[] = []
+  buscaVazia: boolean = false;
+  fotos: any[] = [];
 
   constructor(
-    private fb:FormBuilder,
+    private fb: FormBuilder,
     private caracteristicaService: CaracteristicasService,
     private imovelService: ImoveisService,
     private route: ActivatedRoute,
@@ -161,77 +159,70 @@ export class BuscaImoveisComponent implements OnInit {
     private title: Title,
     private fotoService: FotoService
   ) {
-    this.form = this.router.getCurrentNavigation()?.extras.state
+    this.form = this.router.getCurrentNavigation()?.extras.state;
   }
 
   ngOnInit(): void {
-    this.title.setTitle('E-commerce Imobiliaria: Busque seu imóvel')
-      this.route.queryParamMap.subscribe((params) => {
-      this.buscar = params.get('buscar')
-      this.buscaTodosImoveis()
+    this.title.setTitle('E-commerce Imobiliaria: Busque seu imóvel');
+    this.route.queryParamMap.subscribe((params) => {
+      this.buscar = params.get('buscar');
+      this.buscaTodosImoveis();
     });
-    this.recuperarCaracteristicas()
-    this.filtroPaginaInicial()
+    this.recuperarCaracteristicas();
+    this.filtroPaginaInicial();
   }
 
-  buscaTodosImoveis(){
+  buscaTodosImoveis() {
     if (this.buscar == 'todos') {
-      this.imovelService.getImoveis().subscribe(
-        (imoveis) => {
-          this.todosImoveis = imoveis
-        }
-      )
+      this.imovelService.getImoveis().subscribe((imoveis) => {
+        this.todosImoveis = imoveis;
+      });
     } else if (this.buscar == 'aluguel') {
-      this.imovelService.getImoveisContratoAluguel(true).subscribe(
-        (imoveis) => {
-          this.todosImoveis = imoveis
-        }
-      )
+      this.imovelService
+        .getImoveisContratoAluguel(true)
+        .subscribe((imoveis) => {
+          this.todosImoveis = imoveis;
+        });
     } else if (this.buscar == 'venda') {
-      this.imovelService.getImoveisContratoVenda(true).subscribe(
-        (imoveis) => {
-          this.todosImoveis = imoveis
-        }
-      )
+      this.imovelService.getImoveisContratoVenda(true).subscribe((imoveis) => {
+        this.todosImoveis = imoveis;
+      });
     }
   }
 
-  filtroImoveisVenda(){
-    this.buscaVazia = false
+  filtroImoveisVenda() {
+    this.buscaVazia = false;
     this.salvandoInformacoes = true;
-    const imovel: Imovel = this.formPesquisa.value
-    imovel.contratoVenda = true
-    this.imovelService.postFiltrar(imovel).subscribe(
-      (response) =>{
-        this.todosImoveis = response
-        this.salvandoInformacoes = false;
-        if (response.length == 0) {
-          this.buscaVazia = true
-        }
+    const imovel: Imovel = this.formPesquisa.value;
+    imovel.contratoVenda = true;
+    this.imovelService.postFiltrar(imovel).subscribe((response) => {
+      this.todosImoveis = response;
+      this.salvandoInformacoes = false;
+      if (response.length == 0) {
+        this.buscaVazia = true;
       }
-    )
+    });
   }
-  
-  filtroImoveisAluguel(){
-    this.buscaVazia = false
+
+  filtroImoveisAluguel() {
+    this.buscaVazia = false;
     this.salvandoInformacoes = true;
-    const imovel: Imovel = this.formPesquisa.value
-    imovel.contratoAluguel = true
-    this.imovelService.postFiltrar(imovel).subscribe(
-      (response) =>{
-        this.todosImoveis = response
-        this.salvandoInformacoes = false;
-        if (response.length == 0) {
-          this.buscaVazia = true
-        } /* else {
+    const imovel: Imovel = this.formPesquisa.value;
+    imovel.contratoAluguel = true;
+    this.imovelService.postFiltrar(imovel).subscribe((response) => {
+      this.todosImoveis = response;
+      this.salvandoInformacoes = false;
+      if (response.length == 0) {
+        this.buscaVazia = true;
+      } else {
           for (const imov of this.todosImoveis) {
             this.fotoService.buscaFotosImovel(imov.idImovel!).subscribe(
               (fotos) => {
                 console.log(fotos);
               
-                var transformaObj =  Object.assign(...fotos.map(([key, val]) => ({[key]: imov.idImovel})))
-                this.fotos.push(transformaObj)
-                console.log(transformaObj);
+                /* var transformaObj =  Object.assign(...fotos.map(([key, val]) => ({[key]: imov.idImovel}))) */
+                this.fotos.push(fotos)
+              /*   console.log(transformaObj); */
                 
               }
             )
@@ -239,9 +230,8 @@ export class BuscaImoveisComponent implements OnInit {
           console.log('-------------------------');
           console.log(this.fotos);
           console.log('-------------------------');
-        } */
-      }
-    )
+        }
+    });
   }
 
   recuperarCaracteristicas() {
@@ -258,14 +248,11 @@ export class BuscaImoveisComponent implements OnInit {
       });
   }
 
-  filtroPaginaInicial(){
-    if(this.form){
-      this.imovelService.postFiltrar(this.form).subscribe(
-        (imoveis)=>{
-          this.todosImoveis = imoveis
-        }
-      )
+  filtroPaginaInicial() {
+    if (this.form) {
+      this.imovelService.postFiltrar(this.form).subscribe((imoveis) => {
+        this.todosImoveis = imoveis;
+      });
     }
   }
-
 }

@@ -212,13 +212,14 @@
           aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <!-- <img *ngFor="let foto of fotos"
-            [src]="foto.linkFoto" -->
-          <img
+        <div class="carousel-item active"  *ngFor="let foto of fotos[i]; let j = index">
+          <img 
+            [src]="foto.linkFoto" class="d-block w-100">
+         <!--  <img
             src="https://granzottoimoveis.com.br/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-01-at-08.13.17-3-600x600.jpeg"
-            class="d-block w-100">
+            class="d-block w-100"> -->
         </div>
+        
       </div>
       <div class="controle">
         <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#car_'+ imov.idImovel"
