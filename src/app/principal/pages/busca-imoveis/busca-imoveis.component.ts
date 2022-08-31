@@ -9,6 +9,8 @@ import { ImovelService } from 'src/app/admin/components/bar-chart-imoveis/imovel
 import { Imovel } from 'src/app/imoveis/models/imovel';
 import { ImoveisService } from 'src/app/imoveis/service/imoveis.service';
 import { Title } from '@angular/platform-browser';
+import { Foto } from 'src/app/imoveis/fotos/models/foto';
+import { FotoService } from 'src/app/imoveis/fotos/service/foto.service';
 
 interface finalidade {
   value: string;
@@ -148,6 +150,7 @@ export class BuscaImoveisComponent implements OnInit {
   form?: Imovel
   salvandoInformacoes: boolean = false;
   buscaVazia: boolean = false
+  fotos: any[] = []
 
   constructor(
     private fb:FormBuilder,
@@ -155,7 +158,8 @@ export class BuscaImoveisComponent implements OnInit {
     private imovelService: ImoveisService,
     private route: ActivatedRoute,
     private router: Router,
-    private title: Title
+    private title: Title,
+    private fotoService: FotoService
   ) {
     this.form = this.router.getCurrentNavigation()?.extras.state
   }
@@ -200,7 +204,6 @@ export class BuscaImoveisComponent implements OnInit {
     this.imovelService.postFiltrar(imovel).subscribe(
       (response) =>{
         this.todosImoveis = response
-        console.log(response);
         this.salvandoInformacoes = false;
         if (response.length == 0) {
           this.buscaVazia = true
@@ -217,11 +220,26 @@ export class BuscaImoveisComponent implements OnInit {
     this.imovelService.postFiltrar(imovel).subscribe(
       (response) =>{
         this.todosImoveis = response
-        console.log(response);
         this.salvandoInformacoes = false;
         if (response.length == 0) {
           this.buscaVazia = true
-        }
+        } /* else {
+          for (const imov of this.todosImoveis) {
+            this.fotoService.buscaFotosImovel(imov.idImovel!).subscribe(
+              (fotos) => {
+                console.log(fotos);
+              
+                var transformaObj =  Object.assign(...fotos.map(([key, val]) => ({[key]: imov.idImovel})))
+                this.fotos.push(transformaObj)
+                console.log(transformaObj);
+                
+              }
+            )
+          }
+          console.log('-------------------------');
+          console.log(this.fotos);
+          console.log('-------------------------');
+        } */
       }
     )
   }

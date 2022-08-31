@@ -140,8 +140,7 @@
 }
 
 .content{
-
-  width: 30%;
+  width: 50%;
   margin: auto;
   margin-bottom: 20px;
 }
@@ -204,15 +203,6 @@ a{
   color: black;
 }
 
-/* p{
-  display: flex;
-  align-content: center;
-  margin: 0px;
-} */
-
-/* .card-footer{
-
-} */
 .text-muted{
   font-size: 20px;
   font-weight: bold;
@@ -222,4 +212,8 @@ a{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.desc {
+  background-color: rgba(0, 0, 0, 0.5);
 }
