@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { TimeScale } from 'chart.js';
-import { ImovelService } from 'src/app/admin/components/bar-chart-imoveis/imovel.service';
+import { Foto } from 'src/app/imoveis/fotos/models/foto';
+import { FotoService } from 'src/app/imoveis/fotos/service/foto.service';
 import { Imovel } from 'src/app/imoveis/models/imovel';
 import { ImoveisService } from 'src/app/imoveis/service/imoveis.service';
 
@@ -93,12 +87,19 @@ export class PaginaInicialComponent implements OnInit {
   imoveiscard1!: Imovel[];
   imoveiscard2!: Imovel[];
   carregado = false;
+  fotos!: Foto[]
+  fotoCar1!: Foto
+  fotoCar2!: Foto
+  fotoCar3!: Foto
+  fotosCards1: any[] = []
+  fotosCards2: any[] = []
 
   constructor(
     private fb: FormBuilder,
     private imovelService: ImoveisService,
     private router: Router,
-    private title: Title
+    private title: Title,
+    private fotoService: FotoService
   ) {}
 
   ngOnInit(): void {
@@ -108,35 +109,84 @@ export class PaginaInicialComponent implements OnInit {
   }
 
   filtroImoveis() {
-    /* console.log(this.formPesquisa.value)
-    this.imovelService.postFiltrar(this.formPesquisa.value).subscribe(
-      (response) => console.log(response)
-    ) */
-
     this.router.navigateByUrl('/principal/busca-imoveis', {
-      state: this.formPesquisa.value,
+      state: this.formPesquisa.value
     });
   }
+
   imoveisCarrossel() {
-    this.imovelService.getImoveisById(75).subscribe((imovel) => {
-      this.imovelCar1 = imovel;
-      this.imovelService.getImoveisById(77).subscribe((imovel) => {
-        this.imovelCar2 = imovel;
-        this.imovelService.getImoveisById(79).subscribe((imovel) => {
-          this.imovelCar3 = imovel;
-          this.carregado = true;
-        });
-      });
-    });
+    this.imovelService.getImoveisById(77).subscribe(
+      (imovel) => {
+        this.imovelCar1 = imovel;
+        this.fotoService.buscaFotosImovel(imovel.idImovel!).subscribe(
+          (foto) => {
+            this.fotoCar1 = foto[0]
+            this.imovelService.getImoveisById(75).subscribe(
+              (imovel) => {
+                this.imovelCar2 = imovel;
+                this.fotoService.buscaFotosImovel(imovel.idImovel!).subscribe(
+                  (foto) => {
+                    this.fotoCar2 = foto[0]
+                    this.imovelService.getImoveisById(79).subscribe(
+                      (imovel) => {
+                        this.imovelCar3 = imovel;
+                        this.fotoService.buscaFotosImovel(imovel.idImovel!).subscribe(
+                          (foto) => {
+                            this.fotoCar3 = foto[0]
+                            this.carregado = true;
+                          }
+                        )
+                      }
+                    )
+                  }     
+                )
+              }
+            )
+          }
+        )
+      }
+    )
   }
+
   imoveisCard() {
-    this.imovelService.getImoveisContratoAluguel(true).subscribe((imoveis) => {
+    this.imovelService.getImoveisContratoAluguel(true).subscribe(
+      (imoveis) => {
       this.imoveiscard1 = imoveis.slice(-3);
-      console.log(this.imoveiscard1);
+      this.fotoService.buscaFotosImovel(this.imoveiscard1[0].idImovel!).subscribe(
+        (fotos) => {
+          this. fotosCards1.push(fotos[0].linkFoto)
+          this.fotoService.buscaFotosImovel(this.imoveiscard1[1].idImovel!).subscribe(
+            (fotos) => {
+              this. fotosCards1.push(fotos[0].linkFoto)
+              this.fotoService.buscaFotosImovel(this.imoveiscard1[2].idImovel!).subscribe(
+                (fotos) => {
+                  this. fotosCards1.push(fotos[0].linkFoto)
+                }
+              )
+            }
+          )
+        }
+      )
     });
-    this.imovelService.getImoveisContratoVenda(true).subscribe((imoveis) => {
+    this.imovelService.getImoveisContratoVenda(true).subscribe(
+      (imoveis) => {
       this.imoveiscard2 = imoveis.slice(-3);
-      console.log(this.imoveiscard2);
-    });
+      this.fotoService.buscaFotosImovel(this.imoveiscard2[0].idImovel!).subscribe(
+        (fotos) => {
+          this. fotosCards2.push(fotos[0].linkFoto)
+          this.fotoService.buscaFotosImovel(this.imoveiscard2[1].idImovel!).subscribe(
+            (fotos) => {
+              this. fotosCards2.push(fotos[0].linkFoto)
+              this.fotoService.buscaFotosImovel(this.imoveiscard2[2].idImovel!).subscribe(
+                (fotos) => {
+                  this.fotosCards2.push(fotos[0].linkFoto)
+                }
+              )
+            }
+          )
+        }
+      )
+    })
   }
+  
 }

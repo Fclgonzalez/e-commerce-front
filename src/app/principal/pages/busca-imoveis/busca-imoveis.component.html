@@ -201,7 +201,7 @@
 
   <!-- Card de pesquisa -->
 
-  <div class="boxCard" *ngFor="let imov of todosImoveis">
+  <div class="boxCard" *ngFor="let imov of todosImoveis; let i = index">
     <div id="car_{{imov.idImovel}}" class="carousel slide" data-bs-ride="true">
       <div class="carousel-indicators">
         <button type="button" [attr.data-bs-target]="'#car_'+ imov.idImovel" data-bs-slide-to="0" class="active"
@@ -213,17 +213,11 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
+          <!-- <img *ngFor="let foto of fotos"
+            [src]="foto.linkFoto" -->
           <img
             src="https://granzottoimoveis.com.br/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-01-at-08.13.17-3-600x600.jpeg"
-            class="d-block w-100" alt="Foto 1">
-        </div>
-        <div class="carousel-item">
-          <img src="https://espacoatualempreendimentos.com.br/imagem/62_9432b1f745aa802670ba08da1959b0ab.jpeg"
-            class="d-block w-100" alt="Foto 2">
-        </div>
-        <div class="carousel-item">
-          <img src="https://cdn.uso.com.br/39792/2021/12/4f659e71414411ceb3089f043b0aa035.jpg" class="d-block w-100"
-            alt="Foto 3">
+            class="d-block w-100">
         </div>
       </div>
       <div class="controle">
