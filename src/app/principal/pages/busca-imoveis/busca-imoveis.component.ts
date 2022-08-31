@@ -176,16 +176,52 @@ export class BuscaImoveisComponent implements OnInit {
     if (this.buscar == 'todos') {
       this.imovelService.getImoveis().subscribe((imoveis) => {
         this.todosImoveis = imoveis;
+        for (const imov of this.todosImoveis) {
+          this.fotoService.buscaFotosImovel(imov.idImovel!).subscribe(
+            (fotos) => {
+              console.log(fotos);
+            
+              /* var transformaObj =  Object.assign(...fotos.map(([key, val]) => ({[key]: imov.idImovel}))) */
+              this.fotos.push(fotos)
+            /*   console.log(transformaObj); */
+              
+            }
+          )
+        }
       });
     } else if (this.buscar == 'aluguel') {
       this.imovelService
         .getImoveisContratoAluguel(true)
         .subscribe((imoveis) => {
           this.todosImoveis = imoveis;
+          for (const imov of this.todosImoveis) {
+            this.fotoService.buscaFotosImovel(imov.idImovel!).subscribe(
+              (fotos) => {
+                console.log(fotos);
+              
+                /* var transformaObj =  Object.assign(...fotos.map(([key, val]) => ({[key]: imov.idImovel}))) */
+                this.fotos.push(fotos)
+              /*   console.log(transformaObj); */
+                
+              }
+            )
+          }
         });
     } else if (this.buscar == 'venda') {
       this.imovelService.getImoveisContratoVenda(true).subscribe((imoveis) => {
         this.todosImoveis = imoveis;
+        for (const imov of this.todosImoveis) {
+          this.fotoService.buscaFotosImovel(imov.idImovel!).subscribe(
+            (fotos) => {
+              console.log(fotos);
+            
+              /* var transformaObj =  Object.assign(...fotos.map(([key, val]) => ({[key]: imov.idImovel}))) */
+              this.fotos.push(fotos)
+            /*   console.log(transformaObj); */
+              
+            }
+          )
+        }
       });
     }
   }
@@ -200,6 +236,22 @@ export class BuscaImoveisComponent implements OnInit {
       this.salvandoInformacoes = false;
       if (response.length == 0) {
         this.buscaVazia = true;
+      }else {
+        for (const imov of this.todosImoveis) {
+          this.fotoService.buscaFotosImovel(imov.idImovel!).subscribe(
+            (fotos) => {
+              console.log(fotos);
+            
+              /* var transformaObj =  Object.assign(...fotos.map(([key, val]) => ({[key]: imov.idImovel}))) */
+              this.fotos.push(fotos)
+            /*   console.log(transformaObj); */
+              
+            }
+          )
+        }
+        console.log('-------------------------');
+        console.log(this.fotos);
+        console.log('-------------------------');
       }
     });
   }
@@ -252,6 +304,18 @@ export class BuscaImoveisComponent implements OnInit {
     if (this.form) {
       this.imovelService.postFiltrar(this.form).subscribe((imoveis) => {
         this.todosImoveis = imoveis;
+        for (const imov of this.todosImoveis) {
+          this.fotoService.buscaFotosImovel(imov.idImovel!).subscribe(
+            (fotos) => {
+              console.log(fotos);
+            
+              /* var transformaObj =  Object.assign(...fotos.map(([key, val]) => ({[key]: imov.idImovel}))) */
+              this.fotos.push(fotos)
+            /*   console.log(transformaObj); */
+              
+            }
+          )
+        }
       });
     }
   }
